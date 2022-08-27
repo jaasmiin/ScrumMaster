@@ -1,6 +1,4 @@
-package com.example.scrummaster.ativity;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.scrummaster.activity;
 
 import android.os.Bundle;
 
