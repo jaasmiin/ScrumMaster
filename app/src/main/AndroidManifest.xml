@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.scrummaster">
 
+    <uses-feature android:name="com.softbank.hardware.pepper" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,15 +18,29 @@
         android:theme="@style/Theme.ScrumMaster"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AuswahlmenueActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            />
+        <activity
+            android:name=".activity.WillkommenActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".activity.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.CaptureAct"
+            android:screenOrientation="landscape"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme" />
     </application>
 
-    <uses-feature android:name="com.softbank.hardware.pepper"/>
 </manifest>

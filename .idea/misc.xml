@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_main.xml" value="0.1296875" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_auswahlmenue.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_willkommen.xml" value="0.1" />
       </map>
     </option>
   </component>
