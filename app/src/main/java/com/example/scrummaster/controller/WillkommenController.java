@@ -1,4 +1,4 @@
 package com.example.scrummaster.controller;
 
-public class begrüßungController {
+public class WillkommenController {
 }

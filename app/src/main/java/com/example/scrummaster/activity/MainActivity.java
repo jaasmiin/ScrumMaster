@@ -1,21 +1,30 @@
 package com.example.scrummaster.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.result.ActivityResultLauncher;
 
+
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
+
+import com.example.scrummaster.datamodel.MyList;
+import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class  MainActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
@@ -66,14 +75,36 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         if (result.getContents() != null) {
 
             result.getContents();
-            startActivity(new Intent(MainActivity.this, WillkommenActivity.class));
 
-            Intent intent = new Intent(MainActivity.this, WillkommenActivity.class);
-            intent.putExtra("scannende_person", result.getContents());
+            saveTeilnehmerListe(result.getContents());
+            startActivity(new Intent(MainActivity.this, WillkommenActivity.class));
+            Intent intent = new Intent (MainActivity.this,WillkommenActivity.class);
+            intent.putExtra("teilnehmer",result.getContents());
             startActivity(intent);
 
         }
     });
+    //Methode speichert die Teilnehmerliste
+    private void saveTeilnehmerListe (String teilnehmer){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        teilnehmerliste.add(teilnehmer);
+        String json = gson.toJson(teilnehmerliste);
+        editor.putString("teilnehmerListe",json);
+        editor.apply();
+
+    }
+
+    private void loadTeilnehmerListe(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("teilnehmerListe",null);
+        Type type= new TypeToken<ArrayList<String>>(){}.getType();
+        teilnehmerliste= gson.fromJson(json,type);
+
+    }
+
 
     @Override
     protected void onDestroy() {
