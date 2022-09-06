@@ -15,7 +15,6 @@ import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
 
-import com.example.scrummaster.datamodel.MyList;
 import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -24,13 +23,14 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class  MainActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
     Button btn_scan;
     Button btn_auswahlmnu;
     ArrayList <String> teilnehmerliste = new ArrayList<String>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +46,22 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         btn_scan.setOnClickListener(v -> {scanCode();
 
         });
-        //Beim klicken auf den Button "Auswahlmenü" wechselt die View zum Auswahlmenü, die
+        //Beim klicken auf den Button "Auswahlmenü" wechselt die View zum Auswahlmenü, und die
+        //Teilnehmerliste wird in Gitlab geposted
 
 
         btn_auswahlmnu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
             startActivity(new Intent(MainActivity.this,AuswahlmenueActivity.class));
+
             }
         });
 
-    }
 
+    }
 
         private void scanCode() {
             ScanOptions options =  new ScanOptions();
@@ -76,34 +79,36 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
             result.getContents();
 
-            saveTeilnehmerListe(result.getContents());
+            //saveTeilnehmerListe(result.getContents());
             startActivity(new Intent(MainActivity.this, WillkommenActivity.class));
             Intent intent = new Intent (MainActivity.this,WillkommenActivity.class);
             intent.putExtra("teilnehmer",result.getContents());
             startActivity(intent);
 
+            //Wenn die Liste bis zum schließen der App behalten werden soll dann muss das Shae´red Preferences hier mit rein
+            //wenn man die Liste jedoch neu erschaffen möchte sobald man in die MainActivity kommt, dann muss die unere Methode
+            //saveTeilnehmerliste benutzt werden und in Zeile 82 entkommentieren
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Gson gson = new Gson();
+            teilnehmerliste.add(result.getContents());
+            String json = gson.toJson(teilnehmerliste);
+            editor.putString("teilnehmerListe",json);
+            editor.apply();
+
         }
     });
     //Methode speichert die Teilnehmerliste
-    private void saveTeilnehmerListe (String teilnehmer){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        teilnehmerliste.add(teilnehmer);
-        String json = gson.toJson(teilnehmerliste);
-        editor.putString("teilnehmerListe",json);
-        editor.apply();
+   // private void saveTeilnehmerListe (String teilnehmer){
+    //    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+    //    SharedPreferences.Editor editor = sharedPreferences.edit();
+      //  Gson gson = new Gson();
+        //teilnehmerliste.add(teilnehmer);
+        //String json = gson.toJson(teilnehmerliste);
+       // editor.putString("teilnehmerListe",json);
+       // editor.apply();
 
-    }
-
-    private void loadTeilnehmerListe(){
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("teilnehmerListe",null);
-        Type type= new TypeToken<ArrayList<String>>(){}.getType();
-        teilnehmerliste= gson.fromJson(json,type);
-
-    }
+   // }
 
 
     @Override
