@@ -25,28 +25,36 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycleCallbacks {
+
     ArrayList <String> teilnehmerliste = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auswahlmenue);
-
+           //sobald die Activity gestartet wurde, wird die Teilnehmerliste an Gitlab geschickt
         sendTeilnehmer();
 
 
     }
 
-    //Sendet die Teilnehmerliste zu Gitlab Teilnehmerliste nachdem die View gesartet wurde
+    //Sendet die Teilnehmerliste zu Gitlab
     private void sendTeilnehmer(){
 
-        PostNotes liste = new PostNotes(listToString(loadTeilnehmerListe()));
+        //Diese Methode ist ausgebelendet, weil Pepper Emulator damit abstürzt--> Nullpointer
+        //PostNotes liste = new PostNotes(listToString(loadTeilnehmerListe()));
+
+        PostNotes pepperestliste = new PostNotes("Test");
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://git.scc.kit.edu/api/v4/projects/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         PostNoteService postNoteService =retrofit.create(PostNoteService.class);
-        Call<PostNotes> call = postNoteService.sendTeilnehmerListe(liste);
+
+        Call<PostNotes> call = postNoteService.sendTeilnehmerListe(pepperestliste);
+
         call.enqueue(new Callback<PostNotes>() {
             @Override
             public void onResponse(Call<PostNotes> call, Response<PostNotes> response) {
@@ -59,7 +67,7 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
         });
     }
 
-    //Ladet die TeilnehmerListe
+    //Ladet die TeilnehmerListe und gibt diese zurück
     private ArrayList<String> loadTeilnehmerListe(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();

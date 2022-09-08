@@ -78,9 +78,11 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         if (result.getContents() != null) {
 
             result.getContents();
-
             //saveTeilnehmerListe(result.getContents());
+
             startActivity(new Intent(MainActivity.this, WillkommenActivity.class));
+            //Mit dem Intent wird der gescannte Name an die WillkommenActivity übergeben, damit man
+            //dort den Teilnehmer persönlich begrüßen kann
             Intent intent = new Intent (MainActivity.this,WillkommenActivity.class);
             intent.putExtra("teilnehmer",result.getContents());
             startActivity(intent);
@@ -98,17 +100,18 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
         }
     });
-    //Methode speichert die Teilnehmerliste
-   // private void saveTeilnehmerListe (String teilnehmer){
-    //    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-    //    SharedPreferences.Editor editor = sharedPreferences.edit();
-      //  Gson gson = new Gson();
-        //teilnehmerliste.add(teilnehmer);
-        //String json = gson.toJson(teilnehmerliste);
-       // editor.putString("teilnehmerListe",json);
-       // editor.apply();
 
-   // }
+    //Methode speichert die Teilnehmerliste
+       private void saveTeilnehmerListe (String teilnehmer){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        teilnehmerliste.add(teilnehmer);
+        String json = gson.toJson(teilnehmerliste);
+        editor.putString("teilnehmerListe",json);
+        editor.apply();
+
+      }
 
 
     @Override
