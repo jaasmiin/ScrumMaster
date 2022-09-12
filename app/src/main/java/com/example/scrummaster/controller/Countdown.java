@@ -29,6 +29,7 @@ public class Countdown {
             @Override
             public void onFinish() {
                 timerstatus = false;
+                restzeit = START_TIME_IN_MILLIS;
                 //Nächster Name aus der Liste und Timer starten
 
             }

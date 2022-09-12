@@ -17,7 +17,7 @@ import java.util.Locale;
 public class ModerationPunkteActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
 
-    Countdown countdownPunkte  = new Countdown(100000,50000);
+    Countdown countdownPunkte  = new Countdown(25000,25000);
     private TextView countdown;
     private Button btn_fertig;
 
