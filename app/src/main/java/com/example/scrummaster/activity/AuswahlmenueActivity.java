@@ -40,7 +40,7 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
     Button btn_modPunkte;
     Button btn_modDaily;
     Button btn_powerpoint;
-    ArrayList <String> teilnehmerliste = new ArrayList<String>();
+    ArrayList <String> teilnehmerliste = new ArrayList<>();
     Phrase auswahl = new Phrase(" Welche Aktion soll ich ausführen?") ;
 
 
@@ -94,7 +94,7 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
         //Diese Methode ist ausgebelendet, weil Pepper Emulator damit abstürzt--> Nullpointer
        // PostNotes liste = new PostNotes(listToString(loadTeilnehmerListe()));
         //Test Liste für Emulator
-        ArrayList<String> test = new ArrayList<String>();
+        ArrayList<String> test = new ArrayList<>();
         test.add("PEter");
         test.add("Bla");
         PostNotes liste = new PostNotes(listToString(test));
