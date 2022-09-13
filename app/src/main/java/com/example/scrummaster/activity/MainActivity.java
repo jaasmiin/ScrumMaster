@@ -12,7 +12,15 @@ import androidx.activity.result.ActivityResultLauncher;
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
+import com.aldebaran.qi.sdk.builder.ListenBuilder;
+import com.aldebaran.qi.sdk.builder.PhraseSetBuilder;
+import com.aldebaran.qi.sdk.builder.SayBuilder;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
+import com.aldebaran.qi.sdk.object.conversation.Listen;
+import com.aldebaran.qi.sdk.object.conversation.ListenResult;
+import com.aldebaran.qi.sdk.object.conversation.Phrase;
+import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
+import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 
 import com.google.gson.Gson;
@@ -29,6 +37,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
     Button btn_scan;
     Button btn_auswahlmnu;
     ArrayList <String> teilnehmerliste = new ArrayList<String>();
+    Phrase scanOderAuswahl = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Auswahlmenü wechseln. Was möchtest du machen?");
 
 
 
@@ -90,7 +99,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
             //Wenn die Liste bis zum schließen der App behalten werden soll dann muss das Shae´red Preferences hier mit rein
             //wenn man die Liste jedoch neu erschaffen möchte sobald man in die MainActivity kommt, dann muss die unere Methode
             //saveTeilnehmerliste benutzt werden und in Zeile 82 entkommentieren
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+           SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             Gson gson = new Gson();
             teilnehmerliste.add(result.getContents());
@@ -124,7 +133,36 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
-        // The robot focus is gained.
+        //Auswahlfrage
+        Say say = SayBuilder.with(qiContext)
+                .withPhrase(scanOderAuswahl)
+                .build();
+        say.run();
+        //Phraseset für Scannen
+        PhraseSet scannen= PhraseSetBuilder.with(qiContext)
+                .withTexts("Code scannen", "scannen")
+                .build();
+
+        //Phraseset für Auswahlmenü
+        PhraseSet auswahlmnu= PhraseSetBuilder.with(qiContext)
+                .withTexts("Auswahlmenü", " Starte Auswahlmenü", "Menü")
+                .build();
+
+        Listen listen = ListenBuilder.with(qiContext)
+                .withPhraseSets(scannen)
+                .withPhraseSets(auswahlmnu)
+                .build();
+        ListenResult listenresult= listen.run();
+
+        // Das Gesagte in String umwandeln
+        String result = listenresult.getHeardPhrase().toString();
+
+        //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
+        if (scannen.getPhrases().toString().contains(result) ) {
+            startActivity(new Intent(MainActivity.this,CaptureAct.class));}
+        if (auswahlmnu.getPhrases().toString().contains(result)) {
+            startActivity(new Intent(MainActivity.this,AuswahlmenueActivity.class));}
+
     }
 
     @Override

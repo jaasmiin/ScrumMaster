@@ -92,10 +92,14 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
     private void sendTeilnehmer(){
 
         //Diese Methode ist ausgebelendet, weil Pepper Emulator damit abstürzt--> Nullpointer
-        //PostNotes liste = new PostNotes(listToString(loadTeilnehmerListe()));
+       // PostNotes liste = new PostNotes(listToString(loadTeilnehmerListe()));
+        //Test Liste für Emulator
+        ArrayList<String> test = new ArrayList<String>();
+        test.add("PEter");
+        test.add("Bla");
+        PostNotes liste = new PostNotes(listToString(test));
 
-        PostNotes pepperestliste = new PostNotes("Test");
-
+        //ServerDaten
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://git.scc.kit.edu/api/v4/projects/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -103,7 +107,7 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
 
         PostNoteService postNoteService =retrofit.create(PostNoteService.class);
 
-        Call<PostNotes> call = postNoteService.sendTeilnehmerListe(pepperestliste);
+        Call<PostNotes> call = postNoteService.sendTeilnehmerListe(liste);
 
         call.enqueue(new Callback<PostNotes>() {
             @Override

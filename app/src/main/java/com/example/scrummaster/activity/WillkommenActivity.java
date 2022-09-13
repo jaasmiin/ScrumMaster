@@ -16,20 +16,16 @@ import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 
 public class WillkommenActivity extends RobotActivity implements RobotLifecycleCallbacks {
-    //Dieses Intent ruft den gescannten Namen aus der MainActivity auf
-    Intent intent = getIntent();
 
-   String test = "Jasmin";
-//    String name = intent.getStringExtra("teilnehmer");
 
-    //So soll der Teilnehmer begrüßt werden.
-    Phrase willkommen = new Phrase ("Hallo, " + test +". Schön das du da bist. Bitte nehme Platz.");
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // Register the RobotLifecycleCallbacks to this Activity.
         QiSDK.register(this, this);
         setContentView(R.layout.activity_willkommen);
@@ -40,7 +36,12 @@ public class WillkommenActivity extends RobotActivity implements RobotLifecycleC
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
+  //Dieses Intent ruft den gescannten Namen aus der MainActivity auf
+        Intent intent = getIntent();
 
+        //String test = "Jasmin";
+        String name = intent.getStringExtra("teilnehmer");//So soll der Teilnehmer begrüßt werden.
+        Phrase willkommen = new Phrase ("Hallo, " + name +". Schön das du da bist. Bitte nehme Platz.");
         //Begrüßung
         Say say = SayBuilder.with(qiContext)
                 .withPhrase(willkommen)
@@ -48,7 +49,7 @@ public class WillkommenActivity extends RobotActivity implements RobotLifecycleC
         say.run();
 
         //Nach der Begrüßung wechselt Pepper in die MainActivity
-        startActivity(new Intent(WillkommenActivity.this, AuswahlmenueActivity.class));
+        startActivity(new Intent(WillkommenActivity.this, MainActivity.class));
 
 
 
