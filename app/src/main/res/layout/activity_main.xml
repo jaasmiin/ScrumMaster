@@ -9,11 +9,11 @@
 
 
     <Button
-        android:id="@+id/btn_auswahlmnu"
+        android:id="@+id/btn_selectionmnu"
         android:layout_width="393dp"
         android:layout_height="103dp"
         android:backgroundTint="@color/kit"
-        android:text="@string/auswahlmen"
+        android:text="Auswahlmenü"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.864"
@@ -26,9 +26,9 @@
         android:id="@+id/btn_scan"
         android:layout_width="393dp"
         android:layout_height="103dp"
-        android:text="@string/scan"
+        android:text="Scannen"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_auswahlmnu"
+        app:layout_constraintEnd_toStartOf="@+id/btn_selectionmnu"
         app:layout_constraintHorizontal_bias="0.304"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

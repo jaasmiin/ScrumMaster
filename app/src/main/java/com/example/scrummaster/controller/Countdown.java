@@ -11,25 +11,26 @@ public class Countdown {
     private long START_TIME_IN_MILLIS;
     private CountDownTimer countDownTimer;
     private boolean timerstatus;
-    private long restzeit;
+    private long timeleft;
 
-    public Countdown(long START_TIME_IN_MILLIS,  long restzeit) {
+    public Countdown(long START_TIME_IN_MILLIS,  long timeleft) {
         this.START_TIME_IN_MILLIS =START_TIME_IN_MILLIS;
-        this.restzeit = restzeit;
+        this.timeleft = timeleft;
     }
 
+
    public void startTimer(TextView textView){
-        countDownTimer = new CountDownTimer(restzeit,100) {
+        countDownTimer = new CountDownTimer(timeleft,100) {
             @Override
             public void onTick(long millisUntilFinished) {
-                restzeit = millisUntilFinished;
+                timeleft = millisUntilFinished;
                 updateCountdownText(textView);
             }
 
             @Override
             public void onFinish() {
                 timerstatus = false;
-                restzeit = START_TIME_IN_MILLIS;
+                timeleft = START_TIME_IN_MILLIS;
                 //Nächster Name aus der Liste und Timer starten
 
             }
@@ -41,11 +42,11 @@ public class Countdown {
     }
 
     public void  updateCountdownText(TextView textView){
-        int minuten = (int) (restzeit / 1000) /60;
-        int sekunden = (int) (restzeit / 1000) % 60;
+        int minuten = (int) (timeleft / 1000) /60;
+        int sekunden = (int) (timeleft / 1000) % 60;
 
-        String restzeitAnzeige= String.format(Locale.getDefault(),"%02d:%02d",minuten,sekunden);
-        textView.setText(restzeitAnzeige);
+        String showLeftTime= String.format(Locale.getDefault(),"%02d:%02d",minuten,sekunden);
+        textView.setText(showLeftTime);
 
     }
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_willkommen_scene"
-    tools:context=".activity.WillkommenActivity">
+    tools:context=".activity.WelcomeActivity">
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_auswahlmenue_scene"
-    tools:context=".activity.AuswahlmenueActivity">
+    tools:context=".activity.SelectionMenuActivity">
 
     <Button
-        android:id="@+id/btn_mod_punkte"
+        android:id="@+id/btn_mod_points"
         android:layout_width="250dp"
         android:layout_height="145dp"
         android:layout_marginStart="164dp"

@@ -3,9 +3,9 @@ package com.example.scrummaster.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
@@ -15,7 +15,6 @@ import com.aldebaran.qi.sdk.builder.PhraseSetBuilder;
 import com.aldebaran.qi.sdk.builder.SayBuilder;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.aldebaran.qi.sdk.object.conversation.Listen;
-import com.aldebaran.qi.sdk.object.conversation.ListenOptions;
 import com.aldebaran.qi.sdk.object.conversation.ListenResult;
 import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
@@ -23,34 +22,32 @@ import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 import com.example.scrummaster.datamodel.PostNotes;
 import com.example.scrummaster.service.PostNoteService;
+import com.example.scrummaster.service.RetrofitService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycleCallbacks {
+public class SelectionMenuActivity extends RobotActivity implements RobotLifecycleCallbacks {
     Button btn_modPunkte;
     Button btn_modDaily;
     Button btn_powerpoint;
-    ArrayList <String> teilnehmerliste = new ArrayList<>();
-    Phrase auswahl = new Phrase(" Welche Aktion soll ich ausführen?") ;
+    ArrayList <String> participantList = new ArrayList<>();
+    Phrase select = new Phrase(" Welche Aktion soll ich ausführen?") ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         QiSDK.register(this, this);
-        setContentView(R.layout.activity_auswahlmenue);
+        setContentView(R.layout.activity_selectionmenu);
         btn_modDaily= findViewById(R.id.btn_mod_daily);
-        btn_modPunkte=findViewById(R.id.btn_mod_punkte);
+        btn_modPunkte=findViewById(R.id.btn_mod_points);
         btn_powerpoint=findViewById(R.id.btn_powerpoint);
 
         btn_modDaily.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +55,7 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(AuswahlmenueActivity.this,ModerationDailyScrumActivity.class));
+                startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyScrumActivity.class));
 
             }
         });
@@ -68,7 +65,7 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(AuswahlmenueActivity.this,ModerationPunkteActivity.class));
+                startActivity(new Intent(SelectionMenuActivity.this, ModerationNotesActivity.class));
 
             }
         });
@@ -78,7 +75,7 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(AuswahlmenueActivity.this,PowerPointKaraokeActivity.class));
+                startActivity(new Intent(SelectionMenuActivity.this,PowerPointKaraokeActivity.class));
 
             }
         });
@@ -95,27 +92,20 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
        // PostNotes liste = new PostNotes(listToString(loadTeilnehmerListe()));
         //Test Liste für Emulator
         ArrayList<String> test = new ArrayList<>();
-        test.add("PEter");
+        test.add("Peter");
         test.add("Bla");
         PostNotes liste = new PostNotes(listToString(test));
 
         //ServerDaten
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://git.scc.kit.edu/api/v4/projects/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        PostNoteService postNoteService =retrofit.create(PostNoteService.class);
-
-        Call<PostNotes> call = postNoteService.sendTeilnehmerListe(liste);
-
-        call.enqueue(new Callback<PostNotes>() {
+        RetrofitService.getRetrofitInstance().create(PostNoteService.class).sendTeilnehmerListe(liste).enqueue(new Callback<PostNotes>() {
             @Override
             public void onResponse(Call<PostNotes> call, Response<PostNotes> response) {
-                Toast.makeText(AuswahlmenueActivity.this,response.toString(),Toast.LENGTH_LONG).show();
+                Log.i("Retrofit", new Gson().toJson(response.body()));
             }
+
             @Override
             public void onFailure(Call<PostNotes> call, Throwable t) {
+                Log.e("Retrofit","Failed");
 
             }
         });
@@ -128,23 +118,25 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
         Gson gson = new Gson();
         String json = sharedPreferences.getString("teilnehmerListe",null);
         Type type= new TypeToken<ArrayList<String>>(){}.getType();
-        teilnehmerliste= gson.fromJson(json,type);
+        participantList = gson.fromJson(json,type);
 
-        return teilnehmerliste;
+        return participantList;
     }
     //Wandelt eine StringListe in einen String um und gibt diese aus
     private String listToString (ArrayList<String> liste){
-        String ausgabeListe = String.join(" ,",liste);
-        return ausgabeListe;
+        String output = String.join(" ,",liste);
+        return output;
 
     }
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
         //Phraseset für Moderation mit Punkten
-        PhraseSet modMitPunkten= PhraseSetBuilder.with(qiContext)
+        PhraseSet modNotes= PhraseSetBuilder.with(qiContext)
                                                 .withTexts("Starte Moderation mit Punkten", "mit Punkten", "Punkte")
-                .build();
+                .build(
+
+                );
 
         //Phraseset für DailyScrum Moderation
         PhraseSet modDaily= PhraseSetBuilder.with(qiContext)
@@ -158,13 +150,13 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
 
         //Auswahlfrage
         Say say = SayBuilder.with(qiContext)
-                .withPhrase(auswahl)
+                .withPhrase(select)
                 .build();
         say.run();
 
         //Zuhören was der Nutzer sich aussucht
         Listen listen = ListenBuilder.with(qiContext)
-               .withPhraseSets(modMitPunkten)
+               .withPhraseSets(modNotes)
               .withPhraseSets(modDaily)
                 .withPhraseSets(powerpoint)
                 .build();
@@ -174,12 +166,12 @@ public class AuswahlmenueActivity extends RobotActivity implements RobotLifecycl
         String result = listenresult.getHeardPhrase().toString();
 
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
-        if (modMitPunkten.getPhrases().toString().contains(result) ) {
-            startActivity(new Intent(AuswahlmenueActivity.this,ModerationPunkteActivity.class));}
+        if (modNotes.getPhrases().toString().contains(result) ) {
+            startActivity(new Intent(SelectionMenuActivity.this, ModerationNotesActivity.class));}
         if (modDaily.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(AuswahlmenueActivity.this,ModerationDailyScrumActivity.class));}
+            startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyScrumActivity.class));}
         if (powerpoint.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(AuswahlmenueActivity.this,PowerPointKaraokeActivity.class));}
+            startActivity(new Intent(SelectionMenuActivity.this,PowerPointKaraokeActivity.class));}
 
 
     }

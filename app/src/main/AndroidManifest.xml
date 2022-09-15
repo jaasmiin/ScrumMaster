@@ -25,15 +25,15 @@
             android:name=".activity.ModerationDailyScrumActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ModerationPunkteActivity"
+            android:name=".activity.ModerationNotesActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.AuswahlmenueActivity"
+            android:name=".activity.SelectionMenuActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.WillkommenActivity"
+            android:name=".activity.WelcomeActivity"
             android:exported="true"
             android:screenOrientation="landscape">
 

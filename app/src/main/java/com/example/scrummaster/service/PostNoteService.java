@@ -13,7 +13,7 @@ public interface PostNoteService {
     @POST("35214/issues/1/notes/")
     Call<PostNotes> sendTeilnehmerListe(@Body PostNotes postnotes);
 
-   // Call<PostNotes> sendTeilnehmerListe(@Header ("PRIVATE-TOKEN:<F6JsHQc4Q7z5i4_aLHFU>")@Body PostNotes postNotes);
+
 
 
 

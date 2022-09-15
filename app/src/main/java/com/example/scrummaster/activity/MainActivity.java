@@ -27,17 +27,14 @@ import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class  MainActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
     Button btn_scan;
-    Button btn_auswahlmnu;
-    ArrayList <String> teilnehmerliste = new ArrayList<String>();
-    Phrase scanOderAuswahl = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Auswahlmenü wechseln. Was möchtest du machen?");
+    Button btn_selectionmnu;
+    ArrayList <String> participantList = new ArrayList<String>();
+    Phrase scanOoSelect = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Auswahlmenü wechseln. Was möchtest du machen?");
 
 
 
@@ -50,7 +47,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         QiSDK.register(this, this);
         setContentView(R.layout.activity_main);
         btn_scan =findViewById(R.id.btn_scan);
-        btn_auswahlmnu= findViewById(R.id.btn_auswahlmnu);
+        btn_selectionmnu= findViewById(R.id.btn_selectionmnu);
         //Beim klicken auf den Button "Scan" wird der BarcodeScanner geöffnet
         btn_scan.setOnClickListener(v -> {scanCode();
 
@@ -59,12 +56,12 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         //Teilnehmerliste wird in Gitlab geposted
 
 
-        btn_auswahlmnu.setOnClickListener(new View.OnClickListener() {
+        btn_selectionmnu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-            startActivity(new Intent(MainActivity.this,AuswahlmenueActivity.class));
+            startActivity(new Intent(MainActivity.this, SelectionMenuActivity.class));
 
             }
         });
@@ -81,18 +78,18 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
             barLauncher.launch(options);
     }
 
-    //Prüfen ob etwas vom scanner returend wurde,wenn ja wechseln in WillkommenActivity, gescannter Name wird per Intent übertragen
-    // an WillkommenActivity
+    //Prüfen ob etwas vom scanner zurückgegeben wurde,wenn ja wechseln in WelcomeActivity, gescannter Name wird per Intent übertragen
+    // an WelcomeActivity
     ActivityResultLauncher<ScanOptions> barLauncher =registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
 
             result.getContents();
             //saveTeilnehmerListe(result.getContents());
 
-            startActivity(new Intent(MainActivity.this, WillkommenActivity.class));
-            //Mit dem Intent wird der gescannte Name an die WillkommenActivity übergeben, damit man
-            //dort den Teilnehmer persönlich begrüßen kann
-            Intent intent = new Intent (MainActivity.this,WillkommenActivity.class);
+            startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+            //Mit dem Intent wird der gescannte Name an die WelcomeActivity übergeben, damit man
+            //dort den Participant persönlich begrüßen kann
+            Intent intent = new Intent (MainActivity.this, WelcomeActivity.class);
             intent.putExtra("teilnehmer",result.getContents());
             startActivity(intent);
 
@@ -102,22 +99,22 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             Gson gson = new Gson();
-            teilnehmerliste.add(result.getContents());
-            String json = gson.toJson(teilnehmerliste);
-            editor.putString("teilnehmerListe",json);
+            participantList.add(result.getContents());
+            String json = gson.toJson(participantList);
+            editor.putString("participantList",json);
             editor.apply();
 
         }
     });
 
     //Methode speichert die Teilnehmerliste
-       private void saveTeilnehmerListe (String teilnehmer){
+       private void saveTeilnehmerListe (String participant){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        teilnehmerliste.add(teilnehmer);
-        String json = gson.toJson(teilnehmerliste);
-        editor.putString("teilnehmerListe",json);
+        participantList.add(participant);
+        String json = gson.toJson(participantList);
+        editor.putString("participantList",json);
         editor.apply();
 
       }
@@ -135,33 +132,34 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
     public void onRobotFocusGained(QiContext qiContext) {
         //Auswahlfrage
         Say say = SayBuilder.with(qiContext)
-                .withPhrase(scanOderAuswahl)
+                .withPhrase(scanOoSelect)
                 .build();
         say.run();
         //Phraseset für Scannen
-        PhraseSet scannen= PhraseSetBuilder.with(qiContext)
-                .withTexts("Code scannen", "scannen")
+        PhraseSet scan= PhraseSetBuilder.with(qiContext)
+                .withTexts("Code ", "")
                 .build();
 
         //Phraseset für Auswahlmenü
-        PhraseSet auswahlmnu= PhraseSetBuilder.with(qiContext)
+        PhraseSet selectionmnu= PhraseSetBuilder.with(qiContext)
                 .withTexts("Auswahlmenü", " Starte Auswahlmenü", "Menü")
                 .build();
 
         Listen listen = ListenBuilder.with(qiContext)
-                .withPhraseSets(scannen)
-                .withPhraseSets(auswahlmnu)
+                .withPhraseSets()
+                .withPhraseSets(selectionmnu)
                 .build();
         ListenResult listenresult= listen.run();
 
         // Das Gesagte in String umwandeln
+
         String result = listenresult.getHeardPhrase().toString();
 
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
-        if (scannen.getPhrases().toString().contains(result) ) {
+        if (scan.getPhrases().toString().contains(result) ) {
             startActivity(new Intent(MainActivity.this,CaptureAct.class));}
-        if (auswahlmnu.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(MainActivity.this,AuswahlmenueActivity.class));}
+        if (selectionmnu.getPhrases().toString().contains(result)) {
+            startActivity(new Intent(MainActivity.this, SelectionMenuActivity.class));}
 
     }
 
