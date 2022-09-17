@@ -3,6 +3,7 @@ package com.example.scrummaster.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,18 +24,26 @@ import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 
+import com.example.scrummaster.datamodel.MeetingPoints;
+import com.example.scrummaster.service.MeetingPointsService;
+import com.example.scrummaster.service.RetrofitService;
 import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class  MainActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
     Button btn_scan;
     Button btn_selectionmnu;
     ArrayList <String> participantList = new ArrayList<String>();
-    Phrase scanOoSelect = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Auswahlmenü wechseln. Was möchtest du machen?");
+    Phrase scanOrSelect = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Auswahlmenü wechseln. Was möchtest du machen?");
 
 
 
@@ -48,13 +57,13 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         setContentView(R.layout.activity_main);
         btn_scan =findViewById(R.id.btn_scan);
         btn_selectionmnu= findViewById(R.id.btn_selectionmnu);
+
         //Beim klicken auf den Button "Scan" wird der BarcodeScanner geöffnet
         btn_scan.setOnClickListener(v -> {scanCode();
 
         });
         //Beim klicken auf den Button "Auswahlmenü" wechselt die View zum Auswahlmenü, und die
         //Teilnehmerliste wird in Gitlab geposted
-
 
         btn_selectionmnu.setOnClickListener(new View.OnClickListener() {
 
@@ -65,6 +74,8 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
             }
         });
+
+
 
 
     }
@@ -82,8 +93,8 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
     // an WelcomeActivity
     ActivityResultLauncher<ScanOptions> barLauncher =registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
-
             result.getContents();
+
             //saveTeilnehmerListe(result.getContents());
 
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
@@ -115,24 +126,25 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         participantList.add(participant);
         String json = gson.toJson(participantList);
         editor.putString("participantList",json);
-        editor.apply();
+        editor.commit();
 
       }
 
-
-    @Override
+             @Override
     protected void onDestroy() {
         setContentView(R.layout.activity_main);
         // Unregister the RobotLifecycleCallbacks for this Activity.
         QiSDK.unregister(this, this);
         super.onDestroy();
+
     }
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
+        saveTeilnehmerListe("PeterPan");
         //Auswahlfrage
         Say say = SayBuilder.with(qiContext)
-                .withPhrase(scanOoSelect)
+                .withPhrase(scanOrSelect)
                 .build();
         say.run();
         //Phraseset für Scannen

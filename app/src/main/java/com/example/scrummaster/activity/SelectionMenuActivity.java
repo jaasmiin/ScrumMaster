@@ -37,7 +37,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
     Button btn_modPunkte;
     Button btn_modDaily;
     Button btn_powerpoint;
-    ArrayList <String> participantList = new ArrayList<>();
+
     Phrase select = new Phrase(" Welche Aktion soll ich ausführen?") ;
 
 
@@ -79,6 +79,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
             }
         });
+
            //sobald die Activity gestartet wurde, wird die Teilnehmerliste an Gitlab geschickt
         sendTeilnehmer();
 
@@ -89,12 +90,12 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
     private void sendTeilnehmer(){
 
         //Diese Methode ist ausgebelendet, weil Pepper Emulator damit abstürzt--> Nullpointer
-       // PostNotes liste = new PostNotes(listToString(loadTeilnehmerListe()));
+       PostNotes liste = new PostNotes(listToString(loadTeilnehmerListe()));
         //Test Liste für Emulator
-        ArrayList<String> test = new ArrayList<>();
-        test.add("Peter");
-        test.add("Bla");
-        PostNotes liste = new PostNotes(listToString(test));
+      //  ArrayList<String> test = new ArrayList<>();
+        //test.add("Peter");
+        //test.add("Bla");
+        //PostNotes liste = new PostNotes(listToString(test));
 
         //ServerDaten
         RetrofitService.getRetrofitInstance().create(PostNoteService.class).sendTeilnehmerListe(liste).enqueue(new Callback<PostNotes>() {
@@ -112,11 +113,12 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
     }
 
-    //Ladet die TeilnehmerListe und gibt diese zurück
+    //Lädt die TeilnehmerListe und gibt diese zurück
     private ArrayList<String> loadTeilnehmerListe(){
+        ArrayList <String> participantList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("teilnehmerListe",null);
+        String json = sharedPreferences.getString("participantList",null);
         Type type= new TypeToken<ArrayList<String>>(){}.getType();
         participantList = gson.fromJson(json,type);
 

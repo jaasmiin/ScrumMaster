@@ -5,10 +5,13 @@
       <map>
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_auswahlmenue.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_meeting_finished.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_daily_scrum.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderationnotes.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderationpunkte.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_power_point_karaoke.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_selectionmenu.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_willkommen.xml" value="0.1" />
       </map>
     </option>
