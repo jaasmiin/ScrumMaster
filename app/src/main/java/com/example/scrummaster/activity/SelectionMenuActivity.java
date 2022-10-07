@@ -20,7 +20,9 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
+import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.datamodel.PostNotes;
+import com.example.scrummaster.service.MeetingPointsService;
 import com.example.scrummaster.service.PostNoteService;
 import com.example.scrummaster.service.RetrofitService;
 import com.google.gson.Gson;
@@ -28,6 +30,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,18 +40,22 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
     Button btn_modPunkte;
     Button btn_modDaily;
     Button btn_powerpoint;
-
+    String value="Hello world";
     Phrase select = new Phrase(" Welche Aktion soll ich ausführen?") ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+
+         super.onCreate(savedInstanceState);
         QiSDK.register(this, this);
         setContentView(R.layout.activity_selectionmenu);
         btn_modDaily= findViewById(R.id.btn_mod_daily);
         btn_modPunkte=findViewById(R.id.btn_mod_points);
         btn_powerpoint=findViewById(R.id.btn_powerpoint);
+
+        getMeetingPoints();
 
         btn_modDaily.setOnClickListener(new View.OnClickListener() {
 
@@ -64,8 +71,10 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(SelectionMenuActivity.this, ModerationNotesActivity.class));
+                //Übergebe den WErt "Start" für den Bookmark in der ModerationNotesStartActivity
+                Intent i = new Intent(SelectionMenuActivity.this, ModerationNotesStartActivity.class);
+                i.putExtra("Bookmark","Start");
+                startActivity(i);
 
             }
         });
@@ -81,16 +90,19 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         });
 
            //sobald die Activity gestartet wurde, wird die Teilnehmerliste an Gitlab geschickt
-        sendTeilnehmer();
+        sendParticipants();
+
+
+
 
 
     }
 
     //Sendet die Teilnehmerliste zu Gitlab
-    private void sendTeilnehmer(){
+    private void sendParticipants(){
 
         //Diese Methode ist ausgebelendet, weil Pepper Emulator damit abstürzt--> Nullpointer
-       PostNotes liste = new PostNotes(listToString(loadTeilnehmerListe()));
+       PostNotes liste = new PostNotes(listToString(loadParticipantList()));
         //Test Liste für Emulator
       //  ArrayList<String> test = new ArrayList<>();
         //test.add("Peter");
@@ -114,7 +126,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
     }
 
     //Lädt die TeilnehmerListe und gibt diese zurück
-    private ArrayList<String> loadTeilnehmerListe(){
+    private ArrayList<String> loadParticipantList(){
         ArrayList <String> participantList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -130,9 +142,36 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         return output;
 
     }
+    //Holt die zu MeetingPointListe über gitlab
+    public void getMeetingPoints() {
+
+        RetrofitService.getRetrofitInstance().create(MeetingPointsService.class).getPunkte().enqueue(new Callback<List<MeetingPoints>>() {
+            @Override
+            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+                Log.i("Retrofit", new Gson().toJson(response.body()));
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Gson gson = new Gson();
+                List<MeetingPoints> meetingPointsList= response.body();
+                String json = gson.toJson(meetingPointsList);
+                editor.putString("meetingPointList",json);
+                editor.apply();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+                String fail =t.getCause().toString();
+                Log.e("Retrofit",fail);
+            }
+        });
+
+    }
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
+
         //Phraseset für Moderation mit Punkten
         PhraseSet modNotes= PhraseSetBuilder.with(qiContext)
                                                 .withTexts("Starte Moderation mit Punkten", "mit Punkten", "Punkte")
@@ -169,7 +208,9 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
         if (modNotes.getPhrases().toString().contains(result) ) {
-            startActivity(new Intent(SelectionMenuActivity.this, ModerationNotesActivity.class));}
+            Intent i = new Intent(SelectionMenuActivity.this, ModerationNotesStartActivity.class);
+            i.putExtra("Bookmark","Start");
+            startActivity(i);}
         if (modDaily.getPhrases().toString().contains(result)) {
             startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyScrumActivity.class));}
         if (powerpoint.getPhrases().toString().contains(result)) {

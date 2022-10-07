@@ -1,0 +1,10 @@
+topic: ~moderatenotes()
+concept:(execute) [execute executor]
+concept:(start) ["* bereit" start]
+dynamic: points
+proposal: %Start  Hallo zusammen, willkommen bei unserem heutigen Meeting. Der erste Punkt auf der Tagesordnung ist
+                    $meetingpoint Um das Meeting zu starten einfach den Start Button drücken.
+
+proposal: %Next Danke für deinen Beitrag.Der nächste Punkt ist $meetingpoint . Um die Besprechung
+            zu beginnen, drücke wieder auf Start.
+proposal: %first  $name du bist an der Reihe. Wenn du bereit bist, drücke bitte auf Start.

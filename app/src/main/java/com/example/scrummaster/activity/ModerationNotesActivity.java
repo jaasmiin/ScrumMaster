@@ -1,5 +1,8 @@
 package com.example.scrummaster.activity;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,139 +13,210 @@ import android.widget.TextView;
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
+import com.aldebaran.qi.sdk.builder.ChatBuilder;
+import com.aldebaran.qi.sdk.builder.QiChatbotBuilder;
+import com.aldebaran.qi.sdk.builder.TopicBuilder;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
+import com.aldebaran.qi.sdk.object.conversation.AutonomousReactionImportance;
+import com.aldebaran.qi.sdk.object.conversation.AutonomousReactionValidity;
+import com.aldebaran.qi.sdk.object.conversation.Bookmark;
+import com.aldebaran.qi.sdk.object.conversation.Chat;
+import com.aldebaran.qi.sdk.object.conversation.QiChatExecutor;
+import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
+import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
+import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
 import com.example.scrummaster.controller.Countdown;
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.example.scrummaster.service.MeetingPointsService;
-import com.example.scrummaster.service.RetrofitService;
+import com.example.scrummaster.controller.ModerateNotesQiChatExecutor;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModerationNotesActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
-     Countdown modcountdown = new Countdown(1000,1000);
     private TextView countdown;
+    private Countdown mcountdown = new Countdown(5000,5000);
     private Button btn_done;
     private TextView name;
     private TextView note;
+    private Chat chat;
+    private QiChatVariable nameVariable;
+    private QiChatbot qiChatbot;
+    private Topic topic;
+    private Bookmark proposalBookmark;
+    private ArrayList<String> participantList = new ArrayList<>();
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this,this);
-        getMeetingPoints();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moderationnotes);
-        countdown = findViewById(R.id.countdown);
-        btn_done = findViewById(R.id.done);
-        name= findViewById(R.id.name);
-        note = findViewById(R.id.notes);
-
-
-
-        btn_done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modcountdown.startTimer(countdown,name,note,ModerationNotesActivity.this);
-            }
-
-
-        });
-
+        setContentView(R.layout.activity_moderation_daily_scrum);
+        countdown = findViewById(R.id.countdown2);
+        btn_done = findViewById(R.id.done2);
+        name= (TextView) findViewById(R.id.name2);
+        note = findViewById(R.id.notes2);
 
 
 
     }
-
-    //Lädt die gespeicherte MeetingPointListe aus sharedPreferences
-    private ArrayList<MeetingPoints> loadMeetingPoints(){
-        ArrayList<MeetingPoints> meetingPointList;
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("meetingPointList",null);
-        Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
-        meetingPointList = gson.fromJson(json,type);
-
-        return meetingPointList;
-    }
-
-        //Holt die zu MeetingPointListe über gitlab
-    public void getMeetingPoints() {
-
-        RetrofitService.getRetrofitInstance().create(MeetingPointsService.class).getPunkte().enqueue(new Callback<List<MeetingPoints>>() {
-            @Override
-            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
-                Log.i("Retrofit", new Gson().toJson(response.body()));
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Gson gson = new Gson();
-                List<MeetingPoints> meetingPointsList= response.body();
-                String json = gson.toJson(meetingPointsList);
-                editor.putString("meetingPointList",json);
-                editor.apply();
-
-
-            }
-
-            @Override
-            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
-                Log.e("Retrofit","Failed");
-            }
-        });
-
-    }
-
-
-
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 
 
+        participantList = loadParticipantListCopy();
+        if (participantList.size()==0){
 
-    }
-    private void moderateMeeting (){
-       List<MeetingPoints> meetingPointsList= loadMeetingPoints();
-        ArrayList<String> participantList = loadTeilnehmerListe();
+            Intent i = new Intent(ModerationNotesActivity.this, ModerationNotesStartActivity.class);
+            startActivity(i);}
+// Create a topic.
+        topic = TopicBuilder.with(qiContext)
+                .withResource(R.raw.moderatenotes)
+                .build();
 
-        for (int i = 0; i< meetingPointsList.size();i++ ){
-            note.setText(meetingPointsList.get(i).getDescription());
-                for(i=0;i<participantList.size();i++){
-                    name.setText(participantList.get(i));
-                   // modcountdown.startTimer(countdown);
+        // Create a qiChatbot
+        qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
+
+        Map<String, QiChatExecutor> executors = new HashMap<>();
+
+        // Map the executor name from the topic to our qiChatExecutor
+        executors.put("myExecutor", new ModerateNotesQiChatExecutor(qiContext));
+
+        // Set the executors to the qiChatbot
+        qiChatbot.setExecutors(executors);
+
+        // Build chat with the chatbotBuilder
+        chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).build();
+
+        //Create variable
+        nameVariable = qiChatbot.variable("name");
+        nameVariable.setValue(participantList.get(0));
+
+// Get the bookmarks from the topic.
+        Map<String, Bookmark> bookmarks = topic.getBookmarks();
+// Get the proposal bookmark
+        proposalBookmark = bookmarks.get("first");
+        chat.addOnStartedListener(this::sayProposal);
+
+        // Run an action asynchronously.
+        chat.async().run();
+        chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
+
+        btn_done.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                deleteParticipantListEntry();
+                name.setText(participantList.get(0));
 
 
+                mcountdown.startTimerTest(countdown,ModerationNotesActivity.this);
+                overridePendingTransition(0, 0);
             }
-        }
+        });
 
 
     }
 
-    //Lädt die TeilnehmerListe und gibt diese zurück
-    private ArrayList<String> loadTeilnehmerListe(){
-        ArrayList <String> participantList ;
+
+    public void sayProposal() {
+        qiChatbot.goToBookmark(proposalBookmark,
+                AutonomousReactionImportance.HIGH,
+                AutonomousReactionValidity.IMMEDIATE);
+    }
+
+
+
+
+    //Löscht den ersten Eintrag der gespeicherten MeetingPointListeDescription aus sharedPreferences
+
+   /* private void deleteMeetingPointsDescription() {
+        List<String> l = new ArrayList<>();
+        l = getMeetingPointsDescription();
+        l.remove(0);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(l);
+        editor.putString("meetingPointListDescription",json);
+        editor.commit();
+        }*/
+
+
+    //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
+    private void deleteParticipantListEntry() {
+        ArrayList<String> l = new ArrayList<>();
+        l = loadParticipantListCopy();
+        l.remove(0);
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(l);
+        editor.putString("participantListCopy",json);
+        editor.apply();
+
+    }
+
+
+/*
+    // Lädt die MeetingPointDescription Liste aus sharedPreferences und gibt diese zurück
+    private List<String> getMeetingPointsDescription(){
+        List<String> l = new ArrayList<>();
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("meetingPointListDescription",null);
+        Type type= new TypeToken<List<String>>(){}.getType();
+        l = gson.fromJson(json,type);
+        return l;
+    }*/
+
+    //Lädt die TeilnehmerListe speichert iese als Kopie in Shared Preferences und gibt die Kopie zurück
+    private ArrayList<String> loadParticipantListCopy(){
+
+        ArrayList <String> participantList;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("participantListCopy",null);
+        Type type= new TypeToken<ArrayList<String>>(){}.getType();
+        participantList = gson.fromJson(json,type);
+        return participantList;
+    }
+    private void copyParticipantList (){
+        ArrayList <String> participantList;
+        //Die Origonal TeilnehmerListe laden
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("participantList",null);
         Type type= new TypeToken<ArrayList<String>>(){}.getType();
         participantList = gson.fromJson(json,type);
+        //Die OriginalTeilnehmerListe als Kopie speichern
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gsonCopy = new Gson();
+        String jsonCopy = gsonCopy.toJson(participantList);
+        editor.putString("participantListCopy",jsonCopy);
+        editor.apply();
 
-        return participantList;
     }
+
+
+
+
 
 
     @Override
     public void onRobotFocusLost() {
+        if (chat != null) {
+        chat.removeAllOnStartedListeners();
+    }
+
 
     }
 

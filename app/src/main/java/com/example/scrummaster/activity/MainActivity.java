@@ -3,7 +3,6 @@ package com.example.scrummaster.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,19 +23,11 @@ import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.example.scrummaster.service.MeetingPointsService;
-import com.example.scrummaster.service.RetrofitService;
 import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class  MainActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
@@ -95,11 +86,11 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         if (result.getContents() != null) {
             result.getContents();
 
-            //saveTeilnehmerListe(result.getContents());
+            //saveParticipantList(result.getContents());
 
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
             //Mit dem Intent wird der gescannte Name an die WelcomeActivity übergeben, damit man
-            //dort den Participant persönlich begrüßen kann
+            //dort den Teilnehmerpersönlich begrüßen kann
             Intent intent = new Intent (MainActivity.this, WelcomeActivity.class);
             intent.putExtra("teilnehmer",result.getContents());
             startActivity(intent);
@@ -119,7 +110,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
     });
 
     //Methode speichert die Teilnehmerliste
-       private void saveTeilnehmerListe (String participant){
+       private void saveParticipantList(String participant){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
@@ -141,7 +132,9 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
-        saveTeilnehmerListe("PeterPan");
+        saveParticipantList("PeterPan");
+        saveParticipantList("Jasmin");
+        saveParticipantList("Temur");
         //Auswahlfrage
         Say say = SayBuilder.with(qiContext)
                 .withPhrase(scanOrSelect)

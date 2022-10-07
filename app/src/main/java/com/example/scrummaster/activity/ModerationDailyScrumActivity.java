@@ -1,16 +1,175 @@
 package com.example.scrummaster.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.aldebaran.qi.sdk.QiContext;
+import com.aldebaran.qi.sdk.QiSDK;
+import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
+import com.aldebaran.qi.sdk.builder.ChatBuilder;
+import com.aldebaran.qi.sdk.builder.QiChatbotBuilder;
+import com.aldebaran.qi.sdk.builder.TopicBuilder;
+import com.aldebaran.qi.sdk.design.activity.RobotActivity;
+import com.aldebaran.qi.sdk.object.conversation.AutonomousReactionImportance;
+import com.aldebaran.qi.sdk.object.conversation.AutonomousReactionValidity;
+import com.aldebaran.qi.sdk.object.conversation.Bookmark;
+import com.aldebaran.qi.sdk.object.conversation.Chat;
+import com.aldebaran.qi.sdk.object.conversation.QiChatExecutor;
+import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
+import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
+import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
+import com.example.scrummaster.controller.Countdown;
+import com.example.scrummaster.controller.ModerateNotesQiChatExecutor;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-public class ModerationDailyScrumActivity extends AppCompatActivity {
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ModerationDailyScrumActivity extends RobotActivity implements RobotLifecycleCallbacks {
+    private TextView countdown;
+    private Countdown mcountdown = new Countdown(5000,5000);
+    private Button btn_done;
+    private TextView name;
+    private TextView note;
+    private Chat chat;
+    private QiChatVariable nameVariable;
+    private QiChatbot qiChatbot;
+    private Topic topic;
+    private Bookmark proposalBookmark;
+    private List<String> l = new ArrayList<>();
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        QiSDK.register(this,this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moderation_daily_scrum);
+               countdown = findViewById(R.id.countdown2);
+        btn_done = findViewById(R.id.done2);
+        name= (TextView) findViewById(R.id.name2);
+        note = findViewById(R.id.notes2);
+
+    }
+
+    @Override
+    public void onRobotFocusGained(QiContext qiContext) {
+
+
+        l = getMeetingPointsDescription();
+        if (l.size()==0){
+            startActivity(new Intent(ModerationDailyScrumActivity.this,ModerationNotesStartActivity.class));}
+// Create a topic.
+       topic = TopicBuilder.with(qiContext)
+                .withResource(R.raw.moderatenotes)
+                .build();
+
+        // Create a qiChatbot
+        qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
+
+        Map<String, QiChatExecutor> executors = new HashMap<>();
+
+        // Map the executor name from the topic to our qiChatExecutor
+        executors.put("myExecutor", new ModerateNotesQiChatExecutor(qiContext));
+
+        // Set the executors to the qiChatbot
+        qiChatbot.setExecutors(executors);
+
+        // Build chat with the chatbotBuilder
+      chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).build();
+
+       //Create variable
+        nameVariable = qiChatbot.variable("name2");
+       nameVariable.setValue(l.get(0));
+
+// Get the bookmarks from the topic.
+        Map<String, Bookmark> bookmarks = topic.getBookmarks();
+// Get the proposal bookmark
+        proposalBookmark = bookmarks.get("first");
+        chat.addOnStartedListener(this::sayProposal);
+
+        // Run an action asynchronously.
+        chat.async().run();
+        chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
+
+        btn_done.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                name.setText(l.get(0));
+                deleteMeetingPointsDescription();
+
+               mcountdown.startTimerTest(countdown,ModerationDailyScrumActivity.this);
+                overridePendingTransition(0, 0);
+            }
+        });
+
+
+    }
+    private void assignVariable(String value) {
+        // Set the value.
+        nameVariable.async().setValue(value);}
+
+    public void sayProposal() {
+        qiChatbot.goToBookmark(proposalBookmark,
+                AutonomousReactionImportance.HIGH,
+                AutonomousReactionValidity.IMMEDIATE);
+    }
+
+
+
+
+    //Löscht den ersten Eintrag der gespeicherten MeetingPointListeDescription aus sharedPreferences
+    private void deleteMeetingPointsDescription() {
+
+        List<String> l = new ArrayList<>();
+        l = getMeetingPointsDescription();
+        l.remove(0);
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(l);
+            editor.putString("meetingPointListDescription",json);
+            editor.apply();
+
+        }
+
+
+
+
+ // Lädt die MeetingPointDescription Liste aus sharedPreferences und gibt diese zurück
+
+
+    private List<String> getMeetingPointsDescription(){
+        List<String> l = new ArrayList<>();
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        Gson gson = new Gson();        String json = sharedPreferences.getString("meetingPointListDescription",null);
+        Type type= new TypeToken<List<String>>(){}.getType();
+        l = gson.fromJson(json,type);
+        return l;
+    }
+
+
+    @Override
+    public void onRobotFocusLost() {
+
+    }
+
+    @Override
+    public void onRobotFocusRefused(String reason) {
+
     }
 }
