@@ -40,7 +40,6 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
     Button btn_modPunkte;
     Button btn_modDaily;
     Button btn_powerpoint;
-    String value="Hello world";
     Phrase select = new Phrase(" Welche Aktion soll ich ausführen?") ;
 
 
@@ -56,6 +55,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         btn_powerpoint=findViewById(R.id.btn_powerpoint);
 
         getMeetingPoints();
+        copyMeetingPointList();
 
         btn_modDaily.setOnClickListener(new View.OnClickListener() {
 
@@ -156,8 +156,6 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
                 String json = gson.toJson(meetingPointsList);
                 editor.putString("meetingPointList",json);
                 editor.apply();
-
-
             }
 
             @Override
@@ -166,6 +164,24 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
                 Log.e("Retrofit",fail);
             }
         });
+
+    }
+
+    //Kopiert die MeetingPointList
+    private void copyMeetingPointList (){
+        ArrayList <MeetingPoints> meetingPointList;
+        //Die Origonal MeetingPointListe laden
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("meetingPointList",null);
+        Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
+        meetingPointList = gson.fromJson(json,type);
+        //Die OriginalMeetingPointListe als Kopie speichern
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gsonCopy = new Gson();
+        String jsonCopy = gsonCopy.toJson(meetingPointList);
+        editor.putString("meetingPointListCopy",jsonCopy);
+        editor.apply();
 
     }
 

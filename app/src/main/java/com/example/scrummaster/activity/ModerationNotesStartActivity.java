@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
@@ -19,7 +20,6 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.aldebaran.qi.sdk.object.conversation.AutonomousReactionImportance;
 import com.aldebaran.qi.sdk.object.conversation.AutonomousReactionValidity;
 import com.aldebaran.qi.sdk.object.conversation.Bookmark;
-import com.aldebaran.qi.sdk.object.conversation.BookmarkStatus;
 import com.aldebaran.qi.sdk.object.conversation.Chat;
 import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
@@ -47,19 +47,22 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
     QiChatbot qiChatbot;
     Topic topic;
     private Bookmark proposalBookmark;
-    BookmarkStatus bookmarkStatus;
+    ArrayList<MeetingPoints> meetingPointList = new ArrayList<>();
+    String meetingPointDescription;
+
 
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-                QiSDK.register(this,this);
+        QiSDK.register(this,this);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_moderation_notes_start);
         btn_startm = findViewById(R.id.startm);
-        getMeetingPoints();
-        setMeetingPointDescription();
+
+
         copyParticipantList();
         //Mit klick auf den Button wird die nächste Activity geöffnet und bookmarkb auf false gesetzt,
         //sodass bei der Rückkehr in die Activity der Bookmark %Next aufgerufen wird
@@ -67,17 +70,26 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
 
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(ModerationNotesStartActivity.this,ModerationNotesActivity.class));
                 finish();
+                Intent i = new Intent(ModerationNotesStartActivity.this, ModerationNotesActivity.class);
+                startActivity(i);
 
             }
         });
+
+
 
     }
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
+        TextView meetingpoint = findViewById(R.id.id_meeting);
+
+        meetingPointList = loadMeetingPointListCopy();
+        if (meetingPointList.size()==0){
+
+            Intent i = new Intent(ModerationNotesStartActivity.this, MeetingFinished.class);
+            startActivity(i);}
 
         // Create a topic.
         topic = TopicBuilder.with(qiContext)
@@ -89,8 +101,6 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
         // Build chat with the chatbotBuilder
         chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).build();
-        // Get the bookmarks from the topic.
-
 
 
         // Get the proposal bookmark
@@ -102,15 +112,26 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         chat.addOnStartedListener(this::sayProposal);
 
         //create Variable
+        meetingPointDescription = meetingPointList.get(0).getDescription();
+
         moderationpointVariable = qiChatbot.variable("meetingpoint");
-        moderationpointVariable.setValue("Tet");
+        moderationpointVariable.setValue(meetingPointDescription);
         chat.async().run();
         chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
 
 
+        runOnUiThread(new Runnable() {
 
+            @Override
+            public void run() {
 
+                meetingpoint.setText(meetingPointDescription);
+
+            }
+        });
     }
+
+
     //Kopiert die Teilnehmerliste
     private void copyParticipantList (){
         ArrayList <String> participantList;
@@ -128,6 +149,34 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         editor.apply();
 
     }
+
+    //Lädt die TeilnehmerListe speichert iese als Kopie in Shared Preferences und gibt die Kopie zurück
+    private ArrayList<MeetingPoints> loadMeetingPointListCopy(){
+
+        ArrayList <MeetingPoints> meetingPointListCopy;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("meetingPointListCopy",null);
+        Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
+        meetingPointListCopy = gson.fromJson(json,type);
+        return meetingPointListCopy;
+    }
+
+    //Löscht den ersten Eintrag der gespeicherten MeetingListCopy aus sharedPreferences
+    private void deleteMeetingPointListEntry() {
+        ArrayList<MeetingPoints> l = new ArrayList<>();
+        l = loadMeetingPointListCopy();
+        l.remove(0);
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(l);
+        editor.putString("meetingPointListCopy",json);
+        editor.apply();
+
+    }
+
 
     public String setBookmark(String s ){
         if (s == null) {
@@ -152,8 +201,6 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
                 String json = gson.toJson(meetingPointsList);
                 editor.putString("meetingPointList",json);
                 editor.apply();
-
-
             }
 
             @Override
@@ -164,10 +211,11 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         });
 
     }
+
     //Speichert die Descriptions der Meetingpointlist
     private void setMeetingPointDescription (){
         ArrayList<String> description = new ArrayList<>();
-        List<MeetingPoints> meetingPointsList= loadMeetingPoints();
+        List<MeetingPoints> meetingPointsList= loadMeetingPointsCopy();
         for (MeetingPoints meetingPoints :meetingPointsList){
             String point=  meetingPoints.getDescription();
             description.add(point);}
@@ -179,12 +227,13 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         editor.putString("meetingPointListDescription",json);
         editor.apply();
     }
+
     //Lädt die gespeicherte MeetingPointListe aus sharedPreferences
-    private ArrayList<MeetingPoints> loadMeetingPoints(){
+    private ArrayList<MeetingPoints> loadMeetingPointsCopy(){
         ArrayList<MeetingPoints> meetingPointList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("meetingPointList",null);
+        String json = sharedPreferences.getString("meetingPointListCopy",null);
         Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
         meetingPointList = gson.fromJson(json,type);
 

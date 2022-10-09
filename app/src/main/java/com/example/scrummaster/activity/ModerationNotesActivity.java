@@ -28,6 +28,7 @@ import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
 import com.example.scrummaster.controller.Countdown;
 import com.example.scrummaster.controller.ModerateNotesQiChatExecutor;
+import com.example.scrummaster.datamodel.MeetingPoints;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,7 +50,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     private Topic topic;
     private Bookmark proposalBookmark;
     private ArrayList<String> participantList = new ArrayList<>();
-
+   private ArrayList<MeetingPoints> meetingPointList = new ArrayList<>();
 
 
 
@@ -61,9 +62,9 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         countdown = findViewById(R.id.countdown2);
         btn_done = findViewById(R.id.done2);
         name= (TextView) findViewById(R.id.name2);
-        note = findViewById(R.id.notes2);
-
-
+        note = (TextView)findViewById(R.id.notes2);
+        meetingPointList = loadMeetingPointListCopy();
+        note.setText(meetingPointList.get(0).getDescription());
 
     }
 
@@ -73,7 +74,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
 
         participantList = loadParticipantListCopy();
         if (participantList.size()==0){
-
+            deleteMeetingPointListEntry();
             Intent i = new Intent(ModerationNotesActivity.this, ModerationNotesStartActivity.class);
             startActivity(i);}
 // Create a topic.
@@ -114,14 +115,34 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
             @Override
             public void onClick(View v) {
                 deleteParticipantListEntry();
-                name.setText(participantList.get(0));
-
 
                 mcountdown.startTimerTest(countdown,ModerationNotesActivity.this);
                 overridePendingTransition(0, 0);
             }
         });
+        runOnUiThread(new Runnable() {
 
+            @Override
+            public void run() {
+
+                name.setText(participantList.get(0));
+
+            }
+        });
+
+
+    }
+    //Löscht den ersten Eintrag der gespeicherten MeetingListCopy aus sharedPreferences
+    private void deleteMeetingPointListEntry() {
+        ArrayList<MeetingPoints> l = new ArrayList<>();
+        l = loadMeetingPointListCopy();
+        l.remove(0);
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(l);
+        editor.putString("meetingPointListCopy",json);
+        editor.apply();
 
     }
 
@@ -133,7 +154,18 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     }
 
 
+    //Lädt die TeilnehmerListe speichert iese als Kopie in Shared Preferences und gibt die Kopie zurück
+    private ArrayList<MeetingPoints> loadMeetingPointListCopy(){
 
+        ArrayList <MeetingPoints> meetingPointListCopy;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("meetingPointListCopy",null);
+        Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
+        meetingPointListCopy = gson.fromJson(json,type);
+        return meetingPointListCopy;
+    }
 
     //Löscht den ersten Eintrag der gespeicherten MeetingPointListeDescription aus sharedPreferences
 
@@ -189,6 +221,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         participantList = gson.fromJson(json,type);
         return participantList;
     }
+
     private void copyParticipantList (){
         ArrayList <String> participantList;
         //Die Origonal TeilnehmerListe laden
@@ -205,10 +238,6 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         editor.apply();
 
     }
-
-
-
-
 
 
     @Override
