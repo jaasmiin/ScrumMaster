@@ -136,12 +136,14 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
         return participantList;
     }
+
     //Wandelt eine StringListe in einen String um und gibt diese aus
     private String listToString (ArrayList<String> liste){
         String output = String.join(" ,",liste);
         return output;
 
     }
+
     //Holt die zu MeetingPointListe über gitlab
     public void getMeetingPoints() {
 

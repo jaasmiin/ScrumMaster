@@ -41,7 +41,8 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
 
     private TextView countdown;
     private Countdown mcountdown = new Countdown(5000,5000);
-    private Button btn_done;
+    private Button btn_start;
+    private Button btn_stop;
     private TextView name;
     private TextView note;
     private Chat chat;
@@ -50,7 +51,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     private Topic topic;
     private Bookmark proposalBookmark;
     private ArrayList<String> participantList = new ArrayList<>();
-   private ArrayList<MeetingPoints> meetingPointList = new ArrayList<>();
+    private ArrayList<MeetingPoints> meetingPointList = new ArrayList<>();
 
 
 
@@ -58,11 +59,12 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this,this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moderation_daily_scrum);
-        countdown = findViewById(R.id.countdown2);
-        btn_done = findViewById(R.id.done2);
-        name= (TextView) findViewById(R.id.name2);
-        note = (TextView)findViewById(R.id.notes2);
+        setContentView(R.layout.activity_moderationnotes);
+        countdown = findViewById(R.id.countdown);
+        btn_stop = findViewById(R.id.done);
+        btn_start= findViewById(R.id.startc);
+        name= (TextView) findViewById(R.id.name);
+        note = (TextView)findViewById(R.id.notes);
         meetingPointList = loadMeetingPointListCopy();
         note.setText(meetingPointList.get(0).getDescription());
 
@@ -71,13 +73,12 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 
-
         participantList = loadParticipantListCopy();
         if (participantList.size()==0){
             deleteMeetingPointListEntry();
             Intent i = new Intent(ModerationNotesActivity.this, ModerationNotesStartActivity.class);
             startActivity(i);}
-// Create a topic.
+        // Create a topic.
         topic = TopicBuilder.with(qiContext)
                 .withResource(R.raw.moderatenotes)
                 .build();
@@ -100,9 +101,9 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         nameVariable = qiChatbot.variable("name");
         nameVariable.setValue(participantList.get(0));
 
-// Get the bookmarks from the topic.
+        // Get the bookmarks from the topic.
         Map<String, Bookmark> bookmarks = topic.getBookmarks();
-// Get the proposal bookmark
+        // Get the proposal bookmark
         proposalBookmark = bookmarks.get("first");
         chat.addOnStartedListener(this::sayProposal);
 
@@ -110,7 +111,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         chat.async().run();
         chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
 
-        btn_done.setOnClickListener(new View.OnClickListener() {
+        btn_start.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -118,6 +119,16 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
 
                 mcountdown.startTimerTest(countdown,ModerationNotesActivity.this);
                 overridePendingTransition(0, 0);
+            }
+        });
+        btn_stop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mcountdown.reset(countdown);
+                overridePendingTransition(0, 0);
+                Intent intent = new Intent(ModerationNotesActivity.this, ModerationNotesActivity.class);
+                startActivity(intent);
             }
         });
         runOnUiThread(new Runnable() {
@@ -146,7 +157,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
 
     }
 
-
+    // Ruft den Bookmark auf
     public void sayProposal() {
         qiChatbot.goToBookmark(proposalBookmark,
                 AutonomousReactionImportance.HIGH,

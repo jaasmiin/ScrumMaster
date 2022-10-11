@@ -29,14 +29,34 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:backgroundTint="@color/kit"
-        android:text="Ich bin fertig"
+        android:text="Stop"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/startc"
         app:layout_constraintTop_toBottomOf="@+id/countdown"
-        app:layout_constraintVertical_bias="0.65"
-        />
+        app:layout_constraintVertical_bias="0.518" />
+
+    <Button
+        android:id="@+id/startc"
+        android:layout_width="530dp"
+        android:layout_height="103dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:backgroundTint="@color/kit"
+        android:text="Start"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countdown"
+        app:layout_constraintVertical_bias="0.518" />
 
     <TextView
         android:id="@+id/name"
@@ -44,9 +64,8 @@
         android:layout_height="160dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="name"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/countdown"
         app:layout_constraintHorizontal_bias="0.276"
@@ -61,11 +80,10 @@
         android:layout_marginStart="16dp"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:text="punkt"
         app:layout_constraintBottom_toTopOf="@+id/countdown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintVertical_bias="0.599" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

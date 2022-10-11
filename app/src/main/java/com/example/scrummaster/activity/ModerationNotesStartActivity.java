@@ -51,9 +51,6 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
     String meetingPointDescription;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this,this);
@@ -73,7 +70,7 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
                 finish();
                 Intent i = new Intent(ModerationNotesStartActivity.this, ModerationNotesActivity.class);
                 startActivity(i);
-
+                updateMeetingPoint();
             }
         });
 
@@ -240,8 +237,25 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         return meetingPointList;
     }
 
+    //Sendet den besprochenen Punkt als "closed"
+    private void updateMeetingPoint(){
 
 
+        //ServerDaten
+        RetrofitService.getRetrofitInstance().create(MeetingPointsService.class).updateMilestones(meetingPointList.get(0).getId()).enqueue(new Callback<MeetingPoints>() {
+            @Override
+            public void onResponse(Call<MeetingPoints> call, Response<MeetingPoints> response) {
+                Log.i("Retrofit", response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<MeetingPoints> call, Throwable t) {
+                Log.e("Retrofit","Failed");
+
+            }
+        });
+
+    }
 
 
     @Override

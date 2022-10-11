@@ -72,7 +72,7 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
         l = getMeetingPointsDescription();
         if (l.size()==0){
             startActivity(new Intent(ModerationDailyScrumActivity.this,ModerationNotesStartActivity.class));}
-// Create a topic.
+        // Create a topic.
        topic = TopicBuilder.with(qiContext)
                 .withResource(R.raw.moderatenotes)
                 .build();
@@ -151,7 +151,6 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
 
 
  // Lädt die MeetingPointDescription Liste aus sharedPreferences und gibt diese zurück
-
 
     private List<String> getMeetingPointsDescription(){
         List<String> l = new ArrayList<>();
