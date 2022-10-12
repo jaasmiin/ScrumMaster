@@ -6,9 +6,9 @@ proposal: %Start  Hallo zusammen, willkommen bei unserem heutigen Meeting. Der e
           $meetingpoint .Um das Meeting zu starten sage Start  oder drücke einfach den Start Button.
 
 proposal: %Next Danke für eure Beiträge.Der nächste Punkt ist $meetingpoint . Um die Besprechung
-            zu beginnen sage bitte Start oder drüke den Button.
+            zu beginnen sage bitte Start oder drücke den Button.
 
-proposal: %first  $name du bist an der Reihe. Wenn wir anfangen können, sage mir bescheid.
+proposal: %first  $name du bist an der Reihe. Wenn wir anfangen können, sage mir bescheid ["oder drücke den Start Button"]
 
 u: (~startCountdown) ^execute(myExecutor)
 
