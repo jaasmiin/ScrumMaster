@@ -41,7 +41,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
 
     private TextView countdown;
     private Countdown mcountdown = new Countdown(5000,5000);
-    private Button btn_start;
+   public Button btn_start;
     private Button btn_stop;
     private TextView name;
     private TextView note;
@@ -52,8 +52,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     private Bookmark proposalBookmark;
     private ArrayList<String> participantList = new ArrayList<>();
     private ArrayList<MeetingPoints> meetingPointList = new ArrayList<>();
-
-
+    private static ModerationNotesActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         note = (TextView)findViewById(R.id.notes);
         meetingPointList = loadMeetingPointListCopy();
         note.setText(meetingPointList.get(0).getDescription());
-
+        instance= this;
     }
 
     @Override
@@ -142,6 +141,20 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         });
 
 
+    }
+
+    public static  ModerationNotesActivity getInstance(){
+        return instance;
+
+    }
+    public void clickButton ()
+    { btn_start.post(new Runnable(){
+                         @Override
+                         public void run() {
+                             btn_start.performClick();
+                         }
+
+    });
     }
     //Löscht den ersten Eintrag der gespeicherten MeetingListCopy aus sharedPreferences
     private void deleteMeetingPointListEntry() {
