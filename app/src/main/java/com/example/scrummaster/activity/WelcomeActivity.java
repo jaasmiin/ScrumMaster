@@ -40,7 +40,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
 
         //String test = "Jasmin";
         String name = intent.getStringExtra("participant");
-        //So soll der Participant begrüßt werden.
+        //So soll der ParticipantController begrüßt werden.
         Phrase welcome = new Phrase ("Hallo, " + name +". Schön das du da bist. Bitte nehme Platz.");
         //Begrüßung
         Say say = SayBuilder.with(qiContext)

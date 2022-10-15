@@ -1,7 +1,7 @@
 topic: ~moderatenotes()
 
-concept:(startCountdown) [" * bereit" start]
-dynamic: points
+concept:(startCountdown) [bereit start los gehts]
+
 proposal: %Start  Hallo zusammen, willkommen bei unserem heutigen Meeting. Der erste Punkt auf der Tagesordnung ist
           $meetingpoint .Um das Meeting zu starten sage Start  oder drücke einfach den Start Button.
 

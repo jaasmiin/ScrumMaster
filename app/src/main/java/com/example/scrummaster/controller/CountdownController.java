@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.aldebaran.qi.Future;
 import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.example.scrummaster.activity.MeetingFinished;
+import com.example.scrummaster.activity.ModerationDailyScrumActivity;
 import com.example.scrummaster.activity.ModerationNotesActivity;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.google.gson.Gson;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Countdown {
+public class CountdownController {
 
     private long START_TIME_IN_MILLIS;
     private CountDownTimer countDownTimer;
@@ -30,7 +31,7 @@ public class Countdown {
     int i =0;
     int j = 0;
 
-    public Countdown(long START_TIME_IN_MILLIS,  long timeleft) {
+    public CountdownController(long START_TIME_IN_MILLIS, long timeleft) {
         this.START_TIME_IN_MILLIS =START_TIME_IN_MILLIS;
         this.timeleft = timeleft;
     }
@@ -95,10 +96,35 @@ public class Countdown {
 
     }
 
+    public void startTimerDaily(TextView countdownDisplay, Context c){
 
-    public void startTimerTest(TextView countdownDisplay, Context c){
+
+        countDownTimer = new CountDownTimer(timeleft,100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeleft = millisUntilFinished;
+                updateCountdownText(countdownDisplay);
 
 
+
+            }
+
+            @Override
+            public void onFinish() {
+                timerstatus = false;
+                timeleft = START_TIME_IN_MILLIS;
+                Intent intent = new Intent(c, ModerationDailyScrumActivity.class);
+                c.startActivity(intent);
+            }
+
+        }.start();
+        timerstatus = true;
+
+    }
+
+    public void startTimerNotes(TextView countdownDisplay, Context c){
+
+       
         countDownTimer = new CountDownTimer(timeleft,100) {
             @Override
             public void onTick(long millisUntilFinished) {

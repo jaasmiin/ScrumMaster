@@ -11,12 +11,11 @@
         android:id="@+id/btn_mod_points"
         android:layout_width="250dp"
         android:layout_height="145dp"
-        android:layout_marginStart="164dp"
         android:backgroundTint="@color/kit"
         android:text="Moderation mit Punkten"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_mod_daily"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.416"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.476" />

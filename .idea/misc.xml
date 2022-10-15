@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.215" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/drawable/ic_launcher_background.xml" value="0.215" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_auswahlmenue.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_meeting_finished.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_daily_scrum.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_daily_start_acrivity.xml" value="0.15234375" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_notes_start.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderationnotes.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderationpunkte.xml" value="0.1" />

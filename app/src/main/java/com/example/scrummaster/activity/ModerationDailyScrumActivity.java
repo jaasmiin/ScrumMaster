@@ -26,7 +26,7 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
-import com.example.scrummaster.controller.Countdown;
+import com.example.scrummaster.controller.CountdownController;
 import com.example.scrummaster.controller.ModerateNotesQiChatExecutor;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,8 +39,9 @@ import java.util.Map;
 
 public class ModerationDailyScrumActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private TextView countdown;
-    private Countdown mcountdown = new Countdown(5000,5000);
+    private CountdownController mcountdown = new CountdownController(5000,5000);
     private Button btn_done;
+    private Button btn_start;
     private TextView name;
     private TextView note;
     private Chat chat;
@@ -48,33 +49,34 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
     private QiChatbot qiChatbot;
     private Topic topic;
     private Bookmark proposalBookmark;
-    private List<String> l = new ArrayList<>();
+    private List<String> participantList = new ArrayList<>();
+
 
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         QiSDK.register(this,this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moderation_daily_scrum);
-               countdown = findViewById(R.id.countdown2);
+        countdown = findViewById(R.id.countdown2);
         btn_done = findViewById(R.id.done2);
         name= (TextView) findViewById(R.id.name2);
-        note = findViewById(R.id.notes2);
-
+        note = findViewById(R.id.questionsofdailyscrum);
+        btn_start = findViewById(R.id.startcdaily);
     }
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
-
-
-        l = getMeetingPointsDescription();
-        if (l.size()==0){
-            startActivity(new Intent(ModerationDailyScrumActivity.this,ModerationNotesStartActivity.class));}
+        participantList = loadParticipantListCopy();
+        if (participantList.size()==0){
+            Intent i = new Intent(ModerationDailyScrumActivity.this,MeetingFinished.class);
+            startActivity(i);}
         // Create a topic.
        topic = TopicBuilder.with(qiContext)
-                .withResource(R.raw.moderatenotes)
+                .withResource(R.raw.moderatedaily)
                 .build();
 
         // Create a qiChatbot
@@ -83,7 +85,7 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
         Map<String, QiChatExecutor> executors = new HashMap<>();
 
         // Map the executor name from the topic to our qiChatExecutor
-        executors.put("myExecutor", new ModerateNotesQiChatExecutor(qiContext));
+        executors.put("start", new ModerateNotesQiChatExecutor(qiContext));
 
         // Set the executors to the qiChatbot
         qiChatbot.setExecutors(executors);
@@ -92,8 +94,8 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
       chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).build();
 
        //Create variable
-        nameVariable = qiChatbot.variable("name2");
-       nameVariable.setValue(l.get(0));
+        nameVariable = qiChatbot.variable("namedaily");
+        nameVariable.setValue(participantList.get(0));
 
 // Get the bookmarks from the topic.
         Map<String, Bookmark> bookmarks = topic.getBookmarks();
@@ -105,15 +107,23 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
         chat.async().run();
         chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
 
+        btn_start.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                name.setText(participantList.get(0));
+                mcountdown.startTimerDaily(countdown,ModerationDailyScrumActivity.this);
+                overridePendingTransition(0, 0);
+                deleteParticipantListEntry();
+            }
+        });
         btn_done.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                name.setText(l.get(0));
-                deleteMeetingPointsDescription();
-
-               mcountdown.startTimerTest(countdown,ModerationDailyScrumActivity.this);
-                overridePendingTransition(0, 0);
+                mcountdown.reset(countdown);
+                Intent intent = new Intent(ModerationDailyScrumActivity.this, ModerationDailyScrumActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -132,35 +142,31 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
 
 
 
-    //Löscht den ersten Eintrag der gespeicherten MeetingPointListeDescription aus sharedPreferences
-    private void deleteMeetingPointsDescription() {
+    //Lädt die TeilnehmerListe speichert diese als Kopie in Shared Preferences und gibt die Kopie zurück
+    private ArrayList<String> loadParticipantListCopy(){
 
-        List<String> l = new ArrayList<>();
-        l = getMeetingPointsDescription();
-        l.remove(0);
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            Gson gson = new Gson();
-            String json = gson.toJson(l);
-            editor.putString("meetingPointListDescription",json);
-            editor.apply();
+        ArrayList <String> participantList;
 
-        }
-
-
-
-
- // Lädt die MeetingPointDescription Liste aus sharedPreferences und gibt diese zurück
-
-    private List<String> getMeetingPointsDescription(){
-        List<String> l = new ArrayList<>();
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();        String json = sharedPreferences.getString("meetingPointListDescription",null);
-        Type type= new TypeToken<List<String>>(){}.getType();
-        l = gson.fromJson(json,type);
-        return l;
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("participantListCopy",null);
+        Type type= new TypeToken<ArrayList<String>>(){}.getType();
+        participantList = gson.fromJson(json,type);
+        return participantList;
     }
+    //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
+    private void deleteParticipantListEntry() {
+        ArrayList<String> l = new ArrayList<>();
+        l = loadParticipantListCopy();
+        l.remove(0);
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(l);
+        editor.putString("participantListCopy",json);
+        editor.apply();
 
+    }
 
     @Override
     public void onRobotFocusLost() {

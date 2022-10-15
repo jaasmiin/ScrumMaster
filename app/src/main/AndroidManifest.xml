@@ -19,21 +19,24 @@
         android:theme="@style/Theme.ScrumMaster"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ModerationDailyStartActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ModerationNotesStartActivity"
             android:exported="true"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.MeetingFinished"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.PowerPointKaraokeActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.ModerationDailyScrumActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.ModerationNotesActivity"
             android:exported="false"

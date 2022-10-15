@@ -47,7 +47,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
     protected void onCreate(Bundle savedInstanceState) {
 
 
-         super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         QiSDK.register(this, this);
         setContentView(R.layout.activity_selectionmenu);
         btn_modDaily= findViewById(R.id.btn_mod_daily);
@@ -62,7 +62,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyScrumActivity.class));
+                startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyStartActivity.class));
 
             }
         });
@@ -90,7 +90,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         });
 
            //sobald die Activity gestartet wurde, wird die Teilnehmerliste an Gitlab geschickt
-        sendParticipants();
+      sendParticipants();
 
 
 
@@ -230,7 +230,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
             i.putExtra("Bookmark","Start");
             startActivity(i);}
         if (modDaily.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyScrumActivity.class));}
+            startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyStartActivity.class));}
         if (powerpoint.getPhrases().toString().contains(result)) {
             startActivity(new Intent(SelectionMenuActivity.this,PowerPointKaraokeActivity.class));}
 

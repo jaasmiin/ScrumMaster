@@ -26,7 +26,7 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
-import com.example.scrummaster.controller.Countdown;
+import com.example.scrummaster.controller.CountdownController;
 import com.example.scrummaster.controller.ModerateNotesQiChatExecutor;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.google.gson.Gson;
@@ -40,7 +40,7 @@ import java.util.Map;
 public class ModerationNotesActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
     private TextView countdown;
-    private Countdown mcountdown = new Countdown(5000,5000);
+    private CountdownController mcountdown = new CountdownController(5000,5000);
    public Button btn_start;
     private Button btn_stop;
     private TextView name;
@@ -85,6 +85,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         // Create a qiChatbot
         qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
 
+        //Create executor
         Map<String, QiChatExecutor> executors = new HashMap<>();
 
         // Map the executor name from the topic to our qiChatExecutor
@@ -116,7 +117,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
             public void onClick(View v) {
                 deleteParticipantListEntry();
 
-                mcountdown.startTimerTest(countdown,ModerationNotesActivity.this);
+                mcountdown.startTimerNotes(countdown,ModerationNotesActivity.this);
                 overridePendingTransition(0, 0);
             }
         });
@@ -143,10 +144,13 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
 
     }
 
+    //Gibt die instance dieser Activity zurück
     public static  ModerationNotesActivity getInstance(){
         return instance;
 
     }
+
+    //Diese Methode klickt beim Aufruf auf den Button Start
     public void clickButton ()
     { btn_start.post(new Runnable(){
                          @Override

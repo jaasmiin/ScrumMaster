@@ -43,7 +43,7 @@ import retrofit2.Response;
 public class ModerationNotesStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private Button btn_startm;
     Chat chat;
-    QiChatVariable moderationpointVariable;
+    QiChatVariable variable;
     QiChatbot qiChatbot;
     Topic topic;
     private Bookmark proposalBookmark;
@@ -97,7 +97,9 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         // Create a qiChatbot
         qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
         // Build chat with the chatbotBuilder
-        chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).build();
+        chat = ChatBuilder
+                .with(qiContext)
+                .withChatbot(qiChatbot).build();
 
 
         // Get the proposal bookmark
@@ -111,8 +113,8 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         //create Variable
         meetingPointDescription = meetingPointList.get(0).getDescription();
 
-        moderationpointVariable = qiChatbot.variable("meetingpoint");
-        moderationpointVariable.setValue(meetingPointDescription);
+        variable = qiChatbot.variable("meetingpoint");
+        variable.setValue(meetingPointDescription);
         chat.async().run();
         chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
 
