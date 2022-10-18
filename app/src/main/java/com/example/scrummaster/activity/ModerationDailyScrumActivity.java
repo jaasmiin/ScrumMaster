@@ -170,6 +170,9 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
 
     @Override
     public void onRobotFocusLost() {
+        if (chat != null) {
+            chat.removeAllOnStartedListeners();
+        }
 
     }
 
