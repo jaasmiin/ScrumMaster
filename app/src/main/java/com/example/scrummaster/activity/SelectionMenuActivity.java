@@ -53,7 +53,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         btn_modDaily= findViewById(R.id.btn_mod_daily);
         btn_modPunkte=findViewById(R.id.btn_mod_points);
         btn_powerpoint=findViewById(R.id.btn_powerpoint);
-
+        copyParticipantList();
         getMeetingPoints();
         copyMeetingPointList();
 
@@ -71,10 +71,10 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
             @Override
             public void onClick(View v) {
-                //Übergebe den WErt "Start" für den Bookmark in der ModerationNotesStartActivity
-                Intent i = new Intent(SelectionMenuActivity.this, ModerationNotesStartActivity.class);
-                i.putExtra("Bookmark","Start");
-                startActivity(i);
+                //Übergebe den Wert "Start" für den Bookmark in der ModerationNotesStartActivity und öffnen dieser Activity
+                Intent i_ModerationNotes = new Intent(SelectionMenuActivity.this, ModerationNotesStartActivity.class);
+                i_ModerationNotes.putExtra("Bookmark","Start");
+                startActivity(i_ModerationNotes);
 
             }
         });
@@ -83,8 +83,10 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(SelectionMenuActivity.this,PowerPointKaraokeActivity.class));
+                //Übergebe den Wert "Start" für den Bookmark in der PowerPointStartActivity und öffnen dieser Activity
+                Intent i_PowerPoint = new Intent(SelectionMenuActivity.this, PowerPointStartActivity.class);
+                i_PowerPoint.putExtra("Bookmark","start");
+                startActivity(i_PowerPoint);
 
             }
         });
@@ -97,6 +99,24 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
 
     }
+    //Kopiert die Teilnehmerliste
+    private void copyParticipantList (){
+        ArrayList<String> participantList;
+        //Die Origonal TeilnehmerListe laden
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("participantList",null);
+        Type type= new TypeToken<ArrayList<String>>(){}.getType();
+        participantList = gson.fromJson(json,type);
+        //Die OriginalTeilnehmerListe als Kopie speichern
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gsonCopy = new Gson();
+        String jsonCopy = gsonCopy.toJson(participantList);
+        editor.putString("participantListCopy",jsonCopy);
+        editor.apply();
+
+    }
+
 
     //Sendet die Teilnehmerliste zu Gitlab
     private void sendParticipants(){
@@ -232,7 +252,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         if (modDaily.getPhrases().toString().contains(result)) {
             startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyStartActivity.class));}
         if (powerpoint.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(SelectionMenuActivity.this,PowerPointKaraokeActivity.class));}
+            startActivity(new Intent(SelectionMenuActivity.this,PowerPointStartActivity.class));}
 
 
     }

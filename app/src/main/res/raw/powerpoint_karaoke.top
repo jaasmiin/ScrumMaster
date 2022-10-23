@@ -1,6 +1,14 @@
 topic: ~powerpoint_karaoke()
-# Defining extra concepts out of words or group of words
-#concept:(hello) [hello hi hey "good morning" greetings]
+proposal: %start Wir werden jetzt Power Point Karaoke spielen. Ist jeder mit den Regeln vertraut?
 
-# Replying to speech
-#u:(~hello) ~hello
+u: (Ja) Prima! Dann fangen wir doch gleich an. ^goto(select)
+ u:(Nein) OK, dann erkläre ich euch die Regeln. Ich werde einen von euch aufrufen. Der oder diejenige bekommt dann
+           von mir eine PowerPoint Präsentation angezeigt. Der Inhalt ist natürlich unbekannt. Geht bitte die Folien
+           alle durch und präsentiert sie. Ich habe extra schöne Folien für euch rausgesucht. Um es fairer zu gestalten könnt ihr
+           wählen zwischen Anfänger und fortgeschrittene. OK, dann lasst uns beginnen. ^goto(select)
+
+
+proposal: %select $name du bist dran. Möchtest du teilnehmen?
+        u1:(Ja) Das freut mich, dann lass uns doch gleich anfangen. Möchtest du lieber eine Präsentation für Anfänger, oder Fortgeschrittene?
+        u1: (Nein) Schade, vieleicht aber beim nächsten mal. ^execute(myExecutor)
+

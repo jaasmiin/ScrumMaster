@@ -48,8 +48,8 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     private Chat chat;
     private QiChatVariable nameVariable;
     private QiChatbot qiChatbot;
-    private Topic topic;
-    private Bookmark proposalBookmark;
+    public Topic topic;
+    public Bookmark proposalBookmark;
     private ArrayList<String> participantList = new ArrayList<>();
     private ArrayList<MeetingPoints> meetingPointList = new ArrayList<>();
     private static ModerationNotesActivity instance;

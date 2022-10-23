@@ -42,13 +42,13 @@ import retrofit2.Response;
 
 public class ModerationNotesStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private Button btn_startm;
-    Chat chat;
-    QiChatVariable variable;
-    QiChatbot qiChatbot;
-    Topic topic;
+    private Chat chat;
+    private QiChatVariable variable;
+    private QiChatbot qiChatbot;
+    private Topic topic;
     private Bookmark proposalBookmark;
-    ArrayList<MeetingPoints> meetingPointList = new ArrayList<>();
-    String meetingPointDescription;
+    private ArrayList<MeetingPoints> meetingPointList = new ArrayList<>();
+    private String meetingPointDescription;
 
 
     @Override
