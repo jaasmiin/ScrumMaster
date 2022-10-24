@@ -10,26 +10,25 @@
         android:id="@+id/btn_beginner"
         android:layout_width="215dp"
         android:layout_height="60dp"
+        android:backgroundTint="@color/kit"
         android:text="Anfänger"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/kit"
-        app:layout_constraintVertical_bias="0.773" />
+        app:layout_constraintVertical_bias="0.771" />
 
     <Button
         android:id="@+id/btn_advanced"
         android:layout_width="215dp"
         android:layout_height="60dp"
-        android:layout_marginStart="616dp"
+        android:backgroundTint="@color/kit"
         android:text="Fortgeschritten"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/kit"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.61"
         app:layout_constraintStart_toEndOf="@+id/btn_beginner"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.772" />
+        app:layout_constraintVertical_bias="0.771" />
 </androidx.constraintlayout.widget.ConstraintLayout>

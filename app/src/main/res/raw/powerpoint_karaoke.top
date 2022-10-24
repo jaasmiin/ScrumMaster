@@ -9,6 +9,15 @@ u: (Ja) Prima! Dann fangen wir doch gleich an. ^goto(select)
 
 
 proposal: %select $name du bist dran. Möchtest du teilnehmen?
-        u1:(Ja) Das freut mich, dann lass uns doch gleich anfangen. Möchtest du lieber eine Präsentation für Anfänger, oder Fortgeschrittene?
-        u1: (Nein) Schade, vieleicht aber beim nächsten mal. ^execute(myExecutor)
+            u1: (Nein) Schade, vieleicht aber beim nächsten mal. ^execute(myExecutor)
+            u1:(Ja) Das freut mich, dann lass uns doch gleich anfangen. Möchtest du lieber eine Präsentation für Anfänger, oder Fortgeschrittene?
+            u2: (Anfänger) OK, dann lass uns anfangen. ^execute(beginner)
+            u2: (Fortgeschritten) OK, dann lass uns anfangen. ^execute(advanced)
 
+
+proposal: %select2 Das hast du wircklich klasse gemacht. Danke für deinen Beitrag. Nehmen wir den nächsten Kandidaten.
+                    $name du bist an der Reihe. Möchtest du teilnehmen?
+                         u1: (Nein) Schade, vieleicht aber beim nächsten mal. ^execute(myExecutor)
+                         u1:(Ja) Das freut mich, dann lass uns doch gleich anfangen. Möchtest du lieber eine Präsentation für Anfänger, oder Fortgeschrittene?
+                              u2: (Anfänger) OK, dann lass uns anfangen.^execute(beginner)
+                              u2: (Fortgeschritten) OK, dann lass uns anfangen. ^execute(advanced)

@@ -9,10 +9,10 @@ import com.example.scrummaster.activity.PowerPointStartActivity;
 
 import java.util.List;
 
-public class PowerPointStartQiChatExecutor extends BaseQiChatExecutor {
+public class PowerPointSelecttQiChatExecutor extends BaseQiChatExecutor {
     private final QiContext qiContext;
 
-    public PowerPointStartQiChatExecutor(QiContext context) {
+    public PowerPointSelecttQiChatExecutor(QiContext context) {
         super(context);
         this.qiContext = context;
     }
