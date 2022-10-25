@@ -217,7 +217,7 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
         if (chat != null) {
             chat.removeAllOnStartedListeners();
         }
-
+        finish();
     }
 
     @Override

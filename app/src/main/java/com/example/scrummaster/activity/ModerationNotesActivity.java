@@ -65,18 +65,22 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         name= (TextView) findViewById(R.id.name);
         note = (TextView)findViewById(R.id.notes);
         meetingPointList = loadMeetingPointListCopy();
-        note.setText(meetingPointList.get(0).getDescription());
+        if (meetingPointList.size() != 0){
+            note.setText(meetingPointList.get(0).getDescription());
+        }
         instance= this;
     }
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 
+
         participantList = loadParticipantListCopy();
         if (participantList.size()==0){
             deleteMeetingPointListEntry();
             Intent i = new Intent(ModerationNotesActivity.this, ModerationNotesStartActivity.class);
-            startActivity(i);}
+            startActivity(i)
+            ;} else{
         // Create a topic.
         topic = TopicBuilder.with(qiContext)
                 .withResource(R.raw.moderatenotes)
@@ -109,7 +113,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
 
         // Run an action asynchronously.
         chat.async().run();
-        chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
+        chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));}
 
         btn_start.setOnClickListener(new View.OnClickListener() {
 
@@ -126,7 +130,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
             @Override
             public void onClick(View v) {
                 mcountdown.reset(countdown);
-                overridePendingTransition(0, 0);
+                //overridePendingTransition(0, 0);
                 Intent intent = new Intent(ModerationNotesActivity.this, ModerationNotesActivity.class);
                 startActivity(intent);
             }
@@ -135,9 +139,9 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
 
             @Override
             public void run() {
-
-                name.setText(participantList.get(0));
-
+                if (participantList.size()!=0) {
+                    name.setText(participantList.get(0));
+                }
             }
         });
 
@@ -272,6 +276,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     public void onRobotFocusLost() {
         if (chat != null) {
         chat.removeAllOnStartedListeners();
+        finish();
     }
 
 

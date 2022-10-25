@@ -73,8 +73,7 @@ public class PowerPointAdvancedActivity extends RobotActivity implements RobotLi
 
     @Override
     public void onRobotFocusLost() {
-
-
+        finish();
     }
 
     @Override

@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.215" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/drawable/button_backround.xml" value="0.17" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/drawable/ic_launcher_background.xml" value="0.215" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_auswahlmenue.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_happiness_index.xml" value="0.18046875" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_happyness_index.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_meeting_finished.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation.xml" value="0.1" />

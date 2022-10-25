@@ -60,8 +60,9 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
             @Override
             public void onClick(View v) {
-
-            startActivity(new Intent(MainActivity.this, SelectionMenuActivity.class));
+            Intent intent = new Intent(MainActivity.this, SelectionMenuActivity.class);
+            intent.putExtra("sendData","true");
+            startActivity(intent);
 
             }
         });

@@ -151,6 +151,7 @@ public class ModerationDailyStartActivity extends RobotActivity implements Robot
         if (chat != null) {
             chat.removeAllOnStartedListeners();
         }
+        finish();
     }
 
     @Override

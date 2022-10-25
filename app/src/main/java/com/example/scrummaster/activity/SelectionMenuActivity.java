@@ -41,6 +41,8 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
     Button btn_modDaily;
     Button btn_powerpoint;
     Phrase select = new Phrase(" Welche Aktion soll ich ausführen?") ;
+    String sendParticipantList;
+    Listen listen;
 
 
     @Override
@@ -53,9 +55,22 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         btn_modDaily= findViewById(R.id.btn_mod_daily);
         btn_modPunkte=findViewById(R.id.btn_mod_points);
         btn_powerpoint=findViewById(R.id.btn_powerpoint);
+        //Kopiert die Teilnehmerliste zur Nutzung für andere Activities
         copyParticipantList();
+
+        //Laden der Besprechungs Punkte
         getMeetingPoints();
+        //Kopieren der Besprechungs Punkte zur Nutzung in anderen Activities
         copyMeetingPointList();
+
+        //sobald diese Activity aus dem MainActivity gestartet wurde, wird die Teilnehmerliste an Gitlab geschickt
+        //wird sie aus  einer anderen Activity gestartet dann wird die Liste nicht erneut gesendet
+        Intent intent = getIntent();
+        sendParticipantList = intent.getStringExtra("sendData");
+        if (sendParticipantList != null){
+        sendParticipants();}      
+
+
 
         btn_modDaily.setOnClickListener(new View.OnClickListener() {
 
@@ -91,8 +106,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
             }
         });
 
-           //sobald die Activity gestartet wurde, wird die Teilnehmerliste an Gitlab geschickt
-      sendParticipants();
+
 
 
 
@@ -144,6 +158,72 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         });
 
     }
+
+
+    @Override
+    public void onRobotFocusGained(QiContext qiContext) {
+
+        //Phraseset für Moderation mit Punkten
+        PhraseSet modNotes= PhraseSetBuilder.with(qiContext)
+                                                .withTexts("Starte Moderation mit Punkten", "mit Punkten", "Punkte")
+                .build(
+
+                );
+
+        //Phraseset für DailyScrum Moderation
+        PhraseSet modDaily= PhraseSetBuilder.with(qiContext)
+                .withTexts("Starte Daily Scrum", "DailyScrum", "Daily")
+                .build();
+        //Phraseset für Powerpoint Karaoke
+        PhraseSet powerpoint= PhraseSetBuilder.with(qiContext)
+                .withTexts("Starte Power Point Karaoke", "Power Point", "Karaoke","Power Point Karaoke")
+                .build();
+
+
+        //Auswahlfrage
+        Say say = SayBuilder.with(qiContext)
+                .withPhrase(select)
+                .build();
+        say.run();
+
+        //Zuhören was der Nutzer sich aussucht
+        listen = ListenBuilder.with(qiContext)
+               .withPhraseSets(modNotes)
+              .withPhraseSets(modDaily)
+                .withPhraseSets(powerpoint)
+                .build();
+        ListenResult listenresult= listen.run();
+
+        // Das Gesagte in String umwandeln
+        String result = listenresult.getHeardPhrase().toString();
+
+        //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
+        if (modNotes.getPhrases().toString().contains(result) ) {
+            Intent i = new Intent(SelectionMenuActivity.this, ModerationNotesStartActivity.class);
+            i.putExtra("Bookmark","Start");
+            startActivity(i);}
+        if (modDaily.getPhrases().toString().contains(result)) {
+            startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyStartActivity.class));}
+        if (powerpoint.getPhrases().toString().contains(result)) {
+            startActivity(new Intent(SelectionMenuActivity.this,PowerPointStartActivity.class));}
+
+
+    }
+
+
+
+    @Override
+    public void onRobotFocusLost() {
+
+        listen.removeAllOnStartedListeners();
+        finish();
+    }
+
+    @Override
+    public void onRobotFocusRefused(String reason) {
+
+    }
+
 
     //Lädt die TeilnehmerListe und gibt diese zurück
     private ArrayList<String> loadParticipantList(){
@@ -204,68 +284,6 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         String jsonCopy = gsonCopy.toJson(meetingPointList);
         editor.putString("meetingPointListCopy",jsonCopy);
         editor.apply();
-
-    }
-
-    @Override
-    public void onRobotFocusGained(QiContext qiContext) {
-
-        //Phraseset für Moderation mit Punkten
-        PhraseSet modNotes= PhraseSetBuilder.with(qiContext)
-                                                .withTexts("Starte Moderation mit Punkten", "mit Punkten", "Punkte")
-                .build(
-
-                );
-
-        //Phraseset für DailyScrum Moderation
-        PhraseSet modDaily= PhraseSetBuilder.with(qiContext)
-                .withTexts("Starte Daily Scrum", "DailyScrum", "Daily")
-                .build();
-        //Phraseset für Powerpoint Karaoke
-        PhraseSet powerpoint= PhraseSetBuilder.with(qiContext)
-                .withTexts("Starte Power Point Karaoke", "Power Point", "Karaoke","Power Point Karaoke")
-                .build();
-
-
-        //Auswahlfrage
-        Say say = SayBuilder.with(qiContext)
-                .withPhrase(select)
-                .build();
-        say.run();
-
-        //Zuhören was der Nutzer sich aussucht
-        Listen listen = ListenBuilder.with(qiContext)
-               .withPhraseSets(modNotes)
-              .withPhraseSets(modDaily)
-                .withPhraseSets(powerpoint)
-                .build();
-        ListenResult listenresult= listen.run();
-
-        // Das Gesagte in String umwandeln
-        String result = listenresult.getHeardPhrase().toString();
-
-        //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
-        if (modNotes.getPhrases().toString().contains(result) ) {
-            Intent i = new Intent(SelectionMenuActivity.this, ModerationNotesStartActivity.class);
-            i.putExtra("Bookmark","Start");
-            startActivity(i);}
-        if (modDaily.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyStartActivity.class));}
-        if (powerpoint.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(SelectionMenuActivity.this,PowerPointStartActivity.class));}
-
-
-    }
-
-
-
-    @Override
-    public void onRobotFocusLost() {
-
-    }
-
-    @Override
-    public void onRobotFocusRefused(String reason) {
 
     }
 }

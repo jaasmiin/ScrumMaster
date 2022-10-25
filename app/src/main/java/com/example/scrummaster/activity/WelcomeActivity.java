@@ -57,6 +57,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
 
     @Override
     public void onRobotFocusLost() {
+        finish();
 
     }
 

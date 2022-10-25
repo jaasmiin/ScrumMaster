@@ -86,45 +86,47 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         if (meetingPointList.size()==0){
 
             Intent i = new Intent(ModerationNotesStartActivity.this, MeetingFinished.class);
-            startActivity(i);}
+            startActivity(i);} else {
 
-        // Create a topic.
-        topic = TopicBuilder.with(qiContext)
-                .withResource(R.raw.moderatenotes)
-                .build();
-        //BookmARK
-        Map<String, Bookmark> bookmarks = topic.getBookmarks();
-        // Create a qiChatbot
-        qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
-        // Build chat with the chatbotBuilder
-        chat = ChatBuilder
-                .with(qiContext)
-                .withChatbot(qiChatbot).build();
-
-
-        // Get the proposal bookmark
-        Intent intent = getIntent();
-        String s = intent.getStringExtra("Bookmark");
-        String b = setBookmark(s);
-        proposalBookmark = bookmarks.get(b);
-
-        chat.addOnStartedListener(this::sayProposal);
-
-        //create Variable
-        meetingPointDescription = meetingPointList.get(0).getDescription();
-
-        variable = qiChatbot.variable("meetingpoint");
-        variable.setValue(meetingPointDescription);
-        chat.async().run();
-        chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
+            // Create a topic.
+            topic = TopicBuilder.with(qiContext)
+                    .withResource(R.raw.moderatenotes)
+                    .build();
+            //BookmARK
+            Map<String, Bookmark> bookmarks = topic.getBookmarks();
+            // Create a qiChatbot
+            qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
+            // Build chat with the chatbotBuilder
+            chat = ChatBuilder
+                    .with(qiContext)
+                    .withChatbot(qiChatbot).build();
 
 
+            // Get the proposal bookmark
+            Intent intent = getIntent();
+            String s = intent.getStringExtra("Bookmark");
+            String b = setBookmark(s);
+            proposalBookmark = bookmarks.get(b);
+
+            chat.addOnStartedListener(this::sayProposal);
+
+            //create Variable
+
+            meetingPointDescription = meetingPointList.get(0).getDescription();
+
+            variable = qiChatbot.variable("meetingpoint");
+            variable.setValue(meetingPointDescription);
+            chat.async().run();
+            chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
+
+        }
         runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-
-                meetingpoint.setText(meetingPointDescription);
+                if (meetingPointDescription != null) {
+                    meetingpoint.setText(meetingPointDescription);
+                }
 
             }
         });
@@ -265,7 +267,7 @@ public class ModerationNotesStartActivity extends RobotActivity implements Robot
         if (chat != null) {
             chat.removeAllOnStartedListeners();
         }
-
+        finish();
 
     }
 
