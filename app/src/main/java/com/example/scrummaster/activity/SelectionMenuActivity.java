@@ -55,13 +55,9 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         btn_modDaily= findViewById(R.id.btn_mod_daily);
         btn_modPunkte=findViewById(R.id.btn_mod_points);
         btn_powerpoint=findViewById(R.id.btn_powerpoint);
-        //Kopiert die Teilnehmerliste zur Nutzung für andere Activities
-        copyParticipantList();
 
-        //Laden der Besprechungs Punkte
-        getMeetingPoints();
-        //Kopieren der Besprechungs Punkte zur Nutzung in anderen Activities
-        copyMeetingPointList();
+
+
 
         //sobald diese Activity aus dem MainActivity gestartet wurde, wird die Teilnehmerliste an Gitlab geschickt
         //wird sie aus  einer anderen Activity gestartet dann wird die Liste nicht erneut gesendet
@@ -162,6 +158,12 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
+        //Laden der Besprechungs Punkte
+        getMeetingPoints();
+        //Kopieren der Besprechungs Punkte zur Nutzung in anderen Activities
+        copyMeetingPointList();
+        //Kopiert die Teilnehmerliste zur Nutzung für andere Activities
+        copyParticipantList();
 
         //Phraseset für Moderation mit Punkten
         PhraseSet modNotes= PhraseSetBuilder.with(qiContext)

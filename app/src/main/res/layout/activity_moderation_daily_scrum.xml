@@ -59,30 +59,30 @@
 
     <TextView
         android:id="@+id/name2"
-        android:layout_width="411dp"
-        android:layout_height="160dp"
+        android:layout_width="301dp"
+        android:layout_height="114dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="name"
         android:gravity="center"
+        android:text="name"
         android:textColor="@android:color/black"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/countdown2"
-        app:layout_constraintHorizontal_bias="0.276"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.717" />
+        app:layout_constraintVertical_bias="0.699" />
 
     <TextView
         android:id="@+id/questionsofdailyscrum"
-        android:layout_width="1139dp"
-        android:layout_height="367dp"
+        android:layout_width="960dp"
+        android:layout_height="337dp"
         android:maxLines="10"
-        android:textSize="40sp"
-        tools:layout_editor_absoluteX="74dp"
         android:text=" Was hast du gestern zum Erreichen unseres Sprintziels getan?\n \n Was wirst du heutezum Erreichen unseres Sprintziels tun? \n\n Welche Hindernisse halten dich adavon ab, unser Sprintziel zu\n erreichen?"
-        tools:layout_editor_absoluteY="33dp" />
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="129dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

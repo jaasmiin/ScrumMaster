@@ -33,7 +33,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
     Button btn_scan;
     Button btn_selectionmnu;
-    ArrayList <String> participantList = new ArrayList<String>();
+
     Phrase scanOrSelect = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Auswahlmenü wechseln. Was möchtest du machen?");
 
 
@@ -49,23 +49,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         btn_scan =findViewById(R.id.btn_scan);
         btn_selectionmnu= findViewById(R.id.btn_selectionmnu);
 
-        //Beim klicken auf den Button "Scan" wird der BarcodeScanner geöffnet
-        btn_scan.setOnClickListener(v -> {scanCode();
 
-        });
-        //Beim klicken auf den Button "Auswahlmenü" wechselt die View zum Auswahlmenü, und die
-        //Teilnehmerliste wird in Gitlab geposted
-
-        btn_selectionmnu.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, SelectionMenuActivity.class);
-            intent.putExtra("sendData","true");
-            startActivity(intent);
-
-            }
-        });
 
 
 
@@ -87,13 +71,13 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         if (result.getContents() != null) {
             result.getContents();
 
-            //saveParticipantList(result.getContents());
+          //  saveParticipantList(result.getContents());
 
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
             //Mit dem Intent wird der gescannte Name an die WelcomeActivity übergeben, damit man
             //dort den Teilnehmerpersönlich begrüßen kann
             Intent intent = new Intent (MainActivity.this, WelcomeActivity.class);
-            intent.putExtra("teilnehmer",result.getContents());
+            intent.putExtra("participant",result.getContents());
             startActivity(intent);
 
             //Wenn die Liste bis zum schließen der App behalten werden soll dann muss das Shae´red Preferences hier mit rein
@@ -102,23 +86,28 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             Gson gson = new Gson();
+
+          /* if (!result.getContents().contains("Gast")){
             participantList.add(result.getContents());
             String json = gson.toJson(participantList);
             editor.putString("participantList",json);
-            editor.apply();
+            editor.apply();}*/
 
         }
     });
 
     //Methode speichert die Teilnehmerliste
        private void saveParticipantList(String participant){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        participantList.add(participant);
-        String json = gson.toJson(participantList);
-        editor.putString("participantList",json);
-        editor.commit();
+           if (participant != null) {
+               ArrayList <String> participantList = new ArrayList<String>();
+               SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
+               SharedPreferences.Editor editor = sharedPreferences.edit();
+               Gson gson = new Gson();
+               participantList.add(participant);
+               String json = gson.toJson(participantList);
+               editor.putString("participantList", json);
+               editor.commit();
+           }
 
       }
 
@@ -133,9 +122,24 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
-        saveParticipantList("PeterPan");
-        saveParticipantList("Jasmin");
-        saveParticipantList("Temur");
+        //Beim klicken auf den Button "Scan" wird der BarcodeScanner geöffnet
+        btn_scan.setOnClickListener(v -> {scanCode();
+
+        });
+        //Beim klicken auf den Button "Auswahlmenü" wechselt die View zum Auswahlmenü, und die
+        //Teilnehmerliste wird in Gitlab geposted
+
+        btn_selectionmnu.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SelectionMenuActivity.class);
+                intent.putExtra("sendData","true");
+                startActivity(intent);
+
+            }
+        });
+
         //Auswahlfrage
         Say say = SayBuilder.with(qiContext)
                 .withPhrase(scanOrSelect)
@@ -143,7 +147,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         say.run();
         //Phraseset für Scannen
         PhraseSet scan= PhraseSetBuilder.with(qiContext)
-                .withTexts("Code ", "")
+                .withTexts("Code", "")
                 .build();
 
         //Phraseset für Auswahlmenü
@@ -165,7 +169,11 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         if (scan.getPhrases().toString().contains(result) ) {
             startActivity(new Intent(MainActivity.this,CaptureAct.class));}
         if (selectionmnu.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(MainActivity.this, SelectionMenuActivity.class));}
+            Intent intent = new Intent(MainActivity.this, SelectionMenuActivity.class);
+            intent.putExtra("sendData","true");
+            startActivity(intent);
+
+            startActivity(intent);}
 
     }
 
