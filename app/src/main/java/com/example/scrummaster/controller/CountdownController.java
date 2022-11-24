@@ -8,9 +8,6 @@ import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
-import com.aldebaran.qi.Future;
-import com.aldebaran.qi.sdk.object.conversation.Phrase;
-import com.example.scrummaster.activity.MeetingFinished;
 import com.example.scrummaster.activity.ModerationDailyScrumActivity;
 import com.example.scrummaster.activity.ModerationNotesActivity;
 import com.example.scrummaster.datamodel.MeetingPoints;
@@ -19,7 +16,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class CountdownController {
@@ -37,16 +33,7 @@ public class CountdownController {
     }
 
 
-   public void startTimer(TextView countdownDisplay, TextView name, TextView point, Context c){
-
-       List<MeetingPoints> meetingPointsList= loadMeetingPoints(c);
-       //ArrayList<String> participantList = loadTeilnehmerListe(c);
-       ArrayList<String> participantList = new ArrayList<>();
-       participantList.add("Name1");
-       participantList.add("Name2");
-
-       int sizeofParticipantList = participantList.size();
-       int sizeofMeetingPointList = meetingPointsList.size();
+   public void startTimer(TextView countdownDisplay){
 
         countDownTimer = new CountDownTimer(timeleft,100) {
             @Override
@@ -55,40 +42,13 @@ public class CountdownController {
                 updateCountdownText(countdownDisplay);
 
 
-                if (i<sizeofParticipantList){
-                    Future say;
-                    Phrase speaker= new Phrase(meetingPointsList.get(i) +" Sag was dazu");
-                    point.setText(meetingPointsList.get(j).getDescription());
-                    name.setText(participantList.get(i));
-                    SharedPreferences sharedPreferences = c.getSharedPreferences("shared preferences",MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("nameOfspeaker",participantList.get(i));
-                    editor.commit();
-
-
-                }
-                        else
-                        { if (j < sizeofMeetingPointList-1)
-                                { i=0;
-                                    j = j + 1;
-                                }
-                                        else {
-                                                 Intent intent = new Intent(c, MeetingFinished.class);
-                                                 c.startActivity(intent);
-                                        }
-                        }
-
             }
 
             @Override
             public void onFinish() {
                 timerstatus = false;
                 timeleft = START_TIME_IN_MILLIS;
-                i= i+1;
-
-
-
-            }
+                       }
 
 
         }.start();

@@ -7,13 +7,29 @@ public class MeetingPoints {
 
     @SerializedName("id")
    private String id;
+
     @SerializedName("state_event")
     private String state;
-    @SerializedName("title")
 
+    @SerializedName("title")
     private String title;
+
     @SerializedName("description")
     private String description;
+
+    @SerializedName("weight")
+    private int weight;
+
+    @SerializedName("iid")
+    private int iid;
+
+    public int getIid() {
+        return iid;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
 
     public String getId() {
         return id;

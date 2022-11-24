@@ -19,6 +19,18 @@
         android:theme="@style/Theme.ScrumMaster"
         tools:targetApi="31">
         <activity
+            android:name=".SprintBacklogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PlanningMeeting_Start"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Backlog_Meeting_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BacklogActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
         <activity

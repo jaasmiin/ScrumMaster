@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
@@ -22,6 +22,7 @@ import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.datamodel.PostNotes;
+import com.example.scrummaster.service.BacklogService;
 import com.example.scrummaster.service.MeetingPointsService;
 import com.example.scrummaster.service.PostNoteService;
 import com.example.scrummaster.service.RetrofitService;
@@ -37,9 +38,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SelectionMenuActivity extends RobotActivity implements RobotLifecycleCallbacks {
-    Button btn_modPunkte;
-    Button btn_modDaily;
-    Button btn_powerpoint;
+    ImageButton btn_planning;
+    ImageButton btn_modDaily;
+    ImageButton btn_retrospektive;
+    ImageButton btn_review;
     Phrase select = new Phrase(" Welche Aktion soll ich ausführen?") ;
     String sendParticipantList;
     Listen listen;
@@ -53,9 +55,11 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         QiSDK.register(this, this);
         setContentView(R.layout.activity_selectionmenu);
         btn_modDaily= findViewById(R.id.btn_mod_daily);
-        btn_modPunkte=findViewById(R.id.btn_mod_points);
-        btn_powerpoint=findViewById(R.id.btn_powerpoint);
+        btn_retrospektive=findViewById(R.id.btn_retrospektive);
+        btn_planning=findViewById(R.id.btn_planning);
+       btn_review= findViewById(R.id.btn_review);
 
+        getIssues();
 
 
 
@@ -78,19 +82,19 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
             }
         });
 
-        btn_modPunkte.setOnClickListener(new View.OnClickListener() {
+        btn_planning.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 //Übergebe den Wert "Start" für den Bookmark in der ModerationNotesStartActivity und öffnen dieser Activity
-                Intent i_ModerationNotes = new Intent(SelectionMenuActivity.this, ModerationNotesStartActivity.class);
+                Intent i_ModerationNotes = new Intent(SelectionMenuActivity.this, BacklogActivity.class);
                 i_ModerationNotes.putExtra("Bookmark","Start");
                 startActivity(i_ModerationNotes);
 
             }
         });
 
-        btn_powerpoint.setOnClickListener(new View.OnClickListener() {
+        btn_retrospektive.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -188,7 +192,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
                 .build();
         say.run();
 
-        //Zuhören was der Nutzer sich aussucht
+        //Zuhören was der Nutzer sich
         listen = ListenBuilder.with(qiContext)
                .withPhraseSets(modNotes)
               .withPhraseSets(modDaily)
@@ -236,7 +240,12 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         Type type= new TypeToken<ArrayList<String>>(){}.getType();
         participantList = gson.fromJson(json,type);
 
-        return participantList;
+        ArrayList <String> TEST= new ArrayList<>();
+        TEST.add("jasmin");
+        TEST.add("Liyana");
+
+        return TEST;
+       // return participantList;
     }
 
     //Wandelt eine StringListe in einen String um und gibt diese aus
@@ -286,6 +295,30 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         String jsonCopy = gsonCopy.toJson(meetingPointList);
         editor.putString("meetingPointListCopy",jsonCopy);
         editor.apply();
+
+    }
+    //Holt die zu MeetingPointListe über gitlab
+    public void getIssues() {
+
+        RetrofitService.getRetrofitInstance().create(BacklogService.class).getIssues().enqueue(new Callback<List<MeetingPoints>>() {
+            @Override
+            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+                Log.i("Retrofit", new Gson().toJson(response.body()));
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Gson gson = new Gson();
+                List<MeetingPoints> meetingPointsList= response.body();
+                String json = gson.toJson(meetingPointsList);
+                editor.putString("IssueList",json);
+                editor.apply();
+            }
+
+            @Override
+            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+                String fail =t.getCause().toString();
+                Log.e("Retrofit",fail);
+            }
+        });
 
     }
 }

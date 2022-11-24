@@ -8,64 +8,64 @@
 
     <ImageButton
         android:id="@+id/btn_happy_1"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="180dp"
+        android:layout_height="168dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/happy_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btn_happy_4"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="137dp"
+        android:layout_height="142dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/happy_4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.246"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_happy_1"
-        app:layout_constraintVertical_bias="0.426" />
+        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintStart_toEndOf="@+id/btn_happy_3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.483" />
 
     <ImageButton
         android:id="@+id/btn_happy_5"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="150dp"
+        android:layout_height="125dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/happy_5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.443"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.283"
+        app:layout_constraintStart_toEndOf="@+id/btn_happy_4"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.886" />
+        app:layout_constraintVertical_bias="0.484" />
 
     <ImageButton
         android:id="@+id/btn_happy_2"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="148dp"
+        android:layout_height="164dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/happy_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_happy_3"
-        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintHorizontal_bias="0.245"
         app:layout_constraintStart_toEndOf="@+id/btn_happy_1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btn_happy_3"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="150dp"
+        android:layout_height="169dp"
 
-        android:layout_marginStart="880dp"
+        android:layout_marginStart="508dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/happy_3"

@@ -59,7 +59,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         QiSDK.register(this,this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moderationnotes);
-        countdown = findViewById(R.id.countdown);
+        countdown = findViewById(R.id.backlog_countdown);
         btn_stop = findViewById(R.id.done);
         btn_start= findViewById(R.id.startc);
         name= (TextView) findViewById(R.id.name);

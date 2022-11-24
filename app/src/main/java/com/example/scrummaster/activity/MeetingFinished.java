@@ -33,6 +33,7 @@ public class MeetingFinished extends RobotActivity implements RobotLifecycleCall
         setContentView(R.layout.activity_meeting_finished);
         btn_happinesIndex = findViewById(R.id.btn_happinessIndex);
         btn_menu = findViewById(R.id.btn_menu);
+        btn_happinesIndex.setBackgroundResource(R.drawable.backrount_button_1);
 
         btn_happinesIndex.setOnClickListener(new View.OnClickListener() {
 

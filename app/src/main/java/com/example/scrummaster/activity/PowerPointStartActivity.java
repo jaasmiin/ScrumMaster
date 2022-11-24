@@ -157,7 +157,12 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
         String json = sharedPreferences.getString("participantListCopy",null);
         Type type= new TypeToken<ArrayList<String>>(){}.getType();
         participantList = gson.fromJson(json,type);
-        return participantList;
+        ArrayList <String> TEST= new ArrayList<>();
+        TEST.add("jasmin");
+        TEST.add("Liyana");
+
+        return TEST;
+        //return participantList;
     }
 
 

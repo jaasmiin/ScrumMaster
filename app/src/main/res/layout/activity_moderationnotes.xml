@@ -8,7 +8,7 @@
     tools:context=".activity.ModerationNotesActivity">
 
     <TextView
-        android:id="@+id/countdown"
+        android:id="@+id/backlog_countdown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -37,7 +37,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/startc"
-        app:layout_constraintTop_toBottomOf="@+id/countdown"
+        app:layout_constraintTop_toBottomOf="@+id/backlog_countdown"
         app:layout_constraintVertical_bias="0.583" />
 
     <Button
@@ -55,7 +55,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countdown"
+        app:layout_constraintTop_toBottomOf="@+id/backlog_countdown"
         app:layout_constraintVertical_bias="0.518" />
 
     <TextView
@@ -68,7 +68,7 @@
         android:textSize="40sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/countdown"
+        app:layout_constraintEnd_toStartOf="@+id/backlog_countdown"
         app:layout_constraintHorizontal_bias="0.276"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -81,7 +81,7 @@
         android:layout_marginStart="16dp"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/countdown"
+        app:layout_constraintBottom_toTopOf="@+id/backlog_countdown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.599" />
