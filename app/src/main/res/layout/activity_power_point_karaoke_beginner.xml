@@ -9,8 +9,8 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager_beginner"
-        android:layout_width="836dp"
-        android:layout_height="404dp"
+        android:layout_width="833dp"
+        android:layout_height="465dp"
         android:paddingStart="80dp"
         android:paddingEnd="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/beginner_done"
-        android:layout_width="171dp"
-        android:layout_height="59dp"
+        android:layout_width="164dp"
+        android:layout_height="46dp"
         android:backgroundTint="@color/kit"
         android:text="Fertig"
         app:layout_constraintBottom_toBottomOf="parent"

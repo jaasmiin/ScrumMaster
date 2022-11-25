@@ -7,25 +7,36 @@
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/drawable/button_backround.xml" value="0.17" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/drawable/ic_launcher_background.xml" value="0.215" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_auswahlmenue.xml" value="0.1" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_backlog.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_backlog.xml" value="0.22" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_backlog_meeting.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_happiness_index.xml" value="0.18046875" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_daily_questions.xml" value="0.24296875" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_daily_sprint_backlog.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_daily_sprint_backog_item.xml" value="0.45703125" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_daily_start.xml" value="0.24296875" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_happiness_index.xml" value="0.5" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_happyness_index.xml" value="0.1" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_meeting_finished.xml" value="0.2390625" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_main.xml" value="0.51640625" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_meeting_finished.xml" value="0.2501068832834545" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation.xml" value="0.1" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_daily_scrum.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_daily_scrum.xml" value="0.22" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_daily_start_acrivity.xml" value="0.15234375" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_daily_start_activity.xml" value="0.15234375" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_notes_start.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderation_notes_start.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderationnotes.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_moderationpunkte.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_planning_backlog.xml" value="0.24296875" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_planning_backlog_item.xml" value="0.5" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_planning_meeting_start.xml" value="0.13296280461735785" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_power_point_advanced.xml" value="0.1" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_planning_sprint_backlog.xml" value="0.24296875" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_planning_sprint_backlog_item.xml" value="0.45703125" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_planning_start.xml" value="0.24296875" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_power_point_advanced.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_power_point_karaoke.xml" value="0.1" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_power_point_karaoke_beginner.xml" value="0.18046875" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_power_point_start.xml" value="0.15234375" />
-        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_selectionmenu.xml" value="0.2501068832834545" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_power_point_karaoke_beginner.xml" value="0.5" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_power_point_start.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_selectionmenu.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_sprint_backlog.xml" value="0.12141941000427534" />
+        <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_sprint_backlog_meeting.xml" value="0.13296280461735785" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_start.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/activity_willkommen.xml" value="0.1" />
         <entry key="..\:/Users/jasmi/AndroidStudioProjects/ScrumMaster/app/src/main/res/layout/item.xml" value="0.15182291666666667" />

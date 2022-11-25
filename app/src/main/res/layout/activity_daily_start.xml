@@ -4,44 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PowerPointStartActivity">
+    tools:context=".activity.daily.DailyStartActivity">
 
-    <Button
-        android:id="@+id/btn_beginner"
-        android:layout_width="399dp"
-        android:layout_height="165dp"
-        android:backgroundTint="@color/kit"
-        android:text="Anfänger"
-        android:textSize="33sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/welcomedaily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="Daily Scrum"
+        android:textSize="80sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.467" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_advanced"
-        android:layout_width="399dp"
-        android:layout_height="165dp"
+        android:id="@+id/startmdaily"
+        android:layout_width="867dp"
+        android:layout_height="120dp"
         android:backgroundTint="@color/kit"
-        android:text="Fortgeschritten"
-        android:textSize="33sp"
+        android:text="Start"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toEndOf="@+id/btn_beginner"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.467" />
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomedaily"
+        app:layout_constraintVertical_bias="0.37" />
 
     <Button
-        android:id="@+id/planningToFinish"
+        android:id="@+id/dailyTomenu"
         android:layout_width="135dp"
         android:layout_height="48dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:backgroundTint="@color/kit"
-        android:text="Fertig"
+        android:text="Menü"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

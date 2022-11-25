@@ -8,44 +8,45 @@
 
     <ImageButton
         android:id="@+id/btn_happy_1"
-        android:layout_width="180dp"
-        android:layout_height="168dp"
+        android:layout_width="148dp"
+        android:layout_height="164dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/happy_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.496" />
 
     <ImageButton
         android:id="@+id/btn_happy_4"
-        android:layout_width="137dp"
-        android:layout_height="142dp"
+        android:layout_width="148dp"
+        android:layout_height="164dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/happy_4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toEndOf="@+id/btn_happy_3"
+        app:layout_constraintHorizontal_bias="0.74"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintVertical_bias="0.485" />
 
     <ImageButton
         android:id="@+id/btn_happy_5"
-        android:layout_width="150dp"
-        android:layout_height="125dp"
+        android:layout_width="148dp"
+        android:layout_height="164dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/happy_5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.283"
-        app:layout_constraintStart_toEndOf="@+id/btn_happy_4"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.484" />
+        app:layout_constraintVertical_bias="0.485" />
 
     <ImageButton
         android:id="@+id/btn_happy_2"
@@ -55,23 +56,52 @@
         android:scaleType="fitCenter"
         android:src="@drawable/happy_2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_happy_3"
-        app:layout_constraintHorizontal_bias="0.245"
-        app:layout_constraintStart_toEndOf="@+id/btn_happy_1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.313"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.496" />
 
     <ImageButton
         android:id="@+id/btn_happy_3"
-        android:layout_width="150dp"
-        android:layout_height="169dp"
+        android:layout_width="148dp"
+        android:layout_height="164dp"
 
-        android:layout_marginStart="508dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"
         android:src="@drawable/happy_3"
         app:layout_constraintBottom_toBottomOf="parent"
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <Button
+        android:id="@+id/happiness_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="92dp"
+        android:backgroundTint="@color/kit"
+        android:text="Menü"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.914" />
+
+    <TextView
+        android:id="@+id/happines_headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wie fühlst du dich aktuell?"
+        android:textSize="50sp"
+        android:textColor="@color/kit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.153" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

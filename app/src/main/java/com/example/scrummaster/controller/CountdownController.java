@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
-import com.example.scrummaster.activity.ModerationDailyScrumActivity;
+import com.example.scrummaster.activity.daily.DailyQuestionsActivity;
 import com.example.scrummaster.activity.ModerationNotesActivity;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.google.gson.Gson;
@@ -73,7 +73,7 @@ public class CountdownController {
             public void onFinish() {
                 timerstatus = false;
                 timeleft = START_TIME_IN_MILLIS;
-                Intent intent = new Intent(c, ModerationDailyScrumActivity.class);
+                Intent intent = new Intent(c, DailyQuestionsActivity.class);
                 c.startActivity(intent);
             }
 

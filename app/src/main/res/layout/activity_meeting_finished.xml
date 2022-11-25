@@ -9,29 +9,27 @@
 
     <ImageButton
         android:id="@+id/btn_menu"
-        android:layout_width="612dp"
-        android:layout_height="620dp"
+        android:layout_width="499dp"
+        android:layout_height="547dp"
         android:background="@drawable/menu_button"
-
-
-
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.255" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_happinessIndex"
-        android:layout_width="632dp"
-        android:layout_height="625dp"
-        android:layout_marginStart="636dp"
-        android:text="Stimmung"
+        android:layout_width="471dp"
+        android:layout_height="548dp"
+        android:layout_marginStart="496dp"
+        android:background="@drawable/happines_button_5"
+        android:text="Happiness Index"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.247" />
+        app:layout_constraintVertical_bias="0.4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

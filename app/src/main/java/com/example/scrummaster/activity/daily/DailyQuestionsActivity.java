@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity;
+package com.example.scrummaster.activity.daily;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ModerationDailyScrumActivity extends RobotActivity implements RobotLifecycleCallbacks {
+public class DailyQuestionsActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private TextView countdown;
     private CountdownController mcountdown = new CountdownController(5000,5000);
     private Button btn_done;
@@ -51,16 +51,12 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
     private Bookmark proposalBookmark;
     private List<String> participantList = new ArrayList<>();
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         QiSDK.register(this,this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moderation_daily_scrum);
+        setContentView(R.layout.activity_daily_questions);
         countdown = findViewById(R.id.countdown2);
         btn_done = findViewById(R.id.done2);
         name= (TextView) findViewById(R.id.name2);
@@ -72,61 +68,62 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
     public void onRobotFocusGained(QiContext qiContext) {
         participantList = loadParticipantListCopy();
         if (participantList.size()==0){
-            Intent i = new Intent(ModerationDailyScrumActivity.this,MeetingFinished.class);
+            Intent i = new Intent(DailyQuestionsActivity.this, DailySprintBacklog.class);
             startActivity(i);}
-        // Create a topic.
-       topic = TopicBuilder.with(qiContext)
-                .withResource(R.raw.moderatedaily)
-                .build();
+        else {
+            // Create a topic.
+            topic = TopicBuilder.with(qiContext)
+                    .withResource(R.raw.moderatedaily)
+                    .build();
 
-        // Create a qiChatbot
-        qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
+            // Create a qiChatbot
+            qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
 
-        Map<String, QiChatExecutor> executors = new HashMap<>();
+            Map<String, QiChatExecutor> executors = new HashMap<>();
 
-        // Map the executor name from the topic to our qiChatExecutor
-        executors.put("start", new ModerateNotesQiChatExecutor(qiContext));
+            // Map the executor name from the topic to our qiChatExecutor
+            executors.put("start", new ModerateNotesQiChatExecutor(qiContext));
 
-        // Set the executors to the qiChatbot
-        qiChatbot.setExecutors(executors);
+            // Set the executors to the qiChatbot
+            qiChatbot.setExecutors(executors);
 
-        // Build chat with the chatbotBuilder
-      chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).build();
+            // Build chat with the chatbotBuilder
+            chat = ChatBuilder.with(qiContext).withChatbot(qiChatbot).build();
 
-       //Create variable
-        nameVariable = qiChatbot.variable("namedaily");
-        nameVariable.setValue(participantList.get(0));
+            //Create variable
+            nameVariable = qiChatbot.variable("namedaily");
+            nameVariable.setValue(participantList.get(0));
 
 // Get the bookmarks from the topic.
-        Map<String, Bookmark> bookmarks = topic.getBookmarks();
+            Map<String, Bookmark> bookmarks = topic.getBookmarks();
 // Get the proposal bookmark
-        proposalBookmark = bookmarks.get("first");
-        chat.addOnStartedListener(this::sayProposal);
+            proposalBookmark = bookmarks.get("first");
+            chat.addOnStartedListener(this::sayProposal);
 
-        // Run an action asynchronously.
-        chat.async().run();
-        chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
+            // Run an action asynchronously.
+            chat.async().run();
+            chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
 
-        btn_start.setOnClickListener(new View.OnClickListener() {
+            btn_start.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                name.setText(participantList.get(0));
-                mcountdown.startTimerDaily(countdown,ModerationDailyScrumActivity.this);
-                overridePendingTransition(0, 0);
-                deleteParticipantListEntry();
-            }
-        });
-        btn_done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    name.setText(participantList.get(0));
+                    mcountdown.startTimerDaily(countdown, DailyQuestionsActivity.this);
+                    overridePendingTransition(0, 0);
+                    deleteParticipantListEntry();
+                }
+            });
+            btn_done.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                mcountdown.reset(countdown);
-                Intent intent = new Intent(ModerationDailyScrumActivity.this, ModerationDailyScrumActivity.class);
-                startActivity(intent);
-            }
-        });
-
+                @Override
+                public void onClick(View v) {
+                    mcountdown.reset(countdown);
+                    Intent intent = new Intent(DailyQuestionsActivity.this, DailyQuestionsActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
     }
     private void assignVariable(String value) {
@@ -147,12 +144,14 @@ public class ModerationDailyScrumActivity extends RobotActivity implements Robot
 
         ArrayList <String> participantList;
 
+
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("participantListCopy",null);
         Type type= new TypeToken<ArrayList<String>>(){}.getType();
         participantList = gson.fromJson(json,type);
-        return participantList;
+       return participantList;
+
     }
     //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
     private void deleteParticipantListEntry() {

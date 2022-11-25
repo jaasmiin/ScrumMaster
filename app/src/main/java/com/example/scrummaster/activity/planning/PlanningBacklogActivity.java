@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity;
+package com.example.scrummaster.activity.planning;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class BacklogActivity extends RobotActivity implements RobotLifecycleCallbacks {
+public class PlanningBacklogActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private Button userStory_1;
     private Button userStory_2;
     private Button userStory_3;
@@ -33,7 +33,7 @@ public class BacklogActivity extends RobotActivity implements RobotLifecycleCall
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this, this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_backlog);
+        setContentView(R.layout.activity_planning_backlog);
 
         userStory_1 = findViewById(R.id.userStory_1);
         userStory_2 = findViewById(R.id.userStory_2);
@@ -86,7 +86,7 @@ public class BacklogActivity extends RobotActivity implements RobotLifecycleCall
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(BacklogActivity.this, Backlog_Meeting_Activity.class);
+                Intent intent = new Intent(PlanningBacklogActivity.this, PlanningBacklogItemActivity.class);
                 intent.putExtra("title",backlogList.get(0).getTitle());
                 intent.putExtra("description",backlogList.get(0).getDescription());
                 intent.putExtra("iid",backlogList.get(0).getIid());
@@ -99,7 +99,7 @@ public class BacklogActivity extends RobotActivity implements RobotLifecycleCall
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(BacklogActivity.this, Backlog_Meeting_Activity.class);
+                Intent intent = new Intent(PlanningBacklogActivity.this, PlanningBacklogItemActivity.class);
                 intent.putExtra("title",backlogList.get(1).getTitle());
                 intent.putExtra("description",backlogList.get(1).getDescription());
                 intent.putExtra("iid",backlogList.get(1).getIid());
@@ -112,7 +112,7 @@ public class BacklogActivity extends RobotActivity implements RobotLifecycleCall
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(BacklogActivity.this, Backlog_Meeting_Activity.class);
+                Intent intent = new Intent(PlanningBacklogActivity.this, PlanningBacklogItemActivity.class);
                 intent.putExtra("title",backlogList.get(2).getTitle());
                 intent.putExtra("description",backlogList.get(2).getDescription());
                 intent.putExtra("iid",backlogList.get(2).getIid());
@@ -125,7 +125,7 @@ public class BacklogActivity extends RobotActivity implements RobotLifecycleCall
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(BacklogActivity.this, Backlog_Meeting_Activity.class);
+                Intent intent = new Intent(PlanningBacklogActivity.this, PlanningBacklogItemActivity.class);
                 intent.putExtra("title",backlogList.get(3).getTitle());
                 intent.putExtra("description",backlogList.get(3).getDescription());
                 intent.putExtra("iid",backlogList.get(3).getIid());
@@ -138,7 +138,7 @@ public class BacklogActivity extends RobotActivity implements RobotLifecycleCall
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(BacklogActivity.this, Backlog_Meeting_Activity.class);
+                Intent intent = new Intent(PlanningBacklogActivity.this, PlanningBacklogItemActivity.class);
                 intent.putExtra("title",backlogList.get(4).getTitle());
                 intent.putExtra("description",backlogList.get(4).getDescription());
                 intent.putExtra("iid",backlogList.get(4).getIid());
@@ -151,7 +151,7 @@ public class BacklogActivity extends RobotActivity implements RobotLifecycleCall
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(BacklogActivity.this, Backlog_Meeting_Activity.class);
+                Intent intent = new Intent(PlanningBacklogActivity.this, PlanningBacklogItemActivity.class);
                 intent.putExtra("title",backlogList.get(5).getTitle());
                 intent.putExtra("description",backlogList.get(5).getDescription());
                 intent.putExtra("iid",backlogList.get(5).getIid());
@@ -176,7 +176,7 @@ public class BacklogActivity extends RobotActivity implements RobotLifecycleCall
 
 
 
-    //Lädt die gespeicherte MeetingPointListe aus sharedPreferences
+    //Lädt die gespeicherte Backlog Items aus sharedPreferences
     private ArrayList<MeetingPoints> loadIssues(){
         ArrayList<MeetingPoints> issueList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
@@ -196,7 +196,7 @@ public class BacklogActivity extends RobotActivity implements RobotLifecycleCall
 
     @Override
     public void onRobotFocusLost() {
-
+        finish();
     }
 
     @Override

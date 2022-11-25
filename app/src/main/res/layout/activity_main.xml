@@ -8,30 +8,29 @@
     tools:context=".activity.MainActivity">
 
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_selectionmnu"
-        android:layout_width="393dp"
-        android:layout_height="103dp"
-        android:backgroundTint="@color/kit"
-        android:text="Menü"
+        android:layout_width="462dp"
+        android:layout_height="538dp"
+        android:background="@drawable/menu_button"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.864"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.863" />
+        app:layout_constraintVertical_bias="0.38" />
 
-    <Button
-        android:backgroundTint="@color/kit"
+    <ImageButton
         android:id="@+id/btn_scan"
-        android:layout_width="393dp"
-        android:layout_height="103dp"
-        android:text="Scannen"
+        android:layout_width="499dp"
+        android:layout_height="539dp"
+        android:background="@drawable/scan_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_selectionmnu"
-        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.863" />
+        app:layout_constraintVertical_bias="0.333" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity;
+package com.example.scrummaster.activity.planning;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +20,8 @@ import com.example.scrummaster.service.RetrofitService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-public class Backlog_Meeting_Activity extends RobotActivity implements RobotLifecycleCallbacks {
+//
+public class PlanningBacklogItemActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
         private TextView title;
         private TextView description;
@@ -36,7 +36,7 @@ public class Backlog_Meeting_Activity extends RobotActivity implements RobotLife
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this, this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_backlog_meeting);
+        setContentView(R.layout.activity_planning_backlog_item);
         Intent intent =getIntent();
         title = findViewById(R.id.backlog_title);
         description = findViewById(R.id.backlog_description);
@@ -70,7 +70,7 @@ public class Backlog_Meeting_Activity extends RobotActivity implements RobotLife
             @Override
             public void onClick(View v) {
               updateBacklogList(intent.getIntExtra("iid",0));
-                Intent i = new Intent(Backlog_Meeting_Activity.this,BacklogActivity.class);
+                Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningBacklogActivity.class);
                 startActivity(i);
             }
         });
@@ -79,7 +79,7 @@ public class Backlog_Meeting_Activity extends RobotActivity implements RobotLife
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Backlog_Meeting_Activity.this,BacklogActivity.class);
+                Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningBacklogActivity.class);
                 startActivity(i);
             }
         });
@@ -91,7 +91,7 @@ public class Backlog_Meeting_Activity extends RobotActivity implements RobotLife
 
 
         //ServerDaten
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).updateBacklogItem(i).enqueue(new Callback<MeetingPoints>() {
+        RetrofitService.getRetrofitInstance().create(BacklogService.class).setStatusSprintBoard(i).enqueue(new Callback<MeetingPoints>() {
             @Override
             public void onResponse(Call<MeetingPoints> call, Response<MeetingPoints> response) {
                 Log.i("Retrofit", response.toString());
@@ -112,7 +112,7 @@ public class Backlog_Meeting_Activity extends RobotActivity implements RobotLife
 
     @Override
     public void onRobotFocusLost() {
-
+        finish();
     }
 
     @Override

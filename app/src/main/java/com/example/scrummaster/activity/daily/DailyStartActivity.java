@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity;
+package com.example.scrummaster.activity.daily;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -27,15 +27,23 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
 import com.example.scrummaster.controller.ModerateDailyStartQiChatExecutor;
+import com.example.scrummaster.datamodel.MeetingPoints;
+import com.example.scrummaster.service.BacklogService;
+import com.example.scrummaster.service.RetrofitService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class ModerationDailyStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class DailyStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
     Topic topic;
     QiChatbot qiChatbot;
     Chat chat;
@@ -43,16 +51,17 @@ public class ModerationDailyStartActivity extends RobotActivity implements Robot
     private Bookmark proposalBookmark;
     Button btn_start;
     TextView welcome;
-    private static ModerationDailyStartActivity instance;
+    private static DailyStartActivity instance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moderation_daily_start_activity);
+        setContentView(R.layout.activity_daily_start);
         QiSDK.register(this, this);
         btn_start= findViewById(R.id.startmdaily);
         welcome = findViewById(R.id.welcomedaily);
         instance = this;
         copyParticipantList();
+        getSprintBacklog();
 
     }
 
@@ -98,7 +107,7 @@ public class ModerationDailyStartActivity extends RobotActivity implements Robot
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(ModerationDailyStartActivity.this, ModerationDailyScrumActivity.class);
+                Intent intent = new Intent(DailyStartActivity.this, DailyQuestionsActivity.class);
                 startActivity(intent);
             }
         });
@@ -111,7 +120,7 @@ public class ModerationDailyStartActivity extends RobotActivity implements Robot
                 AutonomousReactionValidity.IMMEDIATE);
     }
     //Gibt die instance dieser Activity zurück
-    public static  ModerationDailyStartActivity getInstance(){
+    public static DailyStartActivity getInstance(){
         return instance;
 
     }
@@ -129,7 +138,12 @@ public class ModerationDailyStartActivity extends RobotActivity implements Robot
     }
     //Kopiert die Teilnehmerliste
     private void copyParticipantList (){
+
+
         ArrayList<String> participantList;
+        ArrayList<String> TEST = new ArrayList<>();
+        TEST.add("Jasmin");
+        TEST.add("Aliyah");
         //Die Origonal TeilnehmerListe laden
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -139,12 +153,36 @@ public class ModerationDailyStartActivity extends RobotActivity implements Robot
         //Die OriginalTeilnehmerListe als Kopie speichern
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gsonCopy = new Gson();
-        String jsonCopy = gsonCopy.toJson(participantList);
+        String jsonCopy = gsonCopy.toJson(TEST);
         editor.putString("participantListCopy",jsonCopy);
         editor.apply();
 
     }
 
+    //Holt die  IssueListe mit dem Label SprintBacklog über gitlab und speichert sie in shared Preferences
+    public void getSprintBacklog() {
+
+        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<MeetingPoints>>() {
+            @Override
+            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+                Log.i("Retrofit", new Gson().toJson(response.body()));
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Gson gson = new Gson();
+                List<MeetingPoints> meetingPointsList= response.body();
+                String json = gson.toJson(meetingPointsList);
+                editor.putString("SprintBoard",json);
+                editor.apply();
+            }
+
+            @Override
+            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+                String fail =t.getCause().toString();
+                Log.e("Retrofit",fail);
+            }
+        });
+
+    }
 
     @Override
     public void onRobotFocusLost() {

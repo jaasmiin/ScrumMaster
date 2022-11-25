@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.result.ActivityResultLauncher;
-
 
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
@@ -22,7 +21,6 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-
 import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -31,8 +29,8 @@ import java.util.ArrayList;
 
 public class  MainActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
-    Button btn_scan;
-    Button btn_selectionmnu;
+    ImageButton btn_scan;
+    ImageButton btn_selectionmnu;
 
     Phrase scanOrSelect = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Auswahlmenü wechseln. Was möchtest du machen?");
 
@@ -83,11 +81,11 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
             //Wenn die Liste bis zum schließen der App behalten werden soll dann muss das Shae´red Preferences hier mit rein
             //wenn man die Liste jedoch neu erschaffen möchte sobald man in die MainActivity kommt, dann muss die unere Methode
             //saveTeilnehmerliste benutzt werden und in Zeile 82 entkommentieren
-           SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+          /* SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             Gson gson = new Gson();
 
-          /* if (!result.getContents().contains("Gast")){
+           if (!result.getContents().contains("Gast")){
             participantList.add(result.getContents());
             String json = gson.toJson(participantList);
             editor.putString("participantList",json);
@@ -133,7 +131,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SelectionMenuActivity.class);
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                 intent.putExtra("sendData","true");
                 startActivity(intent);
 
@@ -169,7 +167,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         if (scan.getPhrases().toString().contains(result) ) {
             startActivity(new Intent(MainActivity.this,CaptureAct.class));}
         if (selectionmnu.getPhrases().toString().contains(result)) {
-            Intent intent = new Intent(MainActivity.this, SelectionMenuActivity.class);
+            Intent intent = new Intent(MainActivity.this, MenuActivity.class);
             intent.putExtra("sendData","true");
             startActivity(intent);
 

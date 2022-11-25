@@ -2,9 +2,11 @@ package com.example.scrummaster.activity;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.aldebaran.qi.sdk.QiContext;
@@ -34,6 +36,7 @@ public class HappinessIndexActivity extends RobotActivity implements RobotLifecy
     private ImageButton happy_3;
     private ImageButton happy_4;
     private ImageButton happy_5;
+    private Button menu;
 
 
     @Override
@@ -46,6 +49,17 @@ public class HappinessIndexActivity extends RobotActivity implements RobotLifecy
         happy_3 = findViewById(R.id.btn_happy_3);
         happy_4 = findViewById(R.id.btn_happy_4);
         happy_5 = findViewById(R.id.btn_happy_5);
+        menu= findViewById(R.id.happiness_menu);
+
+
+       menu.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HappinessIndexActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Klick auf Button und erhöhen des Happynessindexes und der Anzahl der Teilnehmer
         happy_1.setOnClickListener(new View.OnClickListener() {

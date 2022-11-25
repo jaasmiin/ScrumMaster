@@ -50,7 +50,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         }
 
     }
-    //Methode speichert die Teilnehmerliste
+    //Methode lädt die Teilnehmerliste
     private ArrayList<String> loadParticipantList() {
 
         ArrayList<String> participantList;
@@ -69,7 +69,10 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         Intent intent = getIntent();
         //String test = "Jasmin";
         String name = intent.getStringExtra("participant");
-        saveParticipantList(name);
+        //Wenn kein Gast, dann wird der Name in der Teilnehmerliste gespeichert
+        if (!name.contains("Gast")){
+        saveParticipantList(name);}
+
         Phrase welcome;
         //So soll der ParticipantController begrüßt werden. Es wird unterschieden zwischen Gast und Teilnehmer.
         if (name.contains("Gast")) {

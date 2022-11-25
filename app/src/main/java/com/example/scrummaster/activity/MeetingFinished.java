@@ -3,7 +3,6 @@ package com.example.scrummaster.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.aldebaran.qi.sdk.QiContext;
@@ -22,7 +21,7 @@ import com.example.scrummaster.R;
 
 public class MeetingFinished extends RobotActivity implements RobotLifecycleCallbacks {
     Listen listen;
-    Button btn_happinesIndex;
+    ImageButton btn_happinesIndex;
     ImageButton btn_menu;
     String goodbye = "Wir sind am Ende unseres heutigen Meetings angekommen. Ich bedanke mich bei allen für die Teilnahme" +
             "Ihr könnt entweder ins Haupmenü zurück oder den Stimmungsbarometer starten. Was sollen wir machen?";
@@ -49,7 +48,7 @@ public class MeetingFinished extends RobotActivity implements RobotLifecycleCall
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MeetingFinished.this, SelectionMenuActivity.class);
+                Intent intent = new Intent(MeetingFinished.this, MenuActivity.class);
                 startActivity(intent);
             }
         });
@@ -92,7 +91,7 @@ public class MeetingFinished extends RobotActivity implements RobotLifecycleCall
 
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
         if (menu.getPhrases().toString().contains(result) ) {
-            Intent i = new Intent(MeetingFinished.this, SelectionMenuActivity.class);
+            Intent i = new Intent(MeetingFinished.this, MenuActivity.class);
             startActivity(i);}
         if (happinessIndex.getPhrases().toString().contains(result)) {
             startActivity(new Intent(MeetingFinished.this,HappinessIndexActivity.class));}

@@ -20,6 +20,8 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.daily.DailyStartActivity;
+import com.example.scrummaster.activity.planning.PlanningStartActivity;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.datamodel.PostNotes;
 import com.example.scrummaster.service.BacklogService;
@@ -37,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SelectionMenuActivity extends RobotActivity implements RobotLifecycleCallbacks {
+public class MenuActivity extends RobotActivity implements RobotLifecycleCallbacks {
     ImageButton btn_planning;
     ImageButton btn_modDaily;
     ImageButton btn_retrospektive;
@@ -50,7 +52,12 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
+        //Laden der Besprechungs Punkte
+        getMeetingPoints();
+        //Kopieren der Besprechungs Punkte zur Nutzung in anderen Activities
+        copyMeetingPointList();
+        //Kopiert die Teilnehmerliste zur Nutzung für andere Activities
+        copyParticipantList();
         super.onCreate(savedInstanceState);
         QiSDK.register(this, this);
         setContentView(R.layout.activity_selectionmenu);
@@ -77,7 +84,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyStartActivity.class));
+                startActivity(new Intent(MenuActivity.this, DailyStartActivity.class));
 
             }
         });
@@ -87,7 +94,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
             @Override
             public void onClick(View v) {
                 //Übergebe den Wert "Start" für den Bookmark in der ModerationNotesStartActivity und öffnen dieser Activity
-                Intent i_ModerationNotes = new Intent(SelectionMenuActivity.this, BacklogActivity.class);
+                Intent i_ModerationNotes = new Intent(MenuActivity.this, PlanningStartActivity.class);
                 i_ModerationNotes.putExtra("Bookmark","Start");
                 startActivity(i_ModerationNotes);
 
@@ -99,7 +106,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
             @Override
             public void onClick(View v) {
                 //Übergebe den Wert "Start" für den Bookmark in der PowerPointStartActivity und öffnen dieser Activity
-                Intent i_PowerPoint = new Intent(SelectionMenuActivity.this, PowerPointStartActivity.class);
+                Intent i_PowerPoint = new Intent(MenuActivity.this, PowerPointStartActivity.class);
                 i_PowerPoint.putExtra("Bookmark","start");
                 startActivity(i_PowerPoint);
 
@@ -115,7 +122,12 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
     }
     //Kopiert die Teilnehmerliste
     private void copyParticipantList (){
+
+
         ArrayList<String> participantList;
+        ArrayList<String> TEST = new ArrayList<>();
+        TEST.add("Jasmin");
+        TEST.add("Aliyah");
         //Die Origonal TeilnehmerListe laden
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -125,7 +137,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         //Die OriginalTeilnehmerListe als Kopie speichern
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gsonCopy = new Gson();
-        String jsonCopy = gsonCopy.toJson(participantList);
+        String jsonCopy = gsonCopy.toJson(TEST);
         editor.putString("participantListCopy",jsonCopy);
         editor.apply();
 
@@ -162,12 +174,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
-        //Laden der Besprechungs Punkte
-        getMeetingPoints();
-        //Kopieren der Besprechungs Punkte zur Nutzung in anderen Activities
-        copyMeetingPointList();
-        //Kopiert die Teilnehmerliste zur Nutzung für andere Activities
-        copyParticipantList();
+
 
         //Phraseset für Moderation mit Punkten
         PhraseSet modNotes= PhraseSetBuilder.with(qiContext)
@@ -205,13 +212,13 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
 
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
         if (modNotes.getPhrases().toString().contains(result) ) {
-            Intent i = new Intent(SelectionMenuActivity.this, ModerationNotesStartActivity.class);
+            Intent i = new Intent(MenuActivity.this, ModerationNotesStartActivity.class);
             i.putExtra("Bookmark","Start");
             startActivity(i);}
         if (modDaily.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(SelectionMenuActivity.this,ModerationDailyStartActivity.class));}
+            startActivity(new Intent(MenuActivity.this, DailyStartActivity.class));}
         if (powerpoint.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(SelectionMenuActivity.this,PowerPointStartActivity.class));}
+            startActivity(new Intent(MenuActivity.this,PowerPointStartActivity.class));}
 
 
     }
@@ -297,7 +304,7 @@ public class SelectionMenuActivity extends RobotActivity implements RobotLifecyc
         editor.apply();
 
     }
-    //Holt die zu MeetingPointListe über gitlab
+    //Holt die komplette IssueListe mit dem Status opened komplett über gitlab
     public void getIssues() {
 
         RetrofitService.getRetrofitInstance().create(BacklogService.class).getIssues().enqueue(new Callback<List<MeetingPoints>>() {
