@@ -1,5 +1,5 @@
 topic: ~powerpoint_karaoke()
-proposal: %start Wir werden jetzt Power Point Karaoke spielen. Ist jeder mit den Regeln vertraut?
+proposal: %Start Wir werden jetzt Power Point Karaoke spielen. Ist jeder mit den Regeln vertraut?
 
 u: (Ja) Prima! Dann fangen wir doch gleich an. ^goto(select)
  u:(Nein) OK, dann erkläre ich euch die Regeln. Ich werde einen von euch aufrufen. Der oder diejenige bekommt dann

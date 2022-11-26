@@ -1,18 +1,18 @@
 topic: ~moderatedaily()
-concept:(startMeeting) [bereit start los gehts]
-
-proposal: %Startdaily  Hallo zusammen, willkommen bei unserem heutigen Meeting. Schön das ihr alle da seid.
+concept:(startMeeting) [start]
+concept:(startCountdown) [start]
+proposal: %Startdaily  Willkommen bei unserem heutigen Daily Scrum Meeting. Schön das ihr alle da seid.
                        Wir besprechen heute folgende Fragen.
                        Was hast du gestern zum Erreichen unseres Sprintziels getan?
                        Was wirst du heute zum Erreichen unseres Sprintziels tun?
                        Welche Hindernisse halten mich davon ab, unser Sprintziel zu erreichen?
                        Achtet bitte darauf, dass die Antworten kurz sind und nicht zu sehr ins Detail gehen.
-                       Im Anschluss bitte ich euch, im Sprint Backog die Daten zu aktuaisieren.
+                       Im Anschluss bitte ich euch, im Sprint Backlog die Daten zu aktualisieren.
                        Sobald wir anfangen können, sage Start oder betätige den Button.
 
  proposal: %first  $namedaily du bist an der Reihe. Wenn wir anfangen können, sage mir bescheid ["oder drücke den Start Button"]
 
 u: (~startMeeting) ^execute(myExecutor)
-
+u:(~startCountdown)^execute(start)
 
 

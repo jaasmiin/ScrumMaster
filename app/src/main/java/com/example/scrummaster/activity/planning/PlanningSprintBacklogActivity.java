@@ -11,6 +11,7 @@ import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.MeetingFinished;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +26,7 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
     private Button sprintStory_4;
     private Button sprintStory_5;
     private Button sprintStory_6;
+    Button finshed;
 
     private ArrayList<MeetingPoints> backlogList;
 
@@ -41,7 +43,7 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
         sprintStory_4 = findViewById(R.id.sprintStory_4);
         sprintStory_5 = findViewById(R.id.sprintStory_5);
         sprintStory_6 = findViewById(R.id.sprintStory_6);
-
+        finshed =findViewById(R.id.sprintboordTofinish);
 
         backlogList = loadSprintBoard() ;
 
@@ -155,6 +157,17 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
                 intent.putExtra("title", backlogList.get(5).getTitle());
                 intent.putExtra("description", backlogList.get(5).getDescription());
                 intent.putExtra("iid", backlogList.get(5).getIid());
+                startActivity(intent);
+
+            }
+        });
+       finshed.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(PlanningSprintBacklogActivity.this, MeetingFinished.class);
+
                 startActivity(intent);
 
             }

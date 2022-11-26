@@ -26,8 +26,9 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.MeetingFinished;
 import com.example.scrummaster.controller.CountdownController;
-import com.example.scrummaster.controller.ModerateNotesQiChatExecutor;
+import com.example.scrummaster.controller.ModerateDailyQiChatExecutor;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -42,6 +43,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
     private CountdownController mcountdown = new CountdownController(5000,5000);
     private Button btn_done;
     private Button btn_start;
+    private Button finish;
     private TextView name;
     private TextView note;
     private Chat chat;
@@ -50,7 +52,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
     private Topic topic;
     private Bookmark proposalBookmark;
     private List<String> participantList = new ArrayList<>();
-
+    private static DailyQuestionsActivity instance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,15 +64,34 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
         name= (TextView) findViewById(R.id.name2);
         note = findViewById(R.id.questionsofdailyscrum);
         btn_start = findViewById(R.id.startcdaily);
+        finish = findViewById(R.id.dailyTomenu);
+        instance =  this;
+    }
+
+    //Gibt die instance dieser Activity zurück
+    public static DailyQuestionsActivity getInstance(){
+        return instance;
+
+    }
+
+    //Diese Methode klickt beim Aufruf auf den Button Start
+    public void clickButton () {
+        btn_start.post(new Runnable() {
+            @Override
+            public void run() {
+                btn_start.performClick();
+            }
+
+        });
     }
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
         participantList = loadParticipantListCopy();
-        if (participantList.size()==0){
+        if (participantList.size() == 0) {
             Intent i = new Intent(DailyQuestionsActivity.this, DailySprintBacklog.class);
-            startActivity(i);}
-        else {
+            startActivity(i);
+        } else {
             // Create a topic.
             topic = TopicBuilder.with(qiContext)
                     .withResource(R.raw.moderatedaily)
@@ -82,7 +103,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
             Map<String, QiChatExecutor> executors = new HashMap<>();
 
             // Map the executor name from the topic to our qiChatExecutor
-            executors.put("start", new ModerateNotesQiChatExecutor(qiContext));
+            executors.put("start", new ModerateDailyQiChatExecutor(qiContext));
 
             // Set the executors to the qiChatbot
             qiChatbot.setExecutors(executors);
@@ -104,28 +125,39 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
             chat.async().run();
             chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
 
-            btn_start.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    name.setText(participantList.get(0));
-                    mcountdown.startTimerDaily(countdown, DailyQuestionsActivity.this);
-                    overridePendingTransition(0, 0);
-                    deleteParticipantListEntry();
-                }
-            });
-            btn_done.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    mcountdown.reset(countdown);
-                    Intent intent = new Intent(DailyQuestionsActivity.this, DailyQuestionsActivity.class);
-                    startActivity(intent);
-                }
-            });
         }
+        btn_start.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                name.setText(participantList.get(0));
+                mcountdown.startTimerDaily(countdown, DailyQuestionsActivity.this);
+                overridePendingTransition(0, 0);
+                deleteParticipantListEntry();
+            }
+        });
+        btn_done.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mcountdown.reset(countdown);
+                Intent intent = new Intent(DailyQuestionsActivity.this, DailyQuestionsActivity.class);
+                startActivity(intent);
+            }
+        });
+        finish.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DailyQuestionsActivity.this, MeetingFinished.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
+
+
     private void assignVariable(String value) {
         // Set the value.
         nameVariable.async().setValue(value);}

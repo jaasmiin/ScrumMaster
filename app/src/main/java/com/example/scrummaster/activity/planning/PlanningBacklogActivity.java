@@ -11,6 +11,7 @@ import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.MeetingFinished;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +26,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
     private Button userStory_4;
     private Button userStory_5;
     private Button userStory_6;
+    private Button finish;
 
     private ArrayList<MeetingPoints> backlogList;
 
@@ -41,7 +43,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
         userStory_4 = findViewById(R.id.userStory_4);
         userStory_5 = findViewById(R.id.userStory_5);
         userStory_6 = findViewById(R.id.userStory_6);
-
+        finish= findViewById(R.id.backlog_back);
 
         backlogList = loadIssues();
 
@@ -155,6 +157,17 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
                 intent.putExtra("title",backlogList.get(5).getTitle());
                 intent.putExtra("description",backlogList.get(5).getDescription());
                 intent.putExtra("iid",backlogList.get(5).getIid());
+                startActivity(intent);
+
+            }
+        });
+        finish.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(PlanningBacklogActivity.this, MeetingFinished.class);
+
                 startActivity(intent);
 
             }

@@ -69,84 +69,84 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
         participantList = loadParticipantListCopy();
         if (participantList.size()==0){
             Intent i = new Intent(PowerPointStartActivity.this, MeetingFinished.class);
-            startActivity(i);}
-        // Create a topic.
-        topic = TopicBuilder.with(qiContext)
-                .withResource(R.raw.powerpoint_karaoke)
-                .build();
-        // Create a qiChatbot
-        qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
-        //BookmARK
-        Map<String, Bookmark> bookmarks = topic.getBookmarks();
+            startActivity(i);} else {
+            // Create a topic.
+            topic = TopicBuilder.with(qiContext)
+                    .withResource(R.raw.powerpoint_karaoke)
+                    .build();
+            // Create a qiChatbot
+            qiChatbot = QiChatbotBuilder.with(qiContext).withTopic(topic).build();
+            //BookmARK
+            Map<String, Bookmark> bookmarks = topic.getBookmarks();
 
-        //Create executor
-        Map<String, QiChatExecutor> executors = new HashMap<>();
+            //Create executor
+            Map<String, QiChatExecutor> executors = new HashMap<>();
 
-        // Map the executor name from the topic to our qiChatExecutor
-        executors.put("myExecutor", new PowerPointSelecttQiChatExecutor(qiContext));
-        executors.put("beginner", new PowerPointBeginnerQiChatExecutor( qiContext));
-        executors.put("advanced", new PowerPointAdvancedQiChatExecutor( qiContext));
-        // Set the executors to the qiChatbot
-        qiChatbot.setExecutors(executors);
+            // Map the executor name from the topic to our qiChatExecutor
+            executors.put("myExecutor", new PowerPointSelecttQiChatExecutor(qiContext));
+            executors.put("beginner", new PowerPointBeginnerQiChatExecutor(qiContext));
+            executors.put("advanced", new PowerPointAdvancedQiChatExecutor(qiContext));
+            // Set the executors to the qiChatbot
+            qiChatbot.setExecutors(executors);
 
-        // Build chat with the chatbotBuilder
-        chat = ChatBuilder
-                .with(qiContext)
-                .withChatbot(qiChatbot).build();
+            // Build chat with the chatbotBuilder
+            chat = ChatBuilder
+                    .with(qiContext)
+                    .withChatbot(qiChatbot).build();
 
-        // Get the proposal bookmark
-        Intent intent = getIntent();
-        String s = intent.getStringExtra("Bookmark");
-        String s2 = intent.getStringExtra("bookmark_beginner");
-        String s3 = intent.getStringExtra("bookmark_advanced");
-        String b = setBookmark(s,s2,s3);
-        // Get the proposal bookmark
-        proposalBookmark = bookmarks.get(b);
+            // Get the proposal bookmark
+            Intent intent = getIntent();
+            String s = intent.getStringExtra("Bookmark");
+            String s2 = intent.getStringExtra("bookmark_beginner");
+            String s3 = intent.getStringExtra("bookmark_advanced");
+            String b = setBookmark(s, s2, s3);
+            // Get the proposal bookmark
+            proposalBookmark = bookmarks.get(b);
 
-        chat.addOnStartedListener(this::sayProposal);
+            chat.addOnStartedListener(this::sayProposal);
 
-        //create Variable
+            //create Variable
 
-        variable = qiChatbot.variable("name");
-        variable.setValue(participantList.get(0));
-        chat.async().run();
-        chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
+            variable = qiChatbot.variable("name");
+            variable.setValue(participantList.get(0));
+            chat.async().run();
+            chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));
+        }
+            //Klick auf Button Anfänger geht in die Beginner Activity
+            btn_beginner.setOnClickListener(new View.OnClickListener() {
 
-        //Klick auf Button Anfänger geht in die Beginner Activity
-        btn_beginner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            @Override
-            public void onClick(View v) {
+                    Intent intent = new Intent(PowerPointStartActivity.this, PowerPointBeginnerActivity.class);
+                    startActivity(intent);
+                    deleteParticipantListEntry();
+                }
+            });
 
-                Intent intent = new Intent(PowerPointStartActivity.this, PowerPointBeginnerActivity.class);
-                startActivity(intent);
-                deleteParticipantListEntry();
-            }
-        });
+            //Klick auf Button Fortgeschritten geht in die Advanced Activity
+            btn_advanced.setOnClickListener(new View.OnClickListener() {
 
-        //Klick auf Button Fortgeschritten geht in die Advanced Activity
-        btn_advanced.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            @Override
-            public void onClick(View v) {
+                    Intent intent = new Intent(PowerPointStartActivity.this, PowerPointAdvancedActivity.class);
+                    startActivity(intent);
+                    deleteParticipantListEntry();
+                }
+            });
 
-                Intent intent = new Intent(PowerPointStartActivity.this, PowerPointAdvancedActivity.class);
-                startActivity(intent);
-                deleteParticipantListEntry();
-            }
-        });
+            //Klick auf Button Fortgeschritten geht in die Advanced Activity
+            done.setOnClickListener(new View.OnClickListener() {
 
-        //Klick auf Button Fortgeschritten geht in die Advanced Activity
-        done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(PowerPointStartActivity.this, MenuActivity.class);
-                startActivity(intent);
-                deleteParticipantListEntry();
-            }
-        });
+                    Intent intent = new Intent(PowerPointStartActivity.this, MenuActivity.class);
+                    startActivity(intent);
+                    deleteParticipantListEntry();
+                }
+            });
 
     }
 

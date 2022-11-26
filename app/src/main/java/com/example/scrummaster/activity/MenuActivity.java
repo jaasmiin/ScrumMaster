@@ -108,9 +108,9 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
             @Override
             public void onClick(View v) {
-                //Übergebe den Wert "Start" für den Bookmark in der PowerPointStartActivity und öffnen dieser Activity
+
                 Intent i_PowerPoint = new Intent(MenuActivity.this, RetrospectiveStartActivity.class);
-                i_PowerPoint.putExtra("Bookmark","start");
+
                 startActivity(i_PowerPoint);
 
             }
@@ -254,7 +254,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
         if (planning.getPhrases().toString().contains(result) ) {
             Intent i = new Intent(MenuActivity.this, PlanningStartActivity.class);
-            i.putExtra("Bookmark","Start");
+
             startActivity(i);}
         if (modDaily.getPhrases().toString().contains(result)) {
             startActivity(new Intent(MenuActivity.this, DailyStartActivity.class));}

@@ -2,6 +2,7 @@ package com.example.scrummaster.controller;
 
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.object.conversation.BaseQiChatExecutor;
+import com.example.scrummaster.activity.daily.DailyQuestionsActivity;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class ModerateDailyQiChatExecutor extends BaseQiChatExecutor {
 
     @Override
     public void runWith(List<String> params) {
-
+        DailyQuestionsActivity.getInstance().clickButton();
     }
 
     @Override

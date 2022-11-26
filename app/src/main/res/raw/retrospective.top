@@ -1,10 +1,10 @@
 topic: ~moderatenotes()
 
-concept:(startCountdown) [bereit start los gehts]
+concept:(startCountdown) [start]
 
-proposal: %Start  Hallo zusammen, willkommen bei unserem heutigen RetrospektiveMeeting. Ich freue mich, dass ihr ae gekommen seid. Zu Beginn möchte
+proposal: %Start  willkommen bei unserem heutigen RetrospektiveMeeting. Ich freue mich, dass ihr gekommen seid. Zu Beginn möchte
             ich euch bitten, folgende Frage zu beantworten:
-          $meetingpoint Ich werde euch einzeln aufrufen.
+          $meetingpoint
 
 
 

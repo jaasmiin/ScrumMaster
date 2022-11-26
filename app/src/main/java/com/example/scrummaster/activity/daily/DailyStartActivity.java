@@ -26,6 +26,7 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.MenuActivity;
 import com.example.scrummaster.controller.ModerateDailyStartQiChatExecutor;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.service.BacklogService;
@@ -50,6 +51,7 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
     QiChatVariable variable;
     private Bookmark proposalBookmark;
     Button btn_start;
+    Button menu;
     TextView welcome;
     private static DailyStartActivity instance;
     @Override
@@ -59,6 +61,7 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
         QiSDK.register(this, this);
         btn_start= findViewById(R.id.startmdaily);
         welcome = findViewById(R.id.welcomedaily);
+        menu =findViewById(R.id.dailyTomenu);
         instance = this;
         copyParticipantList();
         getSprintBacklog();
@@ -108,6 +111,15 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
             public void onClick(View v) {
 
                 Intent intent = new Intent(DailyStartActivity.this, DailyQuestionsActivity.class);
+                startActivity(intent);
+            }
+        });
+        menu.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(DailyStartActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
         });
