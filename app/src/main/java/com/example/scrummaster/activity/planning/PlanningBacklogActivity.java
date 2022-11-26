@@ -166,7 +166,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(PlanningBacklogActivity.this, MeetingFinished.class);
+                Intent intent = new Intent(PlanningBacklogActivity.this, PlanningStartActivity.class);
 
                 startActivity(intent);
 

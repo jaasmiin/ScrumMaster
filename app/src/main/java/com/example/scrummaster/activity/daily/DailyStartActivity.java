@@ -61,7 +61,7 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
         QiSDK.register(this, this);
         btn_start= findViewById(R.id.startmdaily);
         welcome = findViewById(R.id.welcomedaily);
-        menu =findViewById(R.id.dailyTomenu);
+        menu =findViewById(R.id.dailyTomenu2);
         instance = this;
         copyParticipantList();
         getSprintBacklog();

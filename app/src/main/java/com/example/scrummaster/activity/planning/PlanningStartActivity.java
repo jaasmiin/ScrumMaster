@@ -20,6 +20,7 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.MenuActivity;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.service.BacklogService;
 import com.example.scrummaster.service.RetrofitService;
@@ -36,6 +37,7 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
     private Phrase meeting_select = new Phrase("Welches Meeting findet statt? Eins oder zwei?");
     private Button one;
     private Button two;
+    private Button menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this, this);
@@ -45,8 +47,8 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
         setContentView(R.layout.activity_planning_start);
         one = findViewById(R.id.planning_meeting_I);
         two = findViewById(R.id.planning_meeting_II);
+        menu=findViewById(R.id.planningTomenu);
         one.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PlanningStartActivity.this, PlanningBacklogActivity.class);
@@ -60,6 +62,13 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
             public void onClick(View v) {
 
                 Intent i = new Intent(PlanningStartActivity.this, PlanningSprintBacklogActivity.class);
+                startActivity(i);
+            }
+        });
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PlanningStartActivity.this, MenuActivity.class);
                 startActivity(i);
             }
         });
