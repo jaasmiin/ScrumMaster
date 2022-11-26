@@ -18,6 +18,7 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.tools.HappinessIndexActivity;
 
 public class MeetingFinished extends RobotActivity implements RobotLifecycleCallbacks {
     Listen listen;
@@ -32,7 +33,7 @@ public class MeetingFinished extends RobotActivity implements RobotLifecycleCall
         setContentView(R.layout.activity_meeting_finished);
         btn_happinesIndex = findViewById(R.id.btn_happinessIndex);
         btn_menu = findViewById(R.id.btn_menu);
-        btn_happinesIndex.setBackgroundResource(R.drawable.backrount_button_1);
+
 
         btn_happinesIndex.setOnClickListener(new View.OnClickListener() {
 
@@ -62,7 +63,7 @@ public class MeetingFinished extends RobotActivity implements RobotLifecycleCall
         Phrase meetingFinished = new Phrase(goodbye);
         //Phraseset für Happinessindex
         PhraseSet happinessIndex= PhraseSetBuilder.with(qiContext)
-                .withTexts("Stimmung", "Barometer", "Stimmungsbarometer", "Starte Stimmungsbarometer")
+                .withTexts("happinexx Index", "Index", "Starte happiness index", "Starte Stimmungsbarometer")
                 .build(
 
                 );

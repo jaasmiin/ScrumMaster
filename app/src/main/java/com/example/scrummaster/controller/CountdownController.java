@@ -9,7 +9,7 @@ import android.os.CountDownTimer;
 import android.widget.TextView;
 
 import com.example.scrummaster.activity.daily.DailyQuestionsActivity;
-import com.example.scrummaster.activity.ModerationNotesActivity;
+import com.example.scrummaster.activity.retrospective.RetrospectiveActivity;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -99,7 +99,7 @@ public class CountdownController {
             public void onFinish() {
                 timerstatus = false;
                 timeleft = START_TIME_IN_MILLIS;
-                Intent intent = new Intent(c, ModerationNotesActivity.class);
+                Intent intent = new Intent(c, RetrospectiveActivity.class);
                 c.startActivity(intent);
             }
 

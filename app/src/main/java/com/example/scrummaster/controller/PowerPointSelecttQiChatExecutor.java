@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.object.conversation.BaseQiChatExecutor;
-import com.example.scrummaster.activity.PowerPointStartActivity;
+import com.example.scrummaster.activity.tools.PowerPointStartActivity;
 
 import java.util.List;
 

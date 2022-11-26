@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity;
+package com.example.scrummaster.activity.tools;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -25,6 +25,8 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.MeetingFinished;
+import com.example.scrummaster.activity.MenuActivity;
 import com.example.scrummaster.controller.PowerPointAdvancedQiChatExecutor;
 import com.example.scrummaster.controller.PowerPointBeginnerQiChatExecutor;
 import com.example.scrummaster.controller.PowerPointSelecttQiChatExecutor;
@@ -40,6 +42,7 @@ import java.util.Map;
 public class PowerPointStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
     public Button btn_beginner;
     public Button btn_advanced;
+    private Button done;
     private Chat chat;
     private QiChatVariable variable;
     public QiChatbot qiChatbot;
@@ -62,9 +65,10 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
     public void onRobotFocusGained(QiContext qiContext) {
         btn_advanced= findViewById(R.id.btn_advanced);
         btn_beginner= findViewById(R.id.btn_beginner);
+        done = findViewById(R.id.powerpointDone);
         participantList = loadParticipantListCopy();
         if (participantList.size()==0){
-            Intent i = new Intent(PowerPointStartActivity.this,MeetingFinished.class);
+            Intent i = new Intent(PowerPointStartActivity.this, MeetingFinished.class);
             startActivity(i);}
         // Create a topic.
         topic = TopicBuilder.with(qiContext)
@@ -127,6 +131,18 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
             public void onClick(View v) {
 
                 Intent intent = new Intent(PowerPointStartActivity.this, PowerPointAdvancedActivity.class);
+                startActivity(intent);
+                deleteParticipantListEntry();
+            }
+        });
+
+        //Klick auf Button Fortgeschritten geht in die Advanced Activity
+        done.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(PowerPointStartActivity.this, MenuActivity.class);
                 startActivity(intent);
                 deleteParticipantListEntry();
             }

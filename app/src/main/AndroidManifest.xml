@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.scrummaster" >
+    package="com.example.scrummaster">
 
     <uses-feature android:name="com.softbank.hardware.pepper" />
 
@@ -17,7 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ScrumMaster"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".activity.tools.ToolsMenu"
+            android:exported="false" />
         <activity
             android:name=".activity.daily.DailySprintBacklogItemActivity"
             android:exported="false" />
@@ -43,13 +46,13 @@
             android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.HappinessIndexActivity"
+            android:name=".activity.tools.HappinessIndexActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PowerPointAdvancedActivity"
+            android:name=".activity.tools.PowerPointAdvancedActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PowerPointStartActivity"
+            android:name=".activity.tools.PowerPointStartActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
@@ -57,7 +60,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.ModerationNotesStartActivity"
+            android:name=".activity.retrospective.RetrospectiveStartActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
@@ -65,7 +68,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.PowerPointBeginnerActivity"
+            android:name=".activity.tools.PowerPointBeginnerActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
@@ -73,7 +76,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.ModerationNotesActivity"
+            android:name=".activity.retrospective.RetrospectiveActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
@@ -87,7 +90,7 @@
         <activity
             android:name=".activity.StartActivity"
             android:exported="true"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

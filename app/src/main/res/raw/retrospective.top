@@ -1,0 +1,14 @@
+topic: ~moderatenotes()
+
+concept:(startCountdown) [bereit start los gehts]
+
+proposal: %Start  Hallo zusammen, willkommen bei unserem heutigen RetrospektiveMeeting. Ich freue mich, dass ihr ae gekommen seid. Zu Beginn möchte
+            ich euch bitten, folgende Frage zu beantworten:
+          $meetingpoint Ich werde euch einzeln aufrufen.
+
+
+
+proposal: %first  $name du bist an der Reihe. Wenn wir anfangen können, sage mir bescheid ["oder drücke den Start Button"]
+
+u: (~startCountdown) ^execute(myExecutor)
+

@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity;
+package com.example.scrummaster.activity.retrospective;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModerationNotesActivity extends RobotActivity implements RobotLifecycleCallbacks {
+public class RetrospectiveActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
     private TextView countdown;
     private CountdownController mcountdown = new CountdownController(5000,5000);
@@ -51,8 +51,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     public Topic topic;
     public Bookmark proposalBookmark;
     private ArrayList<String> participantList = new ArrayList<>();
-    private ArrayList<MeetingPoints> meetingPointList = new ArrayList<>();
-    private static ModerationNotesActivity instance;
+    private static RetrospectiveActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +63,8 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
         btn_start= findViewById(R.id.startc);
         name= (TextView) findViewById(R.id.name);
         note = (TextView)findViewById(R.id.notes);
-        meetingPointList = loadMeetingPointListCopy();
-        if (meetingPointList.size() != 0){
-            note.setText(meetingPointList.get(0).getDescription());
-        }
+        Intent i = getIntent();
+        note.setText(i.getStringExtra("question"));
         instance= this;
     }
 
@@ -77,13 +74,13 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
 
         participantList = loadParticipantListCopy();
         if (participantList.size()==0){
-            deleteMeetingPointListEntry();
-            Intent i = new Intent(ModerationNotesActivity.this, ModerationNotesStartActivity.class);
-            startActivity(i)
-            ;} else{
+
+            Intent i = new Intent(RetrospectiveActivity.this, RetrospectiveStartActivity.class);
+            startActivity(i);
+        } else{
         // Create a topic.
         topic = TopicBuilder.with(qiContext)
-                .withResource(R.raw.moderatenotes)
+                .withResource(R.raw.retrospective)
                 .build();
 
         // Create a qiChatbot
@@ -121,7 +118,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
             public void onClick(View v) {
                 deleteParticipantListEntry();
 
-                mcountdown.startTimerNotes(countdown,ModerationNotesActivity.this);
+                mcountdown.startTimerNotes(countdown, RetrospectiveActivity.this);
                 overridePendingTransition(0, 0);
             }
         });
@@ -131,7 +128,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
             public void onClick(View v) {
                 mcountdown.reset(countdown);
                 //overridePendingTransition(0, 0);
-                Intent intent = new Intent(ModerationNotesActivity.this, ModerationNotesActivity.class);
+                Intent intent = new Intent(RetrospectiveActivity.this, RetrospectiveActivity.class);
                 startActivity(intent);
             }
         });
@@ -149,7 +146,7 @@ public class ModerationNotesActivity extends RobotActivity implements RobotLifec
     }
 
     //Gibt die instance dieser Activity zurück
-    public static  ModerationNotesActivity getInstance(){
+    public static RetrospectiveActivity getInstance(){
         return instance;
 
     }

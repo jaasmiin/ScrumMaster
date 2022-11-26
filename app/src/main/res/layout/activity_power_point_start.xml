@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PowerPointStartActivity">
+    tools:context=".activity.tools.PowerPointStartActivity">
 
     <Button
         android:id="@+id/btn_beginner"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.467" />
 
     <Button
-        android:id="@+id/planningToFinish"
+        android:id="@+id/powerpointDone"
         android:layout_width="135dp"
         android:layout_height="48dp"
         android:layout_centerHorizontal="true"

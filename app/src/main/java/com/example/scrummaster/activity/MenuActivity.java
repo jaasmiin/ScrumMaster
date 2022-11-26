@@ -22,12 +22,14 @@ import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 import com.example.scrummaster.activity.daily.DailyStartActivity;
 import com.example.scrummaster.activity.planning.PlanningStartActivity;
+import com.example.scrummaster.activity.retrospective.RetrospectiveStartActivity;
+import com.example.scrummaster.activity.tools.ToolsMenu;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.datamodel.PostNotes;
 import com.example.scrummaster.service.BacklogService;
-import com.example.scrummaster.service.MeetingPointsService;
 import com.example.scrummaster.service.PostNoteService;
 import com.example.scrummaster.service.RetrofitService;
+import com.example.scrummaster.service.RetrospectiveService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -43,7 +45,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
     ImageButton btn_planning;
     ImageButton btn_modDaily;
     ImageButton btn_retrospektive;
-    ImageButton btn_review;
+    ImageButton btn_tools;
     Phrase select = new Phrase(" Welche Aktion soll ich ausführen?") ;
     String sendParticipantList;
     Listen listen;
@@ -64,9 +66,10 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         btn_modDaily= findViewById(R.id.btn_mod_daily);
         btn_retrospektive=findViewById(R.id.btn_retrospektive);
         btn_planning=findViewById(R.id.btn_planning);
-       btn_review= findViewById(R.id.btn_review);
+       btn_tools = findViewById(R.id.btn_tools);
 
         getIssues();
+        getQuestion();
 
 
 
@@ -93,7 +96,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
             @Override
             public void onClick(View v) {
-                //Übergebe den Wert "Start" für den Bookmark in der ModerationNotesStartActivity und öffnen dieser Activity
+                //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveStartActivity und öffnen dieser Activity
                 Intent i_ModerationNotes = new Intent(MenuActivity.this, PlanningStartActivity.class);
                 i_ModerationNotes.putExtra("Bookmark","Start");
                 startActivity(i_ModerationNotes);
@@ -106,9 +109,19 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
             @Override
             public void onClick(View v) {
                 //Übergebe den Wert "Start" für den Bookmark in der PowerPointStartActivity und öffnen dieser Activity
-                Intent i_PowerPoint = new Intent(MenuActivity.this, PowerPointStartActivity.class);
+                Intent i_PowerPoint = new Intent(MenuActivity.this, RetrospectiveStartActivity.class);
                 i_PowerPoint.putExtra("Bookmark","start");
                 startActivity(i_PowerPoint);
+
+            }
+        });
+
+        btn_tools.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MenuActivity.this, ToolsMenu.class));
 
             }
         });
@@ -118,6 +131,30 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
 
 
+
+    }
+    //Holt die zu Fragen für Retrospektive über gitlab
+    public void getQuestion() {
+
+        RetrofitService.getRetrofitInstance().create(RetrospectiveService.class).getQuestion().enqueue(new Callback<List<MeetingPoints>>() {
+            @Override
+            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+                Log.i("Retrofit", new Gson().toJson(response.body()));
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Gson gson = new Gson();
+                List<MeetingPoints> meetingPointsList= response.body();
+                String json = gson.toJson(meetingPointsList);
+                editor.putString("question",json);
+                editor.apply();
+
+            }
+            @Override
+            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+                String fail =t.getCause().toString();
+                Log.e("Retrofit",fail);
+            }
+        });
 
     }
     //Kopiert die Teilnehmerliste
@@ -176,9 +213,9 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
     public void onRobotFocusGained(QiContext qiContext) {
 
 
-        //Phraseset für Moderation mit Punkten
-        PhraseSet modNotes= PhraseSetBuilder.with(qiContext)
-                                                .withTexts("Starte Moderation mit Punkten", "mit Punkten", "Punkte")
+        //Phraseset für Planning
+        PhraseSet planning= PhraseSetBuilder.with(qiContext)
+                                                .withTexts("Starte Planning Meeting", "Planning", "Planning Meeting")
                 .build(
 
                 );
@@ -187,11 +224,15 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         PhraseSet modDaily= PhraseSetBuilder.with(qiContext)
                 .withTexts("Starte Daily Scrum", "DailyScrum", "Daily")
                 .build();
-        //Phraseset für Powerpoint Karaoke
-        PhraseSet powerpoint= PhraseSetBuilder.with(qiContext)
-                .withTexts("Starte Power Point Karaoke", "Power Point", "Karaoke","Power Point Karaoke")
+        //Phraseset für Retrospektive
+        PhraseSet retrospective= PhraseSetBuilder.with(qiContext)
+                .withTexts("Starte Retrospektive Meeting", "Retrospektive Meeting", "Retrospektive")
                 .build();
 
+        //Phraseset für Tools
+        PhraseSet tools= PhraseSetBuilder.with(qiContext)
+                .withTexts("Starte Tools", "Tools")
+                .build();
 
         //Auswahlfrage
         Say say = SayBuilder.with(qiContext)
@@ -201,9 +242,9 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
         //Zuhören was der Nutzer sich
         listen = ListenBuilder.with(qiContext)
-               .withPhraseSets(modNotes)
+               .withPhraseSets(planning)
               .withPhraseSets(modDaily)
-                .withPhraseSets(powerpoint)
+                .withPhraseSets(retrospective)
                 .build();
         ListenResult listenresult= listen.run();
 
@@ -211,14 +252,16 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         String result = listenresult.getHeardPhrase().toString();
 
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
-        if (modNotes.getPhrases().toString().contains(result) ) {
-            Intent i = new Intent(MenuActivity.this, ModerationNotesStartActivity.class);
+        if (planning.getPhrases().toString().contains(result) ) {
+            Intent i = new Intent(MenuActivity.this, PlanningStartActivity.class);
             i.putExtra("Bookmark","Start");
             startActivity(i);}
         if (modDaily.getPhrases().toString().contains(result)) {
             startActivity(new Intent(MenuActivity.this, DailyStartActivity.class));}
-        if (powerpoint.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(MenuActivity.this,PowerPointStartActivity.class));}
+        if (retrospective.getPhrases().toString().contains(result)) {
+            startActivity(new Intent(MenuActivity.this,RetrospectiveStartActivity.class));}
+        if (tools.getPhrases().toString().contains(result)) {
+            startActivity(new Intent(MenuActivity.this, ToolsMenu.class));}
 
 
     }
@@ -265,7 +308,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
     //Holt die zu MeetingPointListe über gitlab
     public void getMeetingPoints() {
 
-        RetrofitService.getRetrofitInstance().create(MeetingPointsService.class).getPunkte().enqueue(new Callback<List<MeetingPoints>>() {
+        RetrofitService.getRetrofitInstance().create(RetrospectiveService.class).getQuestion().enqueue(new Callback<List<MeetingPoints>>() {
             @Override
             public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));

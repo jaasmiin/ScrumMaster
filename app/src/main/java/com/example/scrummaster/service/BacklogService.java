@@ -24,7 +24,7 @@ public interface BacklogService {
     Call<MeetingPoints> setStatusSprintBoard(@Path("iid") int iid);
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
-    @PUT("35214/issues/{iid}?add_labels=Doing")
+    @PUT("35214/issues/{iid}?add_labels=In Bearbeitung")
     Call<MeetingPoints> setStatusDoing(@Path("iid") int iid);
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")

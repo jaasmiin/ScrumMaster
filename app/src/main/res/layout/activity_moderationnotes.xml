@@ -5,7 +5,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ModerationNotesActivity">
+    tools:context=".activity.retrospective.RetrospectiveActivity">
 
     <TextView
         android:id="@+id/backlog_countdown"
@@ -17,15 +17,16 @@
         android:textColor="@android:color/black"
         android:textSize="80sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.574"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.692" />
+        app:layout_constraintVertical_bias="0.635" />
 
     <Button
         android:id="@+id/done"
-        android:layout_width="350dp"
-        android:layout_height="69dp"
+        android:layout_width="218dp"
+        android:layout_height="67dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:backgroundTint="@color/kit"
@@ -33,17 +34,17 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.753"
+        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/startc"
         app:layout_constraintTop_toBottomOf="@+id/backlog_countdown"
-        app:layout_constraintVertical_bias="0.583" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/startc"
-        android:layout_width="371dp"
-        android:layout_height="69dp"
+        android:layout_width="218dp"
+        android:layout_height="67dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:backgroundTint="@color/kit"
@@ -51,28 +52,28 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.419"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backlog_countdown"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintVertical_bias="0.01" />
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="411dp"
-        android:layout_height="160dp"
+        android:layout_width="363dp"
+        android:layout_height="103dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:gravity="center"
         android:textColor="@android:color/black"
         android:textSize="40sp"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/backlog_countdown"
-        app:layout_constraintHorizontal_bias="0.276"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.717" />
+        app:layout_constraintVertical_bias="0.639" />
 
     <TextView
         android:id="@+id/notes"

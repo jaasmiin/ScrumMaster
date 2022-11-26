@@ -10,16 +10,16 @@
 
     <ImageButton
         android:id="@+id/btn_retrospektive"
-        android:layout_width="493dp"
-        android:layout_height="260dp"
+        android:layout_width="476dp"
+        android:layout_height="259dp"
 
         android:background="@drawable/retrospektive_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.992" />
 
     <ImageButton
         android:id="@+id/btn_mod_daily"
@@ -47,14 +47,14 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
-        android:id="@+id/btn_review"
-        android:layout_width="469dp"
-        android:layout_height="262dp"
+        android:id="@+id/btn_tools"
+        android:layout_width="493dp"
+        android:layout_height="264dp"
 
-        android:background="@drawable/sprint_review"
+        android:background="@drawable/button_tools"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />

@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity;
+package com.example.scrummaster.activity.tools;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -14,6 +14,7 @@ import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.MenuActivity;
 import com.example.scrummaster.datamodel.PostNotes;
 import com.example.scrummaster.service.PostNoteService;
 import com.example.scrummaster.service.RetrofitService;
