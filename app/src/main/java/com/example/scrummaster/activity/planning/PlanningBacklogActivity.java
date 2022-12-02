@@ -9,9 +9,11 @@ import android.widget.Button;
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
+import com.aldebaran.qi.sdk.builder.SayBuilder;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
+import com.aldebaran.qi.sdk.object.conversation.Phrase;
+import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.MeetingFinished;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,6 +29,9 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
     private Button userStory_5;
     private Button userStory_6;
     private Button finish;
+    Phrase moderation = new Phrase("Hallo, willkommen bei unserem Sprint Planning eins Meeting. Ich zeige euch euer aktuelles Product Backlog." +
+            "Achtet bei der Besprechung darauf die Items mit der größeren Priorisierung auszuwählen. Diese habe ich euch farblich gekennzeichnet." +
+            "Die Farbe rot hat die höchste die Farbe orange eine mittlere und die Farbe grün eine niedrige Priorisierung. Wenn ihr die Beschreibung der Items sehen wollt, klickt einfach auf das Item.");
 
     private ArrayList<MeetingPoints> backlogList;
 
@@ -204,12 +209,18 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 
+        //Auswahlfrage
+        Say say = SayBuilder.with(qiContext)
+                .withPhrase(moderation)
+                .build();
+        say.run();
+
 
     }
 
     @Override
     public void onRobotFocusLost() {
-        finish();
+
     }
 
     @Override

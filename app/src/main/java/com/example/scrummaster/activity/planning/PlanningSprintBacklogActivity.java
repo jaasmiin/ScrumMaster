@@ -9,7 +9,10 @@ import android.widget.Button;
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
+import com.aldebaran.qi.sdk.builder.SayBuilder;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
+import com.aldebaran.qi.sdk.object.conversation.Phrase;
+import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 import com.example.scrummaster.activity.MeetingFinished;
 import com.example.scrummaster.datamodel.MeetingPoints;
@@ -27,6 +30,9 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
     private Button sprintStory_5;
     private Button sprintStory_6;
     Button finshed;
+    Phrase moderation = new Phrase("Hallo, willkommen bei unserem Sprint Planning zwei Meeting. Ich zeige euch euer aktuelles Sprint Backlog." +
+           " Wenn ihr die Beschreibung der Items sehen wollt, klickt einfach auf das Item.");
+
 
     private ArrayList<MeetingPoints> backlogList;
 
@@ -203,6 +209,11 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 
+        //Auswahlfrage
+        Say say = SayBuilder.with(qiContext)
+                .withPhrase(moderation)
+                .build();
+        say.run();
 
     }
 
