@@ -76,12 +76,12 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         Phrase welcome;
         //So soll der ParticipantController begrüßt werden. Es wird unterschieden zwischen Gast und Teilnehmer.
         if (name.contains("Gast")) {
-            welcome = new Phrase ("Hallo, schön dass du da bist. Bitte denke daran, ass du heute passiver Teilehmer bist." +
-                    "daher bitte ich dich zuzuhören, falls du fragen oder anmerkungen hast teile diese bitte nach dem Meeting mit. Danke für" +
-                    "dein Verständis. Nehme bitte Platz.");
+            welcome = new Phrase ("Hallo, schön, dass du da bist. Bitte denke daran, dass du heute passiver " +
+                    "Teilnehmer bist. Daher bitte ich dich zuzuhören, falls du fragen oder Anmerkungen hast " +
+                    "teile diese bitte nach dem Meeting mit. Danke für dein Verständnis. Nehme bitte Platz.");
 
         } else {
-        welcome = new Phrase ("Hallo, " + name + " schön das du da bist. Bitte nehme Platz.");
+        welcome = new Phrase ("Hallo, " + name + "schön, dass du da bist. Bitte nehme Platz.");
         }
         //Begrüßung
         Say say = SayBuilder.with(qiContext)
