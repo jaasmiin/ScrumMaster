@@ -40,7 +40,7 @@ import java.util.Map;
 public class RetrospectiveActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
     private TextView countdown;
-    private CountdownController mcountdown = new CountdownController(5000,5000);
+    private CountdownController mcountdown = new CountdownController(10000,5000);
    public Button btn_start;
     private Button btn_stop;
     private TextView name;

@@ -11,16 +11,17 @@
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="36dp"
         android:backgroundTint="@color/kit"
         android:text="Retrospektive"
-        android:textSize="80sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/id_meeting"
+        android:text="Frage"
         android:textSize="50sp"
         android:backgroundTint="@color/kit"
         android:layout_width="wrap_content"
@@ -34,10 +35,11 @@
         android:id="@+id/startm"
         android:layout_width="277dp"
         android:layout_height="86dp"
-        android:text="Start"
         android:backgroundTint="@color/kit"
+        android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome" />
+        app:layout_constraintTop_toBottomOf="@+id/welcome"
+        app:layout_constraintVertical_bias="0.838" />
 </androidx.constraintlayout.widget.ConstraintLayout>
