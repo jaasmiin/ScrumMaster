@@ -219,7 +219,6 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
 
     @Override
     public void onRobotFocusLost() {
-        finish();
     }
 
     @Override
