@@ -22,7 +22,7 @@ import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 import com.example.scrummaster.activity.daily.DailyStartActivity;
 import com.example.scrummaster.activity.planning.PlanningStartActivity;
-import com.example.scrummaster.activity.retrospective.RetrospectiveStartActivity;
+import com.example.scrummaster.activity.retrospective.RetrospectiveMenuActivity;
 import com.example.scrummaster.activity.tools.ToolsMenu;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.datamodel.PostNotes;
@@ -109,7 +109,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
             @Override
             public void onClick(View v) {
 
-                Intent i_PowerPoint = new Intent(MenuActivity.this, RetrospectiveStartActivity.class);
+                Intent i_PowerPoint = new Intent(MenuActivity.this, RetrospectiveMenuActivity.class);
 
                 startActivity(i_PowerPoint);
 
@@ -245,6 +245,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
                .withPhraseSets(planning)
               .withPhraseSets(modDaily)
                 .withPhraseSets(retrospective)
+                .withPhraseSets(tools)
                 .build();
         ListenResult listenresult= listen.run();
 
@@ -259,7 +260,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         if (modDaily.getPhrases().toString().contains(result)) {
             startActivity(new Intent(MenuActivity.this, DailyStartActivity.class));}
         if (retrospective.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(MenuActivity.this,RetrospectiveStartActivity.class));}
+            startActivity(new Intent(MenuActivity.this,RetrospectiveMenuActivity.class));}
         if (tools.getPhrases().toString().contains(result)) {
             startActivity(new Intent(MenuActivity.this, ToolsMenu.class));}
 

@@ -75,7 +75,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         participantList = loadParticipantListCopy();
         if (participantList.size()==0){
 
-            Intent i = new Intent(RetrospectiveActivity.this, RetrospectiveStartActivity.class);
+            Intent i = new Intent(RetrospectiveActivity.this, RetrospectiveMenuActivity.class);
             startActivity(i);
         } else{
         // Create a topic.
