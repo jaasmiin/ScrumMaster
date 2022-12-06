@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlanningSprintBacklogActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private Button sprintStory_1;
@@ -56,37 +57,37 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
         if (backlogList.size() >= 1) {
             sprintStory_1.setText(backlogList.get(0).getTitle());
             sprintStory_1.setVisibility(View.VISIBLE);
-            sprintStory_1.setBackgroundColor(buttonBackround(backlogList.get(0).getWeight()));
+            sprintStory_1.setBackgroundColor(buttonBackround(backlogList.get(0).getLabels()));
         }
 
         if (backlogList.size() >= 2) {
             sprintStory_2.setText(backlogList.get(1).getTitle());
             sprintStory_2.setVisibility(View.VISIBLE);
-            sprintStory_2.setBackgroundColor(buttonBackround(backlogList.get(1).getWeight()));
+            sprintStory_2.setBackgroundColor(buttonBackround(backlogList.get(1).getLabels()));
         }
 
         if (backlogList.size() >= 3) {
             sprintStory_3.setText(backlogList.get(2).getTitle());
             sprintStory_3.setVisibility(View.VISIBLE);
-            sprintStory_3.setBackgroundColor(buttonBackround(backlogList.get(2).getWeight()));
+            sprintStory_3.setBackgroundColor(buttonBackround(backlogList.get(2).getLabels()));
         }
 
         if (backlogList.size() >= 4) {
             sprintStory_4.setText(backlogList.get(3).getTitle());
             sprintStory_4.setVisibility(View.VISIBLE);
-            sprintStory_4.setBackgroundColor(buttonBackround(backlogList.get(3).getWeight()));
+            sprintStory_4.setBackgroundColor(buttonBackround(backlogList.get(3).getLabels()));
         }
 
         if (backlogList.size() >= 5) {
             sprintStory_5.setText(backlogList.get(4).getTitle());
             sprintStory_5.setVisibility(View.VISIBLE);
-            sprintStory_5.setBackgroundColor(buttonBackround(backlogList.get(4).getWeight()));
+            sprintStory_5.setBackgroundColor(buttonBackround(backlogList.get(4).getLabels()));
         }
 
         if (backlogList.size() >= 6) {
             sprintStory_6.setText(backlogList.get(5).getTitle());
             sprintStory_6.setVisibility(View.VISIBLE);
-            sprintStory_6.setBackgroundColor(buttonBackround(backlogList.get(5).getWeight()));
+            sprintStory_6.setBackgroundColor(buttonBackround(backlogList.get(5).getLabels()));
         }
 
         sprintStory_1.setOnClickListener(new View.OnClickListener() {
@@ -183,13 +184,11 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
 
 
     //Farbe je nach Gewichtung
-    private int buttonBackround(int i) {
-        if (i >= 0 && i <= 3) {
-            return getResources().getColor(R.color.green);
-        } else if (i > 3 && i <= 6) {
-            return getResources().getColor(R.color.orange);
+    private int buttonBackround(List<String> list) {
+        if (list.contains("In Bearbeitung")) {
+            return getResources().getColor(R.color.purple_500);
         } else
-            return getResources().getColor(R.color.red);
+            return getResources().getColor(R.color.green);
 
     }
 

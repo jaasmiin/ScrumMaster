@@ -1,6 +1,7 @@
 package com.example.scrummaster.activity.planning;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,9 @@ import com.example.scrummaster.controller.CountdownController;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.service.BacklogService;
 import com.example.scrummaster.service.RetrofitService;
+import com.google.gson.Gson;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,6 +74,7 @@ public class PlanningBacklogItemActivity extends RobotActivity implements RobotL
             @Override
             public void onClick(View v) {
               updateBacklogList(intent.getIntExtra("iid",0));
+
                 Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningBacklogActivity.class);
                 startActivity(i);
             }
@@ -95,6 +100,7 @@ public class PlanningBacklogItemActivity extends RobotActivity implements RobotL
             @Override
             public void onResponse(Call<MeetingPoints> call, Response<MeetingPoints> response) {
                 Log.i("Retrofit", response.toString());
+
             }
 
             @Override
@@ -102,9 +108,35 @@ public class PlanningBacklogItemActivity extends RobotActivity implements RobotL
                 Log.e("Retrofit","Failed");
 
             }
+
         });
 
     }
+    //Holt die komplette IssueListe mit dem Status opened komplett über gitlab
+    public void getIssues() {
+
+        RetrofitService.getRetrofitInstance().create(BacklogService.class).getIssues().enqueue(new Callback<List<MeetingPoints>>() {
+            @Override
+            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+                Log.i("Retrofit", new Gson().toJson(response.body()));
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Gson gson = new Gson();
+                List<MeetingPoints> meetingPointsList= response.body();
+                String json = gson.toJson(meetingPointsList);
+                editor.putString("IssueList",json);
+                editor.apply();
+            }
+
+            @Override
+            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+                String fail =t.getCause().toString();
+                Log.e("Retrofit",fail);
+            }
+        });
+
+    }
+
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 
@@ -112,6 +144,7 @@ public class PlanningBacklogItemActivity extends RobotActivity implements RobotL
 
     @Override
     public void onRobotFocusLost() {
+        getIssues();
         finish();
     }
 

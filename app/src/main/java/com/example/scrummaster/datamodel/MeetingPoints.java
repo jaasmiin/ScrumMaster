@@ -2,6 +2,8 @@ package com.example.scrummaster.datamodel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 
 public class MeetingPoints {
 
@@ -22,6 +24,13 @@ public class MeetingPoints {
 
     @SerializedName("iid")
     private int iid;
+
+    @SerializedName("labels")
+    List<String> labels;
+
+    public List<String> getLabels() {
+        return labels;
+    }
 
     public int getIid() {
         return iid;

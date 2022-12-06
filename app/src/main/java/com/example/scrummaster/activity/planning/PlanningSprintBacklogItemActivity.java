@@ -2,7 +2,6 @@ package com.example.scrummaster.activity.planning;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,13 +12,6 @@ import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
 import com.example.scrummaster.controller.CountdownController;
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.example.scrummaster.service.BacklogService;
-import com.example.scrummaster.service.RetrofitService;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PlanningSprintBacklogItemActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
@@ -75,25 +67,7 @@ public class PlanningSprintBacklogItemActivity extends RobotActivity implements 
     }
 
 
-    //Sendet den besprochenen Punkt als "closed"
-    private void updateBacklogList(int i){
 
-
-        //ServerDaten
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).setStatusSprintBoard(i).enqueue(new Callback<MeetingPoints>() {
-            @Override
-            public void onResponse(Call<MeetingPoints> call, Response<MeetingPoints> response) {
-                Log.i("Retrofit", response.toString());
-            }
-
-            @Override
-            public void onFailure(Call<MeetingPoints> call, Throwable t) {
-                Log.e("Retrofit","Failed");
-
-            }
-        });
-
-    }
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 
