@@ -20,7 +20,7 @@ public interface BacklogService {
     Call<List<MeetingPoints>> getIssues();
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
-    @PUT("35214/issues/{iid}?add_labels=Sprint Board")
+    @PUT("35214/issues/{iid}?add_labels=SprintBacklog")
     Call<MeetingPoints> setStatusSprintBoard(@Path("iid") int iid);
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
@@ -32,7 +32,7 @@ public interface BacklogService {
     Call<MeetingPoints>closeBacklogItem(@Path("iid") int iid);
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
-    @GET("35214/issues?labels=Sprint Board&state=opened")
+    @GET("35214/issues?labels=SprintBacklog&state=opened")
     Call<List<MeetingPoints>> getSprintBacklog();
 
 

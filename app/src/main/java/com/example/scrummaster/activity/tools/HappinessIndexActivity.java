@@ -16,7 +16,7 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
 import com.example.scrummaster.activity.MenuActivity;
 import com.example.scrummaster.datamodel.PostNotes;
-import com.example.scrummaster.service.PostNoteService;
+import com.example.scrummaster.service.SendCommentService;
 import com.example.scrummaster.service.RetrofitService;
 import com.google.gson.Gson;
 
@@ -133,7 +133,7 @@ public class HappinessIndexActivity extends RobotActivity implements RobotLifecy
         PostNotes happinessData = new PostNotes("Die Anzahl der Abstimmer war: " +numberOfVoters + " \n Die einzelen Abtimmungen waren:" + happinessList +  "\n Das Ergebnis ist: "+  index);
 
         //ServerDaten
-        RetrofitService.getRetrofitInstance().create(PostNoteService.class).sendHappinessIndex(happinessData).enqueue(new Callback<PostNotes>() {
+        RetrofitService.getRetrofitInstance().create(SendCommentService.class).sendHappinessIndex(happinessData).enqueue(new Callback<PostNotes>() {
             @Override
             public void onResponse(Call<PostNotes> call, Response<PostNotes> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));

@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.scrummaster.datamodel.PostNotes;
-import com.example.scrummaster.service.PostNoteService;
+import com.example.scrummaster.service.SendCommentService;
 import com.example.scrummaster.service.RetrofitService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,7 +42,7 @@ public class ParticipantController {
         //PostNotes liste = new PostNotes(listToString(test));
 
         //ServerDaten
-        RetrofitService.getRetrofitInstance().create(PostNoteService.class).sendTeilnehmerListe(liste).enqueue(new Callback<PostNotes>() {
+        RetrofitService.getRetrofitInstance().create(SendCommentService.class).sendTeilnehmerListe(liste).enqueue(new Callback<PostNotes>() {
             @Override
             public void onResponse(Call<PostNotes> call, Response<PostNotes> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));

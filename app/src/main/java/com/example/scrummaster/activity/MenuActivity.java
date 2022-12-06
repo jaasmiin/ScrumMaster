@@ -27,7 +27,7 @@ import com.example.scrummaster.activity.tools.ToolsMenu;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.datamodel.PostNotes;
 import com.example.scrummaster.service.BacklogService;
-import com.example.scrummaster.service.PostNoteService;
+import com.example.scrummaster.service.SendCommentService;
 import com.example.scrummaster.service.RetrofitService;
 import com.example.scrummaster.service.RetrospectiveService;
 import com.google.gson.Gson;
@@ -193,7 +193,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         //PostNotes liste = new PostNotes(listToString(test));
 
         //ServerDaten
-        RetrofitService.getRetrofitInstance().create(PostNoteService.class).sendTeilnehmerListe(liste).enqueue(new Callback<PostNotes>() {
+        RetrofitService.getRetrofitInstance().create(SendCommentService.class).sendTeilnehmerListe(liste).enqueue(new Callback<PostNotes>() {
             @Override
             public void onResponse(Call<PostNotes> call, Response<PostNotes> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));
