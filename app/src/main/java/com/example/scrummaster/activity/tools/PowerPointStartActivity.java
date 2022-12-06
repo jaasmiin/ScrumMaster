@@ -25,7 +25,6 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.MeetingFinished;
 import com.example.scrummaster.activity.MenuActivity;
 import com.example.scrummaster.controller.PowerPointAdvancedQiChatExecutor;
 import com.example.scrummaster.controller.PowerPointBeginnerQiChatExecutor;
@@ -68,7 +67,7 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
         done = findViewById(R.id.powerpointDone);
         participantList = loadParticipantListCopy();
         if (participantList.size()==0){
-            Intent i = new Intent(PowerPointStartActivity.this, MeetingFinished.class);
+            Intent i = new Intent(PowerPointStartActivity.this, MenuActivity.class);
             startActivity(i);} else {
             // Create a topic.
             topic = TopicBuilder.with(qiContext)

@@ -145,7 +145,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         say.run();
         //Phraseset für Scannen
         PhraseSet scan= PhraseSetBuilder.with(qiContext)
-                .withTexts("Code", "")
+                .withTexts("Code", "Scannen", "Hallo Pepper", "Hallo")
                 .build();
 
         //Phraseset für Auswahlmenü

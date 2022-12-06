@@ -1,21 +1,13 @@
 package com.example.scrummaster.controller;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
 import com.example.scrummaster.activity.daily.DailyQuestionsActivity;
 import com.example.scrummaster.activity.retrospective.RetrospectiveActivity;
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Locale;
 
 public class CountdownController {
@@ -129,38 +121,6 @@ public class CountdownController {
 
     }
 
-
-
-
-
-
-    //Lädt die TeilnehmerListe und gibt diese zurück
-    private ArrayList<String> loadTeilnehmerListe(Context c){
-
-
-        ArrayList <String> participantList ;
-        SharedPreferences sharedPreferences = c.getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("participantList",null);
-        Type type= new TypeToken<ArrayList<String>>(){}.getType();
-        participantList = gson.fromJson(json,type);
-
-        return participantList;
-    }
-
-    //Lädt die gespeicherte MeetingPointListe aus sharedPreferences
-    private ArrayList<MeetingPoints> loadMeetingPoints(Context c) {
-        ArrayList<MeetingPoints> meetingPointList;
-        SharedPreferences sharedPreferences = c.getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("meetingPointList", null);
-        Type type = new TypeToken<ArrayList<MeetingPoints>>() {
-        }.getType();
-        meetingPointList = gson.fromJson(json, type);
-
-        return meetingPointList;
-
-    }
 
 
 }
