@@ -52,7 +52,7 @@ public class StartActivity extends RobotActivity implements RobotLifecycleCallba
 
         //Phraseset für Planning
         PhraseSet begin= PhraseSetBuilder.with(qiContext)
-                .withTexts("Starte App", "Starte", "Beginne")
+                .withTexts("Starte App", "Starte", "Beginne App","Beginne", "Fange An","anfangen")
                 .build( );
 
         //Auswahlfrage
