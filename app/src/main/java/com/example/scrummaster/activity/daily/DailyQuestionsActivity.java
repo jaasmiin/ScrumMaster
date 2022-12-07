@@ -26,7 +26,7 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.MeetingFinished;
+import com.example.scrummaster.begin.MeetingFinished;
 import com.example.scrummaster.controller.CountdownController;
 import com.example.scrummaster.controller.ModerateDailyQiChatExecutor;
 import com.google.gson.Gson;

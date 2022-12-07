@@ -20,7 +20,7 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.MenuActivity;
+import com.example.scrummaster.begin.MenuActivity;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.service.BacklogService;
 import com.example.scrummaster.service.RetrofitService;

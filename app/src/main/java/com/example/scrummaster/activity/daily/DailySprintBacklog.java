@@ -13,7 +13,7 @@ import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.MeetingFinished;
+import com.example.scrummaster.begin.MeetingFinished;
 import com.example.scrummaster.datamodel.MeetingPoints;
 import com.example.scrummaster.service.BacklogService;
 import com.example.scrummaster.service.RetrofitService;
