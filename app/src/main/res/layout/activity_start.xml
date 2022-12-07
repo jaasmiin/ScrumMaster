@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".activity.StartActivity">
 
-    <Button
+    <ImageButton
         android:id="@+id/startApp"
-        android:layout_width="1245dp"
-        android:layout_height="834dp"
-        android:text="Button"
+        android:layout_width="896dp"
+        android:layout_height="456dp"
+        android:background="@drawable/startbildschirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

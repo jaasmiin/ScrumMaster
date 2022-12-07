@@ -4,16 +4,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
+import com.aldebaran.qi.sdk.builder.ListenBuilder;
+import com.aldebaran.qi.sdk.builder.PhraseSetBuilder;
+import com.aldebaran.qi.sdk.builder.SayBuilder;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
+import com.aldebaran.qi.sdk.object.conversation.Listen;
+import com.aldebaran.qi.sdk.object.conversation.ListenResult;
+import com.aldebaran.qi.sdk.object.conversation.Phrase;
+import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
+import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 
 public class StartActivity extends RobotActivity implements RobotLifecycleCallbacks {
-        Button start;
+        ImageButton start;
+    Phrase select = new Phrase(" Hallo, heute möchte ich dir gerne etwas bei deiner Arbeit unter die Arme greifen. Sobald wir losegen können berühre den Bildschirm oder sage Start. ") ;
+    Listen listen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this,this);
@@ -38,6 +49,31 @@ public class StartActivity extends RobotActivity implements RobotLifecycleCallba
 
             }
         });
+
+        //Phraseset für Planning
+        PhraseSet begin= PhraseSetBuilder.with(qiContext)
+                .withTexts("Starte App", "Starte", "Beginne")
+                .build( );
+
+        //Auswahlfrage
+        Say say = SayBuilder.with(qiContext)
+                .withPhrase(select)
+                .build();
+        say.run();
+
+        //Zuhören was der Nutzer sich
+        listen = ListenBuilder.with(qiContext)
+                .withPhraseSets(begin)
+                .build();
+        ListenResult listenresult= listen.run();
+
+        // Das Gesagte in String umwandeln
+        String result = listenresult.getHeardPhrase().toString();
+
+        //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
+        if (begin.getPhrases().toString().contains(result) ) {
+            Intent i = new Intent(StartActivity.this, MainActivity.class);
+            startActivity(i);}
     }
 
 
