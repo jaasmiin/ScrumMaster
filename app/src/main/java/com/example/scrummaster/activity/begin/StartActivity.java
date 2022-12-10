@@ -1,4 +1,4 @@
-package com.example.scrummaster.begin;
+package com.example.scrummaster.activity.begin;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

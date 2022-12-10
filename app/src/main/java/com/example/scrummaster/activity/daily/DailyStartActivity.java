@@ -3,7 +3,6 @@ package com.example.scrummaster.activity.daily;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,23 +25,13 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
-import com.example.scrummaster.begin.MenuActivity;
+import com.example.scrummaster.activity.begin.MenuActivity;
 import com.example.scrummaster.controller.ModerateDailyStartQiChatExecutor;
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.example.scrummaster.service.BacklogService;
-import com.example.scrummaster.service.RetrofitService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.scrummaster.controller.ParticipantController;
+import com.example.scrummaster.controller.RetrofitController;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DailyStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
     Topic topic;
@@ -63,8 +52,8 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
         welcome = findViewById(R.id.welcomedaily);
         menu =findViewById(R.id.dailyTomenu2);
         instance = this;
-        copyParticipantList();
-        getSprintBacklog();
+        ParticipantController.copyParticipantList(this);
+        RetrofitController.getSprintBacklog(this);
 
     }
 
@@ -148,7 +137,7 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
     });
 
     }
-    //Kopiert die Teilnehmerliste
+    /*//Kopiert die Teilnehmerliste
     private void copyParticipantList (){
 
 
@@ -169,10 +158,10 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
         editor.putString("participantListCopy",jsonCopy);
         editor.apply();
 
-    }
+    }*/
 
     //Holt die  IssueListe mit dem Label SprintBacklog über gitlab und speichert sie in shared Preferences
-    public void getSprintBacklog() {
+  /*  public void getSprintBacklog() {
 
         RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<MeetingPoints>>() {
             @Override
@@ -194,7 +183,7 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
             }
         });
 
-    }
+    }*/
 
     @Override
     public void onRobotFocusLost() {

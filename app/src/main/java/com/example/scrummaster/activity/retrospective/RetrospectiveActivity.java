@@ -3,7 +3,6 @@ package com.example.scrummaster.activity.retrospective;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,11 +27,9 @@ import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
 import com.example.scrummaster.controller.CountdownController;
 import com.example.scrummaster.controller.ModerateNotesQiChatExecutor;
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.scrummaster.controller.ParticipantController;
+import com.example.scrummaster.controller.RetrofitController;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,11 +49,13 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
     public Bookmark proposalBookmark;
     private ArrayList<String> participantList = new ArrayList<>();
     private static RetrospectiveActivity instance;
+    private String question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this,this);
         super.onCreate(savedInstanceState);
+        question= RetrofitController.loadQuestion(this);
         setContentView(R.layout.activity_moderationnotes);
         countdown = findViewById(R.id.backlog_countdown);
         btn_stop = findViewById(R.id.done);
@@ -64,7 +63,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         name= (TextView) findViewById(R.id.name);
         note = (TextView)findViewById(R.id.notes);
         Intent i = getIntent();
-        note.setText(i.getStringExtra("question"));
+        note.setText(question);
         instance= this;
     }
 
@@ -72,7 +71,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
     public void onRobotFocusGained(QiContext qiContext) {
 
 
-        participantList = loadParticipantListCopy();
+        participantList = ParticipantController.loadParticipantListCopy(this);
         if (participantList.size()==0){
 
             Intent i = new Intent(RetrospectiveActivity.this, RetrospectiveMenuActivity.class);
@@ -116,7 +115,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
 
             @Override
             public void onClick(View v) {
-                deleteParticipantListEntry();
+                ParticipantController.deleteParticipantListEntry(RetrospectiveActivity.this);
 
                 mcountdown.startTimerNotes(countdown, RetrospectiveActivity.this);
                 overridePendingTransition(0, 0);
@@ -161,10 +160,11 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
 
     });
     }
-    //Löscht den ersten Eintrag der gespeicherten MeetingListCopy aus sharedPreferences
+
+   /* //Löscht den ersten Eintrag der gespeicherten MeetingListCopy aus sharedPreferences
     private void deleteMeetingPointListEntry() {
         ArrayList<MeetingPoints> l = new ArrayList<>();
-        l = loadMeetingPointListCopy();
+        l = RetrofitController.loadMeetingPointListCopy(this);
         l.remove(0);
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -173,7 +173,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         editor.putString("meetingPointListCopy",json);
         editor.apply();
 
-    }
+    }*/
 
     // Ruft den Bookmark auf
     public void sayProposal() {
@@ -183,7 +183,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
     }
 
 
-    //Lädt die TeilnehmerListe speichert iese als Kopie in Shared Preferences und gibt die Kopie zurück
+   /* //Lädt die Besprechungspunkte speichert diese als Kopie in Shared Preferences und gibt die Kopie zurück
     private ArrayList<MeetingPoints> loadMeetingPointListCopy(){
 
         ArrayList <MeetingPoints> meetingPointListCopy;
@@ -194,11 +194,10 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
         meetingPointListCopy = gson.fromJson(json,type);
         return meetingPointListCopy;
-    }
+    }*/
 
-    //Löscht den ersten Eintrag der gespeicherten MeetingPointListeDescription aus sharedPreferences
-
-   /* private void deleteMeetingPointsDescription() {
+   /* //Löscht den ersten Eintrag der gespeicherten MeetingPointListeDescription aus sharedPreferences
+    private void deleteMeetingPointsDescription() {
         List<String> l = new ArrayList<>();
         l = getMeetingPointsDescription();
         l.remove(0);
@@ -208,7 +207,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         String json = gson.toJson(l);
         editor.putString("meetingPointListDescription",json);
         editor.commit();
-        }*/
+        }
 
 
     //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
@@ -238,7 +237,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         return l;
     }*/
 
-    //Lädt die TeilnehmerListe speichert iese als Kopie in Shared Preferences und gibt die Kopie zurück
+   /* //Lädt die TeilnehmerListe speichert iese als Kopie in Shared Preferences und gibt die Kopie zurück
     private ArrayList<String> loadParticipantListCopy(){
 
         ArrayList <String> participantList;
@@ -249,9 +248,9 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         Type type= new TypeToken<ArrayList<String>>(){}.getType();
         participantList = gson.fromJson(json,type);
         return participantList;
-    }
+    }*/
 
-    private void copyParticipantList (){
+  /*  private void copyParticipantList (){
         ArrayList <String> participantList;
         //Die Origonal TeilnehmerListe laden
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
@@ -266,7 +265,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         editor.putString("participantListCopy",jsonCopy);
         editor.apply();
 
-    }
+    }*/
 
 
     @Override

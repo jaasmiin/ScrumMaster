@@ -19,7 +19,7 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.begin.MenuActivity;
+import com.example.scrummaster.activity.begin.MenuActivity;
 
 public class ToolsMenu extends RobotActivity implements RobotLifecycleCallbacks {
     private TextView tools_headline;

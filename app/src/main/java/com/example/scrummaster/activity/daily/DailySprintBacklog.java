@@ -1,9 +1,7 @@
 package com.example.scrummaster.activity.daily;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,20 +11,12 @@ import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
-import com.example.scrummaster.begin.MeetingFinished;
+import com.example.scrummaster.activity.begin.MeetingFinished;
+import com.example.scrummaster.controller.RetrofitController;
 import com.example.scrummaster.datamodel.MeetingPoints;
-import com.example.scrummaster.service.BacklogService;
-import com.example.scrummaster.service.RetrofitService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 //Dieses SprintBoard dient dazu die Items auf Doing und Done zu setzen
 public class DailySprintBacklog extends RobotActivity implements RobotLifecycleCallbacks {
@@ -46,7 +36,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this, this);
         super.onCreate(savedInstanceState);
-        backlogList = loadSprintBoard();
+        backlogList = RetrofitController.loadSprintBoard(this);
 
         setContentView(R.layout.activity_daily_sprint_backlog);
         headline = findViewById(R.id.headlindeDailyBacklog);
@@ -199,7 +189,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
 
 
 
-    //Lädt die gespeicherte SprintBoard aus sharedPreferences
+  /*  //Lädt die gespeicherte SprintBoard aus sharedPreferences
     private ArrayList<MeetingPoints> loadSprintBoard() {
         getSprintBacklog();
         ArrayList<MeetingPoints> issueList;
@@ -211,8 +201,8 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
         issueList = gson.fromJson(json, type);
 
         return issueList;
-    }
-    public void getSprintBacklog() {
+    }*/
+   /* public void getSprintBacklog() {
 
         RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<MeetingPoints>>() {
             @Override
@@ -234,7 +224,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
             }
         });
 
-    }
+    }*/
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 

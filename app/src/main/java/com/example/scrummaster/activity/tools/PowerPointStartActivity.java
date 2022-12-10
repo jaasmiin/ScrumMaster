@@ -3,7 +3,6 @@ package com.example.scrummaster.activity.tools;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,14 +24,12 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
-import com.example.scrummaster.begin.MenuActivity;
+import com.example.scrummaster.activity.begin.MenuActivity;
+import com.example.scrummaster.controller.ParticipantController;
 import com.example.scrummaster.controller.PowerPointAdvancedQiChatExecutor;
 import com.example.scrummaster.controller.PowerPointBeginnerQiChatExecutor;
 import com.example.scrummaster.controller.PowerPointSelecttQiChatExecutor;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,7 +62,7 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
         btn_advanced= findViewById(R.id.btn_advanced);
         btn_beginner= findViewById(R.id.btn_beginner);
         done = findViewById(R.id.powerpointDone);
-        participantList = loadParticipantListCopy();
+        participantList = ParticipantController.loadParticipantListCopy(this);
         if (participantList.size()==0){
             Intent i = new Intent(PowerPointStartActivity.this, MenuActivity.class);
             startActivity(i);} else {
@@ -119,7 +116,7 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
 
                     Intent intent = new Intent(PowerPointStartActivity.this, PowerPointBeginnerActivity.class);
                     startActivity(intent);
-                    deleteParticipantListEntry();
+                    ParticipantController.deleteParticipantListEntry(PowerPointStartActivity.this);
                 }
             });
 
@@ -131,7 +128,7 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
 
                     Intent intent = new Intent(PowerPointStartActivity.this, PowerPointAdvancedActivity.class);
                     startActivity(intent);
-                    deleteParticipantListEntry();
+                    ParticipantController.deleteParticipantListEntry(PowerPointStartActivity.this);
                 }
             });
 
@@ -143,7 +140,7 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
 
                     Intent intent = new Intent(PowerPointStartActivity.this, MenuActivity.class);
                     startActivity(intent);
-                    deleteParticipantListEntry();
+                    ParticipantController.deleteParticipantListEntry(PowerPointStartActivity.this);
                 }
             });
 
@@ -165,7 +162,7 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
 
     }
     //Lädt die TeilnehmerListe speichert diese als Kopie in Shared Preferences und gibt die Kopie zurück
-    private ArrayList<String> loadParticipantListCopy(){
+   /* private ArrayList<String> loadParticipantListCopy(){
         ArrayList <String> participantList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -178,11 +175,11 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
 
         return TEST;
         //return participantList;
-    }
+    }*/
 
 
     //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
-    public void deleteParticipantListEntry() {
+   /* public void deleteParticipantListEntry() {
         ArrayList<String> l = new ArrayList<>();
         l = loadParticipantListCopy();
         l.remove(0);
@@ -193,7 +190,7 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
         editor.putString("participantListCopy",json);
         editor.apply();
 
-    }
+    }*/
 
     //Diese Methode setzt den Bookmark die Activity neu gestartet wurde
     public String setBookmark(String s,String s2,String s3){

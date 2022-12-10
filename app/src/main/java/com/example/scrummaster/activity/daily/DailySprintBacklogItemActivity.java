@@ -1,9 +1,7 @@
 package com.example.scrummaster.activity.daily;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,16 +12,7 @@ import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
 import com.example.scrummaster.controller.CountdownController;
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.example.scrummaster.service.BacklogService;
-import com.example.scrummaster.service.RetrofitService;
-import com.google.gson.Gson;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.scrummaster.controller.RetrofitController;
 
 public class DailySprintBacklogItemActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
@@ -64,7 +53,7 @@ public class DailySprintBacklogItemActivity extends RobotActivity implements Rob
 
             @Override
             public void onClick(View v) {
-                setItemStatusDone(intent.getIntExtra("iid",0));
+                RetrofitController.setItemStatusDone(intent.getIntExtra("iid",0));
 
                 Intent i = new Intent(DailySprintBacklogItemActivity.this, DailySprintBacklog.class);
                 startActivity(i);
@@ -75,10 +64,11 @@ public class DailySprintBacklogItemActivity extends RobotActivity implements Rob
 
             @Override
             public void onClick(View v) {
-                setItemStatusDoing(intent.getIntExtra("iid",0));
-getSprintBacklog();
+                RetrofitController.setItemStatusDoing(intent.getIntExtra("iid",0));
+                RetrofitController.getSprintBacklog(DailySprintBacklogItemActivity.this);
                 Intent i = new Intent(DailySprintBacklogItemActivity.this, DailySprintBacklog.class);
                 startActivity(i);
+
             }
         });
 
@@ -87,7 +77,7 @@ getSprintBacklog();
     }
 
 
-    //Sendet den besprochenen Punkt als "closed"
+ /*   //Sendet den besprochenen Punkt als "closed"
     private void setItemStatusDone(int i){
         //ServerDaten
         RetrofitService.getRetrofitInstance().create(BacklogService.class).closeBacklogItem(i).enqueue(new Callback<MeetingPoints>() {
@@ -104,9 +94,9 @@ getSprintBacklog();
             }
         });
 
-    }
+    }*/
 
-    //Sendet den besprochenen Punkt als "doing"
+    /*//Sendet den besprochenen Punkt als "doing"
     private void setItemStatusDoing(int i){
         //ServerDaten
         RetrofitService.getRetrofitInstance().create(BacklogService.class).setStatusDoing(i).enqueue(new Callback<MeetingPoints>() {
@@ -125,9 +115,9 @@ getSprintBacklog();
         });
 
 
-    }
+    }*/
 
-    //Holt die  IssueListe mit dem Label SprintBacklog über gitlab und speichert sie in shared Preferences
+    /*//Holt die  IssueListe mit dem Label SprintBacklog über gitlab und speichert sie in shared Preferences
     public void getSprintBacklog() {
 
         RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<MeetingPoints>>() {
@@ -150,7 +140,8 @@ getSprintBacklog();
             }
         });
 
-    }
+    }*/
+
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 
@@ -158,7 +149,7 @@ getSprintBacklog();
 
     @Override
     public void onRobotFocusLost() {
-        getSprintBacklog();
+        RetrofitController.getSprintBacklog(this);
         finish();
     }
 

@@ -3,7 +3,6 @@ package com.example.scrummaster.activity.daily;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,13 +25,10 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
-import com.example.scrummaster.begin.MeetingFinished;
 import com.example.scrummaster.controller.CountdownController;
 import com.example.scrummaster.controller.ModerateDailyQiChatExecutor;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.scrummaster.controller.ParticipantController;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,7 +83,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
-        participantList = loadParticipantListCopy();
+        participantList = ParticipantController.loadParticipantListCopy(this);
         if (participantList.size() == 0) {
             Intent i = new Intent(DailyQuestionsActivity.this, DailySprintBacklog.class);
             startActivity(i);
@@ -133,7 +129,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
                 name.setText(participantList.get(0));
                 mcountdown.startTimerDaily(countdown, DailyQuestionsActivity.this);
                 overridePendingTransition(0, 0);
-                deleteParticipantListEntry();
+                ParticipantController.deleteParticipantListEntry(DailyQuestionsActivity.this);
             }
         });
         btn_done.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +145,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DailyQuestionsActivity.this, MeetingFinished.class);
+                Intent intent = new Intent(DailyQuestionsActivity.this, DailySprintBacklog.class);
                 startActivity(intent);
             }
         });
@@ -171,7 +167,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
 
 
 
-    //Lädt die TeilnehmerListe speichert diese als Kopie in Shared Preferences und gibt die Kopie zurück
+  /*  //Lädt die TeilnehmerListe speichert diese als Kopie in Shared Preferences und gibt die Kopie zurück
     private ArrayList<String> loadParticipantListCopy(){
 
         ArrayList <String> participantList;
@@ -184,8 +180,8 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
         participantList = gson.fromJson(json,type);
        return participantList;
 
-    }
-    //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
+    }*/
+   /* //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
     private void deleteParticipantListEntry() {
         ArrayList<String> l = new ArrayList<>();
         l = loadParticipantListCopy();
@@ -197,7 +193,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
         editor.putString("participantListCopy",json);
         editor.apply();
 
-    }
+    }*/
 
     @Override
     public void onRobotFocusLost() {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".begin.StartActivity">
+    tools:context=".activity.begin.StartActivity">
 
     <ImageButton
         android:id="@+id/startApp"

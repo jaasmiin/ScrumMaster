@@ -1,8 +1,7 @@
-package com.example.scrummaster.begin;
+package com.example.scrummaster.activity.begin;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.aldebaran.qi.sdk.QiContext;
@@ -13,12 +12,8 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-
+import com.example.scrummaster.controller.ParticipantController;
+//erstellen der Teilnehmerliste und begüßung des Nutzers
 public class WelcomeActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
 
@@ -36,7 +31,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
 
 
     }
-    //Methode speichert die Teilnehmerliste
+  /*  //Methode speichert die Teilnehmerliste
     private void saveParticipantList(String participant){
         if (participant != null) {
             ArrayList<String> participantList = loadParticipantList();
@@ -49,8 +44,8 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
             editor.apply();
         }
 
-    }
-    //Methode lädt die Teilnehmerliste
+    }*/
+   /* //Methode lädt die Teilnehmerliste
     private ArrayList<String> loadParticipantList() {
 
         ArrayList<String> participantList;
@@ -61,7 +56,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         participantList = gson.fromJson(json,type);
         return participantList;
 
-    }
+    }*/
 
         @Override
     public void onRobotFocusGained(QiContext qiContext) {
@@ -71,7 +66,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         String name = intent.getStringExtra("participant");
         //Wenn kein Gast, dann wird der Name in der Teilnehmerliste gespeichert
         if (!name.contains("Gast")){
-        saveParticipantList(name);}
+        ParticipantController.saveParticipantList(name,this);}
 
         Phrase welcome;
         //So soll der ParticipantController begrüßt werden. Es wird unterschieden zwischen Gast und Teilnehmer.

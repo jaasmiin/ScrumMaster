@@ -1,9 +1,7 @@
 package com.example.scrummaster.activity.planning;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,17 +18,8 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.begin.MenuActivity;
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.example.scrummaster.service.BacklogService;
-import com.example.scrummaster.service.RetrofitService;
-import com.google.gson.Gson;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.scrummaster.activity.begin.MenuActivity;
+import com.example.scrummaster.controller.RetrofitController;
 
 public class PlanningStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
@@ -42,7 +31,7 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this, this);
         super.onCreate(savedInstanceState);
-        getSprintBacklog();
+        RetrofitController.getSprintBacklog(this);
 
         setContentView(R.layout.activity_planning_start);
         one = findViewById(R.id.planning_meeting_I);
@@ -74,7 +63,9 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
         });
     }
     //Holt die  IssueListe mit dem Label SprintBacklog über gitlab und speichert sie in shared Preferences
-    public void getSprintBacklog() {
+
+
+  /*  public void getSprintBacklog() {
 
         RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<MeetingPoints>>() {
             @Override
@@ -96,7 +87,7 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
             }
         });
 
-    }
+    }*/
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {

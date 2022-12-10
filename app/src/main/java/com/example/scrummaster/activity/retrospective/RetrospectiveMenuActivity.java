@@ -18,9 +18,11 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.begin.MenuActivity;
 
 public class RetrospectiveMenuActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private Button checkin;
+    private Button menu;
     private Phrase select = new Phrase(" Welche Aktion soll ich ausführen?") ;
     Listen listen;
     @Override
@@ -29,8 +31,16 @@ public class RetrospectiveMenuActivity extends RobotActivity implements RobotLif
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrospective_menu);
 
-
+        menu = findViewById(R.id.retrom_tomenu);
         checkin = findViewById(R.id.retro_checkIn);
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RetrospectiveMenuActivity.this,MenuActivity.class);
+                startActivity(i);
+                            }
+        });
 
        checkin.setOnClickListener(new View.OnClickListener() {
 

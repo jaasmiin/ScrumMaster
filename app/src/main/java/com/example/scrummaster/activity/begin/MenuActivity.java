@@ -1,9 +1,7 @@
-package com.example.scrummaster.begin;
+package com.example.scrummaster.activity.begin;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -24,22 +22,10 @@ import com.example.scrummaster.activity.daily.DailyStartActivity;
 import com.example.scrummaster.activity.planning.PlanningStartActivity;
 import com.example.scrummaster.activity.retrospective.RetrospectiveMenuActivity;
 import com.example.scrummaster.activity.tools.ToolsMenu;
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.example.scrummaster.datamodel.PostNotes;
-import com.example.scrummaster.service.BacklogService;
-import com.example.scrummaster.service.SendCommentService;
-import com.example.scrummaster.service.RetrofitService;
-import com.example.scrummaster.service.RetrospectiveService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.scrummaster.controller.ParticipantController;
+import com.example.scrummaster.controller.RetrofitController;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MenuActivity extends RobotActivity implements RobotLifecycleCallbacks {
     ImageButton btn_planning;
@@ -53,13 +39,14 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        RetrofitController.getIssues(this);
+        RetrofitController.getQuestion(this);
         //Laden der Besprechungs Punkte
-        getMeetingPoints();
+        //RetrofitController.getMeetingPoints(this);
         //Kopieren der Besprechungs Punkte zur Nutzung in anderen Activities
-        copyMeetingPointList();
+        RetrofitController.copyMeetingPointList(this);
         //Kopiert die Teilnehmerliste zur Nutzung für andere Activities
-        copyParticipantList();
+       ParticipantController.copyParticipantList(this);
         super.onCreate(savedInstanceState);
         QiSDK.register(this, this);
         setContentView(R.layout.activity_selectionmenu);
@@ -68,8 +55,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         btn_planning=findViewById(R.id.btn_planning);
        btn_tools = findViewById(R.id.btn_tools);
 
-        getIssues();
-        getQuestion();
+
 
 
 
@@ -78,17 +64,14 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         Intent intent = getIntent();
         sendParticipantList = intent.getStringExtra("sendData");
         if (sendParticipantList != null){
-        sendParticipants();}      
+        ParticipantController.sendParticipants(this);}
 
 
 
         btn_modDaily.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(MenuActivity.this, DailyStartActivity.class));
-
             }
         });
 
@@ -110,9 +93,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
             public void onClick(View v) {
 
                 Intent i_PowerPoint = new Intent(MenuActivity.this, RetrospectiveMenuActivity.class);
-
                 startActivity(i_PowerPoint);
-
             }
         });
 
@@ -134,7 +115,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
     }
     //Holt die zu Fragen für Retrospektive über gitlab
-    public void getQuestion() {
+    /*public void getQuestion() {
 
         RetrofitService.getRetrofitInstance().create(RetrospectiveService.class).getQuestion().enqueue(new Callback<List<MeetingPoints>>() {
             @Override
@@ -156,9 +137,9 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
             }
         });
 
-    }
+    }*/
     //Kopiert die Teilnehmerliste
-    private void copyParticipantList (){
+  /*  private void copyParticipantList (){
 
 
         ArrayList<String> participantList;
@@ -178,10 +159,10 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         editor.putString("participantListCopy",jsonCopy);
         editor.apply();
 
-    }
+    }*/
 
 
-    //Sendet die Teilnehmerliste zu Gitlab
+  /*  //Sendet die Teilnehmerliste zu Gitlab
     private void sendParticipants(){
 
         //Diese Methode ist ausgebelendet, weil Pepper Emulator damit abstürzt--> Nullpointer
@@ -207,7 +188,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         });
 
     }
-
+*/
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
@@ -282,7 +263,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
     }
 
 
-    //Lädt die TeilnehmerListe und gibt diese zurück
+    /*//Lädt die TeilnehmerListe und gibt diese zurück
     private ArrayList<String> loadParticipantList(){
         ArrayList <String> participantList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
@@ -297,7 +278,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
         return TEST;
        // return participantList;
-    }
+    }*/
 
     //Wandelt eine StringListe in einen String um und gibt diese aus
     private String listToString (ArrayList<String> liste){
@@ -306,7 +287,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
     }
 
-    //Holt die zu MeetingPointListe über gitlab
+   /* //Holt die zu MeetingPointListe über gitlab
     public void getMeetingPoints() {
 
         RetrofitService.getRetrofitInstance().create(RetrospectiveService.class).getQuestion().enqueue(new Callback<List<MeetingPoints>>() {
@@ -329,9 +310,9 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
             }
         });
 
-    }
+    }*/
 
-    //Kopiert die MeetingPointList
+ /*   //Kopiert die MeetingPointList
     private void copyMeetingPointList (){
         ArrayList <MeetingPoints> meetingPointList;
         //Die Origonal MeetingPointListe laden
@@ -347,9 +328,9 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         editor.putString("meetingPointListCopy",jsonCopy);
         editor.apply();
 
-    }
+    }*/
     //Holt die komplette IssueListe mit dem Status opened komplett über gitlab
-    public void getIssues() {
+    /*public void getIssues() {
 
         RetrofitService.getRetrofitInstance().create(BacklogService.class).getIssues().enqueue(new Callback<List<MeetingPoints>>() {
             @Override
@@ -371,5 +352,5 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
             }
         });
 
-    }
+    }*/
 }

@@ -22,7 +22,7 @@ public class PowerPointSelecttQiChatExecutor extends BaseQiChatExecutor {
         Context c;
         c= PowerPointStartActivity.getInstance();
         Intent intent = new Intent(c, PowerPointStartActivity.class);
-        PowerPointStartActivity.getInstance().deleteParticipantListEntry();
+       ParticipantController.deleteParticipantListEntry(c);
         PowerPointStartActivity.getInstance().startActivity(intent);
     }
 

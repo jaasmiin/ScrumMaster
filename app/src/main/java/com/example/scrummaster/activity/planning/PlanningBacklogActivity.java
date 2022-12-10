@@ -1,7 +1,6 @@
 package com.example.scrummaster.activity.planning;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,11 +13,9 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
+import com.example.scrummaster.controller.RetrofitController;
 import com.example.scrummaster.datamodel.MeetingPoints;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class PlanningBacklogActivity extends RobotActivity implements RobotLifecycleCallbacks {
@@ -50,7 +47,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
         userStory_6 = findViewById(R.id.userStory_6);
         finish= findViewById(R.id.backlog_back);
 
-        backlogList = loadIssues();
+        backlogList = RetrofitController.loadIssues(this);
 
         if (backlogList.size() >= 1) {
         userStory_1.setText(backlogList.get(0).getTitle());
@@ -194,7 +191,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
 
 
 
-    //Lädt die gespeicherte Backlog Items aus sharedPreferences
+  /*  //Lädt die gespeicherte Backlog Items aus sharedPreferences
     private ArrayList<MeetingPoints> loadIssues(){
         ArrayList<MeetingPoints> issueList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
@@ -204,7 +201,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
         issueList = gson.fromJson(json,type);
 
         return issueList;
-    }
+    }*/
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {

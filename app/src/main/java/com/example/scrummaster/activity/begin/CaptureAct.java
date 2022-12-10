@@ -1,4 +1,4 @@
-package com.example.scrummaster.begin;
+package com.example.scrummaster.activity.begin;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 //klasse für den QRCode Scanner

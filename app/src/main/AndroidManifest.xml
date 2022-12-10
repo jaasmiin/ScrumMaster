@@ -46,7 +46,7 @@
             android:name=".activity.planning.PlanningBacklogActivity"
             android:exported="false" />
         <activity
-            android:name=".begin.MainActivity"
+            android:name=".activity.begin.MainActivity"
             android:exported="false" />
         <activity
             android:name=".activity.tools.HappinessIndexActivity"
@@ -67,7 +67,7 @@
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".begin.MeetingFinished"
+            android:name=".activity.begin.MeetingFinished"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
@@ -83,15 +83,15 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".begin.MenuActivity"
+            android:name=".activity.begin.MenuActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".begin.WelcomeActivity"
+            android:name=".activity.begin.WelcomeActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".begin.StartActivity"
+            android:name=".activity.begin.StartActivity"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -101,7 +101,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".begin.CaptureAct"
+            android:name=".activity.begin.CaptureAct"
             android:screenOrientation="landscape"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme" />

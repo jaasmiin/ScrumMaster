@@ -1,4 +1,4 @@
-package com.example.scrummaster.begin;
+package com.example.scrummaster.activity.begin;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,7 +32,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
     ImageButton btn_scan;
     ImageButton btn_selectionmnu;
 
-    Phrase scanOrSelect = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Auswahlmenü wechseln. Was möchtest du machen?");
+    Phrase scanOrSelect = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Menü wechseln. Was möchtest du machen?");
 
 
 
@@ -145,12 +145,12 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         say.run();
         //Phraseset für Scannen
         PhraseSet scan= PhraseSetBuilder.with(qiContext)
-                .withTexts("Code", "Scannen", "Hallo Pepper", "Hallo")
+                .withTexts("Code", "Scannen", "Hallo Pepper", "Hallo","Scanne Code")
                 .build();
 
         //Phraseset für Auswahlmenü
         PhraseSet selectionmnu= PhraseSetBuilder.with(qiContext)
-                .withTexts("Auswahlmenü", " Starte Auswahlmenü", "Menü")
+                .withTexts("menü", " Starte menü")
                 .build();
 
         Listen listen = ListenBuilder.with(qiContext)

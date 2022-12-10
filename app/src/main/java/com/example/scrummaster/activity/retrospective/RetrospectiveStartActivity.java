@@ -3,7 +3,6 @@ package com.example.scrummaster.activity.retrospective;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,12 +24,9 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
-import com.example.scrummaster.datamodel.MeetingPoints;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.scrummaster.controller.ParticipantController;
+import com.example.scrummaster.controller.RetrofitController;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class RetrospectiveStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
@@ -52,7 +48,7 @@ public class RetrospectiveStartActivity extends RobotActivity implements RobotLi
         btn_startm = findViewById(R.id.startm);
 
 
-        copyParticipantList();
+        ParticipantController.copyParticipantList(this);
         //Mit klick auf den Button wird die nächste Activity geöffnet und bookmarkb auf false gesetzt,
         //sodass bei der Rückkehr in die Activity der Bookmark %Next aufgerufen wird
         btn_startm.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +91,7 @@ public class RetrospectiveStartActivity extends RobotActivity implements RobotLi
 
             //create Variable
 
-            question = loadQuestion();
+            question = RetrofitController.loadQuestion(this);
 
             variable = qiChatbot.variable("meetingpoint");
             variable.setValue(question);
@@ -116,7 +112,7 @@ public class RetrospectiveStartActivity extends RobotActivity implements RobotLi
     }
 
 
-    //Kopiert die Teilnehmerliste
+  /*  //Kopiert die Teilnehmerliste
     private void copyParticipantList (){
         ArrayList <String> participantList;
         //Die Origonal TeilnehmerListe laden
@@ -132,11 +128,11 @@ public class RetrospectiveStartActivity extends RobotActivity implements RobotLi
         editor.putString("participantListCopy",jsonCopy);
         editor.apply();
 
-    }
+    }*/
 
 
 
-    //Lädt die aktuelle Frage aus sharedPreferences
+   /* //Lädt die aktuelle Frage aus sharedPreferences
     private String loadQuestion(){
         ArrayList <MeetingPoints> questions;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
@@ -146,7 +142,7 @@ public class RetrospectiveStartActivity extends RobotActivity implements RobotLi
         questions = gson.fromJson(json,type);
         return questions.get(0).getTitle();
 
-    }
+    }*/
 
 
 

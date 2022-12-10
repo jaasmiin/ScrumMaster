@@ -14,7 +14,7 @@ import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
-import com.example.scrummaster.begin.MenuActivity;
+import com.example.scrummaster.activity.begin.MenuActivity;
 import com.example.scrummaster.datamodel.PostNotes;
 import com.example.scrummaster.service.SendCommentService;
 import com.example.scrummaster.service.RetrofitService;
@@ -124,7 +124,7 @@ public class HappinessIndexActivity extends RobotActivity implements RobotLifecy
 
 
     }
-    //Sendet die Teilnehmerliste zu Gitlab
+    //Sendet dn HappinessIndex zu Gitlab
     private void sendHappinessIndex(){
 
         String happinessList = listToString(happinesValuesList);

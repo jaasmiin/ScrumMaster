@@ -1,7 +1,6 @@
 package com.example.scrummaster.activity.planning;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +13,10 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.begin.MeetingFinished;
+import com.example.scrummaster.activity.begin.MeetingFinished;
+import com.example.scrummaster.controller.RetrofitController;
 import com.example.scrummaster.datamodel.MeetingPoints;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +49,7 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
         sprintStory_6 = findViewById(R.id.sprintStory_6);
         finshed =findViewById(R.id.sprintboordTofinish);
 
-        backlogList = loadSprintBoard() ;
+        backlogList = RetrofitController.loadSprintBoard(this) ;
 
         if (backlogList.size() >= 1) {
             sprintStory_1.setText(backlogList.get(0).getTitle());
@@ -194,7 +191,7 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
 
 
     //Lädt die gespeicherte SprintBoard aus sharedPreferences
-    private ArrayList<MeetingPoints> loadSprintBoard(){
+    /*private ArrayList<MeetingPoints> loadSprintBoard(){
         ArrayList<MeetingPoints> issueList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
@@ -203,7 +200,7 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
         issueList = gson.fromJson(json,type);
 
         return issueList;
-    }
+    }*/
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
