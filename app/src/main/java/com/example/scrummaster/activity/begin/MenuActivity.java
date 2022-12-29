@@ -18,8 +18,8 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.daily.DailyStartActivity;
-import com.example.scrummaster.activity.planning.PlanningStartActivity;
+import com.example.scrummaster.activity.dailyScrum.DailyStartActivity;
+import com.example.scrummaster.activity.sprintPlanning.PlanningStartActivity;
 import com.example.scrummaster.activity.retrospective.RetrospectiveMenuActivity;
 import com.example.scrummaster.activity.tools.ToolsMenu;
 import com.example.scrummaster.controller.ParticipantController;
@@ -39,7 +39,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        RetrofitController.getIssues(this);
+
         RetrofitController.getQuestion(this);
         //Laden der Besprechungs Punkte
         //RetrofitController.getMeetingPoints(this);
@@ -196,14 +196,14 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
         //Phraseset für Planning
         PhraseSet planning= PhraseSetBuilder.with(qiContext)
-                                                .withTexts("Starte Planning Meeting", "Planning", "Planning Meeting")
+                                                .withTexts("Starte Planning Meeting", "Planning", "Planning Meeting","Sprint Planning")
                 .build(
 
                 );
 
         //Phraseset für DailyScrum Moderation
         PhraseSet modDaily= PhraseSetBuilder.with(qiContext)
-                .withTexts("Starte Daily Scrum", "DailyScrum", "Daily")
+                .withTexts("Starte Daily Scrum", "Daily Scrum", "Daily","Daily Meeting")
                 .build();
         //Phraseset für Retrospektive
         PhraseSet retrospective= PhraseSetBuilder.with(qiContext)

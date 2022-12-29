@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity.daily;
+package com.example.scrummaster.activity.dailyScrum;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 

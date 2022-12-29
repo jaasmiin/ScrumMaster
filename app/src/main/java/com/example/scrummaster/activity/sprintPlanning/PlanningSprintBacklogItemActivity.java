@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity.planning;
+package com.example.scrummaster.activity.sprintPlanning;
 
 import android.content.Intent;
 import android.os.Bundle;

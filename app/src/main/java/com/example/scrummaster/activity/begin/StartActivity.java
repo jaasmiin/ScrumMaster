@@ -22,7 +22,7 @@ import com.example.scrummaster.R;
 
 public class StartActivity extends RobotActivity implements RobotLifecycleCallbacks {
         ImageButton start;
-    Phrase select = new Phrase(" Hallo, heute möchte ich dir gerne etwas bei deiner Arbeit unter die Arme greifen. Sobald wir losegen können berühre den Bildschirm oder sage Start. ") ;
+    Phrase select = new Phrase(" Hallo, heute möchte ich dir gerne etwas bei deiner Arbeit unter die Arme greifen. Sobald wir loslegen können berühre den Bildschirm oder sage Start. ") ;
     Listen listen;
 
     @Override

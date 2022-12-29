@@ -14,5 +14,5 @@ proposal: %Startdaily  Willkommen bei unserem heutigen Daily Scrum Meeting. Sch√
 
 u: (~startMeeting) ^execute(myExecutor)
 u:(~startCountdown)^execute(start)
-
+u:(e:Dialog/NotUnderstood) Ich habe dich leider nicht verstanden.
 

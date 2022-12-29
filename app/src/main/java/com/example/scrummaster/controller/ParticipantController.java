@@ -51,7 +51,7 @@ import retrofit2.Response;
 
             }
 
-        //Methode speichert die Teilnehmerliste
+    /* //Methode speichert die Teilnehmerliste
             static public void saveParticipantList(String participant,Context c){
         if (participant != null) {
             ArrayList<String> participantList = loadParticipantList(c);
@@ -64,7 +64,7 @@ import retrofit2.Response;
             editor.apply();
         }
 
-    }
+    }*/
         //Lädt die TeilnehmerListe und gibt diese zurück
             static public ArrayList<String> loadParticipantList(Context c){
                 ArrayList <String> participantList;
@@ -78,8 +78,8 @@ import retrofit2.Response;
                 TEST.add("jasmin");
                 TEST.add("Liyana");
 
-                return TEST;
-                // return participantList;
+                //return TEST;
+                 return participantList;
             }
         //Wandelt eine StringListe in einen String um und gibt diese aus
             static public String listToString (ArrayList<String> liste){
@@ -103,7 +103,7 @@ import retrofit2.Response;
         //Die OriginalTeilnehmerListe als Kopie speichern
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gsonCopy = new Gson();
-        String jsonCopy = gsonCopy.toJson(TEST);
+        String jsonCopy = gsonCopy.toJson(participantList);
         editor.putString("participantListCopy",jsonCopy);
         editor.apply();
 

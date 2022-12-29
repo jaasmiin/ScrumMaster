@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
-import com.example.scrummaster.activity.daily.DailyQuestionsActivity;
+import com.example.scrummaster.activity.dailyScrum.DailyQuestionsActivity;
 import com.example.scrummaster.activity.retrospective.RetrospectiveActivity;
 
 import java.util.Locale;

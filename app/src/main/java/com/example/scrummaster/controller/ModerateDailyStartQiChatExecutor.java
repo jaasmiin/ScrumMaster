@@ -2,7 +2,7 @@ package com.example.scrummaster.controller;
 
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.object.conversation.BaseQiChatExecutor;
-import com.example.scrummaster.activity.daily.DailyStartActivity;
+import com.example.scrummaster.activity.dailyScrum.DailyStartActivity;
 
 import java.util.List;
 

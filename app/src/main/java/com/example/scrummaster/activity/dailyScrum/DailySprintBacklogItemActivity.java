@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity.daily;
+package com.example.scrummaster.activity.dailyScrum;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -55,7 +55,7 @@ public class DailySprintBacklogItemActivity extends RobotActivity implements Rob
             public void onClick(View v) {
                 RetrofitController.setItemStatusDone(intent.getIntExtra("iid",0));
 
-                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailySprintBacklog.class);
+                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailyEmpty.class);
                 startActivity(i);
             }
         });
@@ -66,7 +66,7 @@ public class DailySprintBacklogItemActivity extends RobotActivity implements Rob
             public void onClick(View v) {
                 RetrofitController.setItemStatusDoing(intent.getIntExtra("iid",0));
                 RetrofitController.getSprintBacklog(DailySprintBacklogItemActivity.this);
-                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailySprintBacklog.class);
+                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailyEmpty.class);
                 startActivity(i);
 
             }

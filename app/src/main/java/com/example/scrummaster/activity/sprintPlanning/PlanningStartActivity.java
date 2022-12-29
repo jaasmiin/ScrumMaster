@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity.planning;
+package com.example.scrummaster.activity.sprintPlanning;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +32,7 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
         QiSDK.register(this, this);
         super.onCreate(savedInstanceState);
         RetrofitController.getSprintBacklog(this);
-
+        RetrofitController.getIssues(this);
         setContentView(R.layout.activity_planning_start);
         one = findViewById(R.id.planning_meeting_I);
         two = findViewById(R.id.planning_meeting_II);
@@ -98,12 +98,12 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
         say.run();
         //Phraseset für Scannen
         PhraseSet one= PhraseSetBuilder.with(qiContext)
-                .withTexts("eins", "1", "Nummer eins")
+                .withTexts("eins","Nummer eins","Sprint Planning eins")
                 .build();
 
         //Phraseset für Auswahlmenü
         PhraseSet two= PhraseSetBuilder.with(qiContext)
-                .withTexts("zwei", " 2", "Nummer zwei")
+                .withTexts("zwei", "Nummer zwei", "Sprint Planning zwei")
                 .build();
 
         Listen listen = ListenBuilder.with(qiContext)

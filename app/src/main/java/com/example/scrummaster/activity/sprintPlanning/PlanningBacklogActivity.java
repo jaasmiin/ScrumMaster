@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity.planning;
+package com.example.scrummaster.activity.sprintPlanning;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,7 +38,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
         QiSDK.register(this, this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planning_backlog);
-
+        RetrofitController.getIssues(this);
         userStory_1 = findViewById(R.id.userStory_1);
         userStory_2 = findViewById(R.id.userStory_2);
         userStory_3 = findViewById(R.id.userStory_3);
@@ -49,37 +49,37 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
 
         backlogList = RetrofitController.loadIssues(this);
 
-        if (backlogList.size() >= 1) {
+        if (backlogList.size() >= 1 && ! backlogList.get(0).getLabels().contains("SprintBacklog")) {
         userStory_1.setText(backlogList.get(0).getTitle());
         userStory_1.setVisibility(View.VISIBLE);
         userStory_1.setBackgroundColor(buttonBackround(backlogList.get(0).getWeight()));
         }
 
-        if (backlogList.size() >= 2) {
+        if (backlogList.size() >= 2 && ! backlogList.get(1).getLabels().contains("SprintBacklog")) {
             userStory_2.setText(backlogList.get(1).getTitle());
             userStory_2.setVisibility(View.VISIBLE);
             userStory_2.setBackgroundColor(buttonBackround(backlogList.get(1).getWeight()));
         }
 
-        if (backlogList.size() >= 3) {
+        if (backlogList.size() >= 3 && ! backlogList.get(2).getLabels().contains("SprintBacklog")) {
             userStory_3.setText(backlogList.get(2).getTitle());
             userStory_3.setVisibility(View.VISIBLE);
             userStory_3.setBackgroundColor(buttonBackround(backlogList.get(2).getWeight()));
         }
 
-        if (backlogList.size() >= 4) {
+        if (backlogList.size() >= 4 && ! backlogList.get(3).getLabels().contains("SprintBacklog")) {
             userStory_4.setText(backlogList.get(3).getTitle());
             userStory_4.setVisibility(View.VISIBLE);
             userStory_4.setBackgroundColor(buttonBackround(backlogList.get(3).getWeight()));
         }
 
-        if (backlogList.size() >= 5) {
+        if (backlogList.size() >= 5 && ! backlogList.get(4).getLabels().contains("SprintBacklog")) {
             userStory_5.setText(backlogList.get(4).getTitle());
             userStory_5.setVisibility(View.VISIBLE);
             userStory_5.setBackgroundColor(buttonBackround(backlogList.get(4).getWeight()));
         }
 
-        if (backlogList.size() >= 6) {
+        if (backlogList.size() >= 6 && ! backlogList.get(5).getLabels().contains("SprintBacklog")) {
             userStory_6.setText(backlogList.get(5).getTitle());
             userStory_6.setVisibility(View.VISIBLE);
             userStory_6.setBackgroundColor(buttonBackround(backlogList.get(5).getWeight()));

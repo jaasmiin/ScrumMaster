@@ -46,7 +46,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         setContentView(R.layout.activity_main);
         btn_scan =findViewById(R.id.btn_scan);
         btn_selectionmnu= findViewById(R.id.btn_selectionmnu);
-
+        saveParticipantList();
 
 
 
@@ -94,20 +94,20 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         }
     });
 
+
     //Methode speichert die Teilnehmerliste
-       private void saveParticipantList(String participant){
-           if (participant != null) {
+       private void saveParticipantList(){
+
                ArrayList <String> participantList = new ArrayList<String>();
                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
                SharedPreferences.Editor editor = sharedPreferences.edit();
                Gson gson = new Gson();
-               participantList.add(participant);
                String json = gson.toJson(participantList);
                editor.putString("participantList", json);
                editor.commit();
            }
 
-      }
+      
 
              @Override
     protected void onDestroy() {
@@ -156,6 +156,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         Listen listen = ListenBuilder.with(qiContext)
                 .withPhraseSets()
                 .withPhraseSets(selectionmnu)
+                .withPhraseSets(scan)
                 .build();
         ListenResult listenresult= listen.run();
 

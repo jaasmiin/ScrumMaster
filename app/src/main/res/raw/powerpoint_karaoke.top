@@ -21,3 +21,5 @@ proposal: %select2 Das hast du wircklich klasse gemacht. Danke für deinen Beitr
                          u1:(Ja) Das freut mich, dann lass uns doch gleich anfangen. Möchtest du lieber eine Präsentation für Anfänger, oder Fortgeschrittene?
                               u2: (Anfänger) OK, dann lass uns anfangen.^execute(beginner)
                               u2: (Fortgeschritten) OK, dann lass uns anfangen. ^execute(advanced)
+
+u:(e:Dialog/NotUnderstood) Ich habe dich leider nicht verstanden.

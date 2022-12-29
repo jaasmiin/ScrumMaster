@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity.planning;
+package com.example.scrummaster.activity.sprintPlanning;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -63,8 +63,8 @@ public class PlanningBacklogItemActivity extends RobotActivity implements RobotL
             @Override
             public void onClick(View v) {
               RetrofitController.updateBacklogList(intent.getIntExtra("iid",0));
-
-                Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningBacklogActivity.class);
+              RetrofitController.getIssues(PlanningBacklogItemActivity.this);
+                Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningEmpty.class);
                 startActivity(i);
             }
         });

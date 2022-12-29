@@ -2,6 +2,7 @@ package com.example.scrummaster.activity.begin;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.aldebaran.qi.sdk.QiContext;
@@ -12,7 +13,12 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.controller.ParticipantController;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 //erstellen der Teilnehmerliste und begüßung des Nutzers
 public class WelcomeActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
@@ -28,12 +34,16 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         // Register the RobotLifecycleCallbacks to this Activity.
         QiSDK.register(this, this);
         setContentView(R.layout.activity_willkommen);
+        Intent intent = getIntent();
+        //String test = "Jasmin";
+        String name = intent.getStringExtra("participant");
+        saveParticipantList(name);
 
 
     }
-  /*  //Methode speichert die Teilnehmerliste
+  //Methode speichert die Teilnehmerliste
     private void saveParticipantList(String participant){
-        if (participant != null) {
+
             ArrayList<String> participantList = loadParticipantList();
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -42,10 +52,10 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
             String json = gson.toJson(participantList);
             editor.putString("participantList", json);
             editor.apply();
-        }
 
-    }*/
-   /* //Methode lädt die Teilnehmerliste
+
+    }
+   //Methode lädt die Teilnehmerliste
     private ArrayList<String> loadParticipantList() {
 
         ArrayList<String> participantList;
@@ -56,7 +66,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         participantList = gson.fromJson(json,type);
         return participantList;
 
-    }*/
+    }
 
         @Override
     public void onRobotFocusGained(QiContext qiContext) {
@@ -64,9 +74,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         Intent intent = getIntent();
         //String test = "Jasmin";
         String name = intent.getStringExtra("participant");
-        //Wenn kein Gast, dann wird der Name in der Teilnehmerliste gespeichert
-        if (!name.contains("Gast")){
-        ParticipantController.saveParticipantList(name,this);}
+
 
         Phrase welcome;
         //So soll der ParticipantController begrüßt werden. Es wird unterschieden zwischen Gast und Teilnehmer.
@@ -77,6 +85,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
 
         } else {
         welcome = new Phrase ("Hallo, " + name + "schön, dass du da bist. Bitte nehme Platz.");
+
         }
         //Begrüßung
         Say say = SayBuilder.with(qiContext)
@@ -90,6 +99,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
 
 
     }
+
 
     @Override
     public void onRobotFocusLost() {
