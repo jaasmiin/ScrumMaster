@@ -12,3 +12,5 @@ proposal: %first  $name du bist an der Reihe. Wenn wir anfangen können, sage mi
 
 u: (~startCountdown) ^execute(myExecutor)
 
+u:(e:Dialog/NotUnderstood) Ich habe dich leider nicht verstanden.
+
