@@ -5,7 +5,7 @@
     android:id="@+id/backlog_startc"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.planning.PlanningBacklogItemActivity">
+    tools:context=".activity.sprintPlanning.PlanningBacklogItemActivity">
 
     <Button
         android:id="@+id/done_backlog"

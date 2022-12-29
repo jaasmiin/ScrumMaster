@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.planning.PlanningStartActivity">
+    tools:context=".activity.sprintPlanning.PlanningStartActivity">
 
     <Button
         android:id="@+id/planning_meeting_I"

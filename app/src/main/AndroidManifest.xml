@@ -19,31 +19,37 @@
         android:theme="@style/Theme.ScrumMaster"
         tools:targetApi="31">
         <activity
+            android:name=".activity.dailyScrum.DailyEmpty"
+            android:exported="false" />
+        <activity
+            android:name=".activity.sprintPlanning.PlanningEmpty"
+            android:exported="false" />
+        <activity
             android:name=".activity.retrospective.RetrospectiveMenuActivity"
             android:exported="false" />
         <activity
             android:name=".activity.tools.ToolsMenu"
             android:exported="false" />
         <activity
-            android:name=".activity.daily.DailySprintBacklogItemActivity"
+            android:name=".activity.dailyScrum.DailySprintBacklogItemActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.daily.DailySprintBacklog"
+            android:name=".activity.dailyScrum.DailySprintBacklog"
             android:exported="false" />
         <activity
-            android:name=".activity.planning.PlanningSprintBacklogItemActivity"
+            android:name=".activity.sprintPlanning.PlanningSprintBacklogItemActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.planning.PlanningSprintBacklogActivity"
+            android:name=".activity.sprintPlanning.PlanningSprintBacklogActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.planning.PlanningStartActivity"
+            android:name=".activity.sprintPlanning.PlanningStartActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.planning.PlanningBacklogItemActivity"
+            android:name=".activity.sprintPlanning.PlanningBacklogItemActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.planning.PlanningBacklogActivity"
+            android:name=".activity.sprintPlanning.PlanningBacklogActivity"
             android:exported="false" />
         <activity
             android:name=".activity.begin.MainActivity"
@@ -59,7 +65,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.daily.DailyStartActivity"
+            android:name=".activity.dailyScrum.DailyStartActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
@@ -75,7 +81,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.daily.DailyQuestionsActivity"
+            android:name=".activity.dailyScrum.DailyQuestionsActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
