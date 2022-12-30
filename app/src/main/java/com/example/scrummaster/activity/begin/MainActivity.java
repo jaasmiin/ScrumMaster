@@ -47,11 +47,6 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         btn_scan =findViewById(R.id.btn_scan);
         btn_selectionmnu= findViewById(R.id.btn_selectionmnu);
         saveParticipantList();
-
-
-
-
-
     }
 
         private void scanCode() {
