@@ -1,6 +1,6 @@
 package com.example.scrummaster.service;
 
-import com.example.scrummaster.datamodel.MeetingPoints;
+import com.example.scrummaster.datamodel.Items;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface RetrospectiveService {
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
     @GET("35214/issues?labels=Frage")
-    Call<List<MeetingPoints>> getQuestion();
+    Call<List<Items>> getQuestion();
 
 
 

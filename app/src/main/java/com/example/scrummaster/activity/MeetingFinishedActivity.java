@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity.begin;
+package com.example.scrummaster.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,9 +18,10 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.begin.MenuActivity;
 import com.example.scrummaster.activity.tools.HappinessIndexActivity;
 
-public class MeetingFinished extends RobotActivity implements RobotLifecycleCallbacks {
+public class MeetingFinishedActivity extends RobotActivity implements RobotLifecycleCallbacks {
     Listen listen;
     ImageButton btn_happinesIndex;
     ImageButton btn_menu;
@@ -40,7 +41,7 @@ public class MeetingFinished extends RobotActivity implements RobotLifecycleCall
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MeetingFinished.this, HappinessIndexActivity.class);
+                Intent intent = new Intent(MeetingFinishedActivity.this, HappinessIndexActivity.class);
                 startActivity(intent);
             }
         });
@@ -49,7 +50,7 @@ public class MeetingFinished extends RobotActivity implements RobotLifecycleCall
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MeetingFinished.this, MenuActivity.class);
+                Intent intent = new Intent(MeetingFinishedActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
         });
@@ -92,10 +93,10 @@ public class MeetingFinished extends RobotActivity implements RobotLifecycleCall
 
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
         if (menu.getPhrases().toString().contains(result) ) {
-            Intent i = new Intent(MeetingFinished.this, MenuActivity.class);
+            Intent i = new Intent(MeetingFinishedActivity.this, MenuActivity.class);
             startActivity(i);}
         if (happinessIndex.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(MeetingFinished.this,HappinessIndexActivity.class));}
+            startActivity(new Intent(MeetingFinishedActivity.this,HappinessIndexActivity.class));}
 
     }
 

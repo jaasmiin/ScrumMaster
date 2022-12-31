@@ -11,9 +11,9 @@ import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.begin.MeetingFinished;
+import com.example.scrummaster.activity.MeetingFinishedActivity;
 import com.example.scrummaster.controller.RetrofitController;
-import com.example.scrummaster.datamodel.MeetingPoints;
+import com.example.scrummaster.datamodel.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
     private Button finished;
     private TextView headline;
 
-    private ArrayList<MeetingPoints> backlogList;
+    private ArrayList<Items> backlogList;
 
 
     @Override
@@ -90,7 +90,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DailySprintBacklog.this, MeetingFinished.class);
+                Intent intent = new Intent(DailySprintBacklog.this, MeetingFinishedActivity.class);
                 startActivity(intent);
 
             }
@@ -190,13 +190,13 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
 
 
   /*  //Lädt die gespeicherte SprintBoard aus sharedPreferences
-    private ArrayList<MeetingPoints> loadSprintBoard() {
+    private ArrayList<Items> loadSprintBoard() {
         getSprintBacklog();
-        ArrayList<MeetingPoints> issueList;
+        ArrayList<Items> issueList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("SprintBoard", null);
-        Type type = new TypeToken<ArrayList<MeetingPoints>>() {
+        Type type = new TypeToken<ArrayList<Items>>() {
         }.getType();
         issueList = gson.fromJson(json, type);
 
@@ -204,21 +204,21 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
     }*/
    /* public void getSprintBacklog() {
 
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<MeetingPoints>>() {
+        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<Items>>() {
             @Override
-            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 Gson gson = new Gson();
-                List<MeetingPoints> meetingPointsList= response.body();
+                List<Items> meetingPointsList= response.body();
                 String json = gson.toJson(meetingPointsList);
                 editor.putString("SprintBoard",json);
                 editor.apply();
             }
 
             @Override
-            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+            public void onFailure(Call<List<Items>> call, Throwable t) {
                 String fail =t.getCause().toString();
                 Log.e("Retrofit",fail);
             }

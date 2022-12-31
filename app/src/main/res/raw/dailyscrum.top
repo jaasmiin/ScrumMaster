@@ -8,7 +8,7 @@ proposal: %Startdaily  Willkommen bei unserem heutigen Daily Scrum Meeting. Sch�
                        Welche Hindernisse halten mich davon ab, unser Sprintziel zu erreichen?
                        Achtet bitte darauf, dass die Antworten kurz sind und nicht zu sehr ins Detail gehen.
                        Im Anschluss bitte ich euch, im Sprint Backlog die Daten zu aktualisieren.
-                       Sobald wir anfangen können, sage Start oder betätige den Button.
+                       Sobald wir anfangen können, sage Start oder drücke den Start Button.
 
  proposal: %first  $namedaily du bist an der Reihe. Wenn wir anfangen können, sage mir bescheid ["oder drücke den Start Button"]
 

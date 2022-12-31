@@ -163,7 +163,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
 
    /* //Löscht den ersten Eintrag der gespeicherten MeetingListCopy aus sharedPreferences
     private void deleteMeetingPointListEntry() {
-        ArrayList<MeetingPoints> l = new ArrayList<>();
+        ArrayList<Items> l = new ArrayList<>();
         l = RetrofitController.loadMeetingPointListCopy(this);
         l.remove(0);
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
@@ -184,14 +184,14 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
 
 
    /* //Lädt die Besprechungspunkte speichert diese als Kopie in Shared Preferences und gibt die Kopie zurück
-    private ArrayList<MeetingPoints> loadMeetingPointListCopy(){
+    private ArrayList<Items> loadMeetingPointListCopy(){
 
-        ArrayList <MeetingPoints> meetingPointListCopy;
+        ArrayList <Items> meetingPointListCopy;
 
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("meetingPointListCopy",null);
-        Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
+        Type type= new TypeToken<ArrayList<Items>>(){}.getType();
         meetingPointListCopy = gson.fromJson(json,type);
         return meetingPointListCopy;
     }*/

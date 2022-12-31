@@ -44,7 +44,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         //Laden der Besprechungs Punkte
         //RetrofitController.getMeetingPoints(this);
         //Kopieren der Besprechungs Punkte zur Nutzung in anderen Activities
-        RetrofitController.copyMeetingPointList(this);
+        //RetrofitController.copyMeetingPointList(this);
         //Kopiert die Teilnehmerliste zur Nutzung für andere Activities
        ParticipantController.copyParticipantList(this);
         super.onCreate(savedInstanceState);
@@ -117,21 +117,21 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
     //Holt die zu Fragen für Retrospektive über gitlab
     /*public void getQuestion() {
 
-        RetrofitService.getRetrofitInstance().create(RetrospectiveService.class).getQuestion().enqueue(new Callback<List<MeetingPoints>>() {
+        RetrofitService.getRetrofitInstance().create(RetrospectiveService.class).getQuestion().enqueue(new Callback<List<Items>>() {
             @Override
-            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 Gson gson = new Gson();
-                List<MeetingPoints> meetingPointsList= response.body();
+                List<Items> meetingPointsList= response.body();
                 String json = gson.toJson(meetingPointsList);
                 editor.putString("question",json);
                 editor.apply();
 
             }
             @Override
-            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+            public void onFailure(Call<List<Items>> call, Throwable t) {
                 String fail =t.getCause().toString();
                 Log.e("Retrofit",fail);
             }
@@ -290,21 +290,21 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
    /* //Holt die zu MeetingPointListe über gitlab
     public void getMeetingPoints() {
 
-        RetrofitService.getRetrofitInstance().create(RetrospectiveService.class).getQuestion().enqueue(new Callback<List<MeetingPoints>>() {
+        RetrofitService.getRetrofitInstance().create(RetrospectiveService.class).getQuestion().enqueue(new Callback<List<Items>>() {
             @Override
-            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 Gson gson = new Gson();
-                List<MeetingPoints> meetingPointsList= response.body();
+                List<Items> meetingPointsList= response.body();
                 String json = gson.toJson(meetingPointsList);
                 editor.putString("meetingPointList",json);
                 editor.apply();
             }
 
             @Override
-            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+            public void onFailure(Call<List<Items>> call, Throwable t) {
                 String fail =t.getCause().toString();
                 Log.e("Retrofit",fail);
             }
@@ -314,12 +314,12 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
  /*   //Kopiert die MeetingPointList
     private void copyMeetingPointList (){
-        ArrayList <MeetingPoints> meetingPointList;
+        ArrayList <Items> meetingPointList;
         //Die Origonal MeetingPointListe laden
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("meetingPointList",null);
-        Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
+        Type type= new TypeToken<ArrayList<Items>>(){}.getType();
         meetingPointList = gson.fromJson(json,type);
         //Die OriginalMeetingPointListe als Kopie speichern
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -332,21 +332,21 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
     //Holt die komplette IssueListe mit dem Status opened komplett über gitlab
     /*public void getIssues() {
 
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).getIssues().enqueue(new Callback<List<MeetingPoints>>() {
+        RetrofitService.getRetrofitInstance().create(BacklogService.class).getIssues().enqueue(new Callback<List<Items>>() {
             @Override
-            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 Gson gson = new Gson();
-                List<MeetingPoints> meetingPointsList= response.body();
+                List<Items> meetingPointsList= response.body();
                 String json = gson.toJson(meetingPointsList);
                 editor.putString("IssueList",json);
                 editor.apply();
             }
 
             @Override
-            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+            public void onFailure(Call<List<Items>> call, Throwable t) {
                 String fail =t.getCause().toString();
                 Log.e("Retrofit",fail);
             }

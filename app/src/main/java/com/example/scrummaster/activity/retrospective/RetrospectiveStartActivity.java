@@ -134,11 +134,11 @@ public class RetrospectiveStartActivity extends RobotActivity implements RobotLi
 
    /* //Lädt die aktuelle Frage aus sharedPreferences
     private String loadQuestion(){
-        ArrayList <MeetingPoints> questions;
+        ArrayList <Items> questions;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("question",null);
-        Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
+        Type type= new TypeToken<ArrayList<Items>>(){}.getType();
         questions = gson.fromJson(json,type);
         return questions.get(0).getTitle();
 

@@ -14,7 +14,7 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 import com.example.scrummaster.controller.RetrofitController;
-import com.example.scrummaster.datamodel.MeetingPoints;
+import com.example.scrummaster.datamodel.Items;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
             "Achtet bei der Besprechung darauf die Items mit der größeren Priorisierung auszuwählen. Diese habe ich euch farblich gekennzeichnet." +
             "Die Farbe rot hat die höchste die Farbe orange eine mittlere und die Farbe grün eine niedrige Priorisierung. Wenn ihr die Beschreibung der Items sehen wollt, klickt einfach auf das Item.");
 
-    private ArrayList<MeetingPoints> backlogList;
+    private ArrayList<Items> backlogList;
 
 
     @Override
@@ -38,7 +38,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
         QiSDK.register(this, this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planning_backlog);
-        RetrofitController.getIssues(this);
+
         userStory_1 = findViewById(R.id.userStory_1);
         userStory_2 = findViewById(R.id.userStory_2);
         userStory_3 = findViewById(R.id.userStory_3);
@@ -192,12 +192,12 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
 
 
   /*  //Lädt die gespeicherte Backlog Items aus sharedPreferences
-    private ArrayList<MeetingPoints> loadIssues(){
-        ArrayList<MeetingPoints> issueList;
+    private ArrayList<Items> loadIssues(){
+        ArrayList<Items> issueList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("IssueList",null);
-        Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
+        Type type= new TypeToken<ArrayList<Items>>(){}.getType();
         issueList = gson.fromJson(json,type);
 
         return issueList;

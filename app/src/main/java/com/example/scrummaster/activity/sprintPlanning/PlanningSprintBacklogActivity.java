@@ -13,9 +13,9 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.begin.MeetingFinished;
+import com.example.scrummaster.activity.MeetingFinishedActivity;
 import com.example.scrummaster.controller.RetrofitController;
-import com.example.scrummaster.datamodel.MeetingPoints;
+import com.example.scrummaster.datamodel.Items;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
            " Wenn ihr die Beschreibung der Items sehen wollt, klickt einfach auf das Item.");
 
 
-    private ArrayList<MeetingPoints> backlogList;
+    private ArrayList<Items> backlogList;
 
 
     @Override
@@ -169,7 +169,7 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(PlanningSprintBacklogActivity.this, MeetingFinished.class);
+                Intent intent = new Intent(PlanningSprintBacklogActivity.this, MeetingFinishedActivity.class);
 
                 startActivity(intent);
 
@@ -191,12 +191,12 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
     }
 
     //Lädt die gespeicherte SprintBoard aus sharedPreferences
-    /*private ArrayList<MeetingPoints> loadSprintBoard(){
-        ArrayList<MeetingPoints> issueList;
+    /*private ArrayList<Items> loadSprintBoard(){
+        ArrayList<Items> issueList;
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("SprintBoard",null);
-        Type type= new TypeToken<ArrayList<MeetingPoints>>(){}.getType();
+        Type type= new TypeToken<ArrayList<Items>>(){}.getType();
         issueList = gson.fromJson(json,type);
 
         return issueList;

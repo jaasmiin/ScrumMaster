@@ -1,6 +1,6 @@
 package com.example.scrummaster.service;
 
-import com.example.scrummaster.datamodel.MeetingPoints;
+import com.example.scrummaster.datamodel.Items;
 
 import java.util.List;
 
@@ -17,23 +17,23 @@ public interface BacklogService {
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
     @GET("35214/issues?labels=ProductBacklog&state=opened")
-    Call<List<MeetingPoints>> getIssues();
+    Call<List<Items>> getIssues();
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
     @PUT("35214/issues/{iid}?add_labels=SprintBacklog")
-    Call<MeetingPoints> setStatusSprintBoard(@Path("iid") int iid);
+    Call<Items> setStatusSprintBoard(@Path("iid") int iid);
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
     @PUT("35214/issues/{iid}?add_labels=In Bearbeitung")
-    Call<MeetingPoints> setStatusDoing(@Path("iid") int iid);
+    Call<Items> setStatusDoing(@Path("iid") int iid);
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
     @PUT("35214/issues/{iid}?state_event=close")
-    Call<MeetingPoints>closeBacklogItem(@Path("iid") int iid);
+    Call<Items>closeBacklogItem(@Path("iid") int iid);
 
     @Headers("PRIVATE-TOKEN: F6JsHQc4Q7z5i4_aLHFU")
     @GET("35214/issues?labels=SprintBacklog&state=opened")
-    Call<List<MeetingPoints>> getSprintBacklog();
+    Call<List<Items>> getSprintBacklog();
 
 
 

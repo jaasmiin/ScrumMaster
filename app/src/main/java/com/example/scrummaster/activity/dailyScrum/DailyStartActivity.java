@@ -61,7 +61,7 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
     public void onRobotFocusGained(QiContext qiContext) {
         //Ceate Topic
         topic = TopicBuilder.with(qiContext)
-                .withResource(R.raw.moderatedaily)
+                .withResource(R.raw.dailyscrum)
                 .build();
 
         //Create QiChatbot
@@ -163,21 +163,21 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
     //Holt die  IssueListe mit dem Label SprintBacklog über gitlab und speichert sie in shared Preferences
   /*  public void getSprintBacklog() {
 
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<MeetingPoints>>() {
+        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<Items>>() {
             @Override
-            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 Gson gson = new Gson();
-                List<MeetingPoints> meetingPointsList= response.body();
+                List<Items> meetingPointsList= response.body();
                 String json = gson.toJson(meetingPointsList);
                 editor.putString("SprintBoard",json);
                 editor.apply();
             }
 
             @Override
-            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+            public void onFailure(Call<List<Items>> call, Throwable t) {
                 String fail =t.getCause().toString();
                 Log.e("Retrofit",fail);
             }

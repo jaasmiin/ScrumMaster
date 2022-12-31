@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 
-public class MeetingPoints {
+public class Items {
 
     @SerializedName("id")
    private String id;
@@ -56,7 +56,7 @@ public class MeetingPoints {
         return description;
     }
 
-    public MeetingPoints(String state) {
+    public Items(String state) {
         this.id = id;
         this.state = state;
         this.title = title;

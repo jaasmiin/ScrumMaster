@@ -22,7 +22,7 @@
             android:name=".activity.dailyScrum.DailyEmpty"
             android:exported="false" />
         <activity
-            android:name=".activity.sprintPlanning.PlanningEmpty"
+            android:name=".activity.sprintPlanning.PlanningEmptyActivity"
             android:exported="false" />
         <activity
             android:name=".activity.retrospective.RetrospectiveMenuActivity"
@@ -73,7 +73,7 @@
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.begin.MeetingFinished"
+            android:name=".activity.MeetingFinishedActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity

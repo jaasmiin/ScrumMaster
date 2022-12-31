@@ -67,21 +67,21 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
 
   /*  public void getSprintBacklog() {
 
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<MeetingPoints>>() {
+        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<Items>>() {
             @Override
-            public void onResponse(Call<List<MeetingPoints>> call, Response<List<MeetingPoints>> response) {
+            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
                 Log.i("Retrofit", new Gson().toJson(response.body()));
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 Gson gson = new Gson();
-                List<MeetingPoints> meetingPointsList= response.body();
+                List<Items> meetingPointsList= response.body();
                 String json = gson.toJson(meetingPointsList);
                 editor.putString("SprintBoard",json);
                 editor.apply();
             }
 
             @Override
-            public void onFailure(Call<List<MeetingPoints>> call, Throwable t) {
+            public void onFailure(Call<List<Items>> call, Throwable t) {
                 String fail =t.getCause().toString();
                 Log.e("Retrofit",fail);
             }

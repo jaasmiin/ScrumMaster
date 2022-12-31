@@ -90,7 +90,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
         } else {
             // Create a topic.
             topic = TopicBuilder.with(qiContext)
-                    .withResource(R.raw.moderatedaily)
+                    .withResource(R.raw.dailyscrum)
                     .build();
 
             // Create a qiChatbot
