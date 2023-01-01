@@ -69,7 +69,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.retrospective.RetrospectiveStartActivity"
+            android:name=".activity.retrospective.RetrospectiveCheckinStartActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
@@ -85,7 +85,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.retrospective.RetrospectiveActivity"
+            android:name=".activity.retrospective.RetrospectiveCheckinActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity

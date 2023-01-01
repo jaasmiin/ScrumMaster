@@ -44,7 +44,7 @@ public class ToolsMenu extends RobotActivity implements RobotLifecycleCallbacks 
 
             @Override
             public void onClick(View v) {
-                //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveStartActivity und öffnen dieser Activity
+                //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveCheckinStartActivity und öffnen dieser Activity
                 Intent i_ModerationNotes = new Intent(ToolsMenu.this, MenuActivity.class);
                 startActivity(i_ModerationNotes);
 
@@ -54,7 +54,7 @@ public class ToolsMenu extends RobotActivity implements RobotLifecycleCallbacks 
 
             @Override
             public void onClick(View v) {
-                //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveStartActivity und öffnen dieser Activity
+                //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveCheckinStartActivity und öffnen dieser Activity
                 Intent i = new Intent(ToolsMenu.this, PowerPointStartActivity.class);
                 i.putExtra("Bookmark","Start");
                 startActivity(i);}
@@ -64,7 +64,7 @@ public class ToolsMenu extends RobotActivity implements RobotLifecycleCallbacks 
 
             @Override
             public void onClick(View v) {
-                //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveStartActivity und öffnen dieser Activity
+                //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveCheckinStartActivity und öffnen dieser Activity
                 Intent i_ModerationNotes = new Intent(ToolsMenu.this,HappinessIndexActivity.class);
 
                 startActivity(i_ModerationNotes);

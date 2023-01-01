@@ -29,7 +29,7 @@ import com.example.scrummaster.controller.RetrofitController;
 
 import java.util.Map;
 
-public class RetrospectiveStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
+public class RetrospectiveCheckinStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private Button btn_startm;
     private Chat chat;
     private QiChatVariable variable;
@@ -56,7 +56,7 @@ public class RetrospectiveStartActivity extends RobotActivity implements RobotLi
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(RetrospectiveStartActivity.this, RetrospectiveActivity.class);
+                Intent i = new Intent(RetrospectiveCheckinStartActivity.this, RetrospectiveCheckinActivity.class);
                 i.putExtra("question",question);
                 startActivity(i);
 

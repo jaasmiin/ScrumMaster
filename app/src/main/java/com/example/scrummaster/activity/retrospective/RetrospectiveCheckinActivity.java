@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RetrospectiveActivity extends RobotActivity implements RobotLifecycleCallbacks {
+public class RetrospectiveCheckinActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
     private TextView countdown;
     private CountdownController mcountdown = new CountdownController(10000,5000);
@@ -48,9 +48,9 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
     public Topic topic;
     public Bookmark proposalBookmark;
     private ArrayList<String> participantList = new ArrayList<>();
-    private static RetrospectiveActivity instance;
+    private static RetrospectiveCheckinActivity instance;
     private String question;
-
+    private Button btn_finish;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this,this);
@@ -59,12 +59,14 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         setContentView(R.layout.activity_moderationnotes);
         countdown = findViewById(R.id.backlog_countdown);
         btn_stop = findViewById(R.id.done);
+        btn_finish =findViewById(R.id.donecheckin);
         btn_start= findViewById(R.id.startc);
         name= (TextView) findViewById(R.id.name);
         note = (TextView)findViewById(R.id.notes);
         Intent i = getIntent();
         note.setText(question);
         instance= this;
+
     }
 
     @Override
@@ -74,7 +76,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         participantList = ParticipantController.loadParticipantListCopy(this);
         if (participantList.size()==0){
 
-            Intent i = new Intent(RetrospectiveActivity.this, RetrospectiveMenuActivity.class);
+            Intent i = new Intent(RetrospectiveCheckinActivity.this, RetrospectiveMenuActivity.class);
             startActivity(i);
         } else{
         // Create a topic.
@@ -111,13 +113,22 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
         chat.async().run();
         chat.addOnStartedListener(() -> Log.i(TAG, "Discussion started."));}
 
+        btn_finish.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RetrospectiveCheckinActivity.this, RetrospectiveMenuActivity.class);
+                startActivity(i);
+
+            }
+        });
         btn_start.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ParticipantController.deleteParticipantListEntry(RetrospectiveActivity.this);
+                ParticipantController.deleteParticipantListEntry(RetrospectiveCheckinActivity.this);
 
-                mcountdown.startTimerNotes(countdown, RetrospectiveActivity.this);
+                mcountdown.startTimerNotes(countdown, RetrospectiveCheckinActivity.this);
                 overridePendingTransition(0, 0);
             }
         });
@@ -127,7 +138,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
             public void onClick(View v) {
                 mcountdown.reset(countdown);
                 //overridePendingTransition(0, 0);
-                Intent intent = new Intent(RetrospectiveActivity.this, RetrospectiveActivity.class);
+                Intent intent = new Intent(RetrospectiveCheckinActivity.this, RetrospectiveCheckinActivity.class);
                 startActivity(intent);
             }
         });
@@ -145,7 +156,7 @@ public class RetrospectiveActivity extends RobotActivity implements RobotLifecyc
     }
 
     //Gibt die instance dieser Activity zurück
-    public static RetrospectiveActivity getInstance(){
+    public static RetrospectiveCheckinActivity getInstance(){
         return instance;
 
     }

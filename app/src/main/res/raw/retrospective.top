@@ -8,7 +8,7 @@ proposal: %Start  willkommen bei unserem heutigen RetrospektiveMeeting. Ich freu
 
 
 
-proposal: %first  $name du bist an der Reihe. Wenn wir anfangen können, sage mir bescheid ["oder drücke den Start Button"]
+proposal: %first  $name du bist an der Reihe. Wenn wir anfangen können, sage Start ["oder drücke den Start Button"]
 
 u: (~startCountdown) ^execute(myExecutor)
 

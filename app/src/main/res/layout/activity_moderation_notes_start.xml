@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.retrospective.RetrospectiveStartActivity">
+    tools:context=".activity.retrospective.RetrospectiveCheckinStartActivity">
 
 
     <TextView
@@ -21,11 +21,10 @@
 
     <TextView
         android:id="@+id/id_meeting"
-        android:text="Frage"
-        android:textSize="50sp"
-        android:backgroundTint="@color/kit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/kit"
+        android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/startm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

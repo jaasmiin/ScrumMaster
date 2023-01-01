@@ -2,7 +2,7 @@ package com.example.scrummaster.controller;
 
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.object.conversation.BaseQiChatExecutor;
-import com.example.scrummaster.activity.retrospective.RetrospectiveActivity;
+import com.example.scrummaster.activity.retrospective.RetrospectiveCheckinActivity;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public ModerateNotesQiChatExecutor(QiContext context){
 
     @Override
     public void runWith(List<String> params) {
-        RetrospectiveActivity.getInstance().clickButton();
+        RetrospectiveCheckinActivity.getInstance().clickButton();
 
     }
 

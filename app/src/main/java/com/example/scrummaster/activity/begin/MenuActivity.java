@@ -19,11 +19,10 @@ import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 import com.example.scrummaster.activity.dailyScrum.DailyStartActivity;
-import com.example.scrummaster.activity.sprintPlanning.PlanningStartActivity;
 import com.example.scrummaster.activity.retrospective.RetrospectiveMenuActivity;
+import com.example.scrummaster.activity.sprintPlanning.PlanningStartActivity;
 import com.example.scrummaster.activity.tools.ToolsMenu;
 import com.example.scrummaster.controller.ParticipantController;
-import com.example.scrummaster.controller.RetrofitController;
 
 import java.util.ArrayList;
 
@@ -40,7 +39,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        RetrofitController.getQuestion(this);
+
         //Laden der Besprechungs Punkte
         //RetrofitController.getMeetingPoints(this);
         //Kopieren der Besprechungs Punkte zur Nutzung in anderen Activities
@@ -79,7 +78,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
 
             @Override
             public void onClick(View v) {
-                //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveStartActivity und öffnen dieser Activity
+                //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveCheckinStartActivity und öffnen dieser Activity
                 Intent i_ModerationNotes = new Intent(MenuActivity.this, PlanningStartActivity.class);
                 i_ModerationNotes.putExtra("Bookmark","Start");
                 startActivity(i_ModerationNotes);

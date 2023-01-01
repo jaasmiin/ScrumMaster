@@ -6,7 +6,7 @@ import android.os.CountDownTimer;
 import android.widget.TextView;
 
 import com.example.scrummaster.activity.dailyScrum.DailyQuestionsActivity;
-import com.example.scrummaster.activity.retrospective.RetrospectiveActivity;
+import com.example.scrummaster.activity.retrospective.RetrospectiveCheckinActivity;
 
 import java.util.Locale;
 
@@ -91,7 +91,7 @@ public class CountdownController {
             public void onFinish() {
                 timerstatus = false;
                 timeleft = START_TIME_IN_MILLIS;
-                Intent intent = new Intent(c, RetrospectiveActivity.class);
+                Intent intent = new Intent(c, RetrospectiveCheckinActivity.class);
                 c.startActivity(intent);
             }
 
