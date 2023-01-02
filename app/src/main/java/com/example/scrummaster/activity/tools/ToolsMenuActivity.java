@@ -19,9 +19,9 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.begin.MenuActivity;
+import com.example.scrummaster.activity.start.MenuActivity;
 
-public class ToolsMenu extends RobotActivity implements RobotLifecycleCallbacks {
+public class ToolsMenuActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private TextView tools_headline;
     private Button tools_menu;
     private Button powerpoint;
@@ -45,7 +45,7 @@ public class ToolsMenu extends RobotActivity implements RobotLifecycleCallbacks 
             @Override
             public void onClick(View v) {
                 //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveCheckinStartActivity und öffnen dieser Activity
-                Intent i_ModerationNotes = new Intent(ToolsMenu.this, MenuActivity.class);
+                Intent i_ModerationNotes = new Intent(ToolsMenuActivity.this, MenuActivity.class);
                 startActivity(i_ModerationNotes);
 
             }
@@ -55,7 +55,7 @@ public class ToolsMenu extends RobotActivity implements RobotLifecycleCallbacks 
             @Override
             public void onClick(View v) {
                 //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveCheckinStartActivity und öffnen dieser Activity
-                Intent i = new Intent(ToolsMenu.this, PowerPointStartActivity.class);
+                Intent i = new Intent(ToolsMenuActivity.this, PowerPointStartActivity.class);
                 i.putExtra("Bookmark","Start");
                 startActivity(i);}
 
@@ -65,7 +65,7 @@ public class ToolsMenu extends RobotActivity implements RobotLifecycleCallbacks 
             @Override
             public void onClick(View v) {
                 //Übergebe den Wert "Start" für den Bookmark in der RetrospectiveCheckinStartActivity und öffnen dieser Activity
-                Intent i_ModerationNotes = new Intent(ToolsMenu.this,HappinessIndexActivity.class);
+                Intent i_ModerationNotes = new Intent(ToolsMenuActivity.this,HappinessIndexActivity.class);
 
                 startActivity(i_ModerationNotes);
 
@@ -111,13 +111,13 @@ public class ToolsMenu extends RobotActivity implements RobotLifecycleCallbacks 
 
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
         if (powerpointPhrase.getPhrases().toString().contains(result) ) {
-            Intent i = new Intent(ToolsMenu.this, PowerPointStartActivity.class);
+            Intent i = new Intent(ToolsMenuActivity.this, PowerPointStartActivity.class);
             i.putExtra("Bookmark","Start");
             startActivity(i);}
         if (menu.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(ToolsMenu.this, MenuActivity.class));}
+            startActivity(new Intent(ToolsMenuActivity.this, MenuActivity.class));}
         if (happinessPhrase.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(ToolsMenu.this, HappinessIndexActivity.class));}
+            startActivity(new Intent(ToolsMenuActivity.this, HappinessIndexActivity.class));}
 
 
 

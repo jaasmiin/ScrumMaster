@@ -18,7 +18,7 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.begin.MenuActivity;
+import com.example.scrummaster.activity.start.MenuActivity;
 import com.example.scrummaster.controller.RetrofitController;
 
 public class PlanningStartActivity extends RobotActivity implements RobotLifecycleCallbacks {

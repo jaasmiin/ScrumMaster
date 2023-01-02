@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_auswahlmenue_scene"
-    tools:context=".activity.begin.MenuActivity">
+    tools:context=".activity.start.MenuActivity">
 
     <ImageButton
         android:id="@+id/btn_retrospektive"

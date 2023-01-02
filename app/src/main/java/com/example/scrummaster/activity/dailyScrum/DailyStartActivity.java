@@ -25,7 +25,7 @@ import com.aldebaran.qi.sdk.object.conversation.QiChatVariable;
 import com.aldebaran.qi.sdk.object.conversation.QiChatbot;
 import com.aldebaran.qi.sdk.object.conversation.Topic;
 import com.example.scrummaster.R;
-import com.example.scrummaster.activity.begin.MenuActivity;
+import com.example.scrummaster.activity.start.MenuActivity;
 import com.example.scrummaster.controller.ModerateDailyStartQiChatExecutor;
 import com.example.scrummaster.controller.ParticipantController;
 import com.example.scrummaster.controller.RetrofitController;

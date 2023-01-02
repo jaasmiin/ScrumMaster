@@ -28,7 +28,7 @@
             android:name=".activity.retrospective.RetrospectiveMenuActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.tools.ToolsMenu"
+            android:name=".activity.tools.ToolsMenuActivity"
             android:exported="false" />
         <activity
             android:name=".activity.dailyScrum.DailySprintBacklogItemActivity"
@@ -52,7 +52,7 @@
             android:name=".activity.sprintPlanning.PlanningBacklogActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.begin.MainActivity"
+            android:name=".activity.start.MainActivity"
             android:exported="false" />
         <activity
             android:name=".activity.tools.HappinessIndexActivity"
@@ -89,15 +89,15 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.begin.MenuActivity"
+            android:name=".activity.start.MenuActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.begin.WelcomeActivity"
+            android:name=".activity.start.WelcomeActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.begin.StartActivity"
+            android:name=".activity.StartActivity"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -107,7 +107,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.begin.CaptureAct"
+            android:name=".activity.start.CaptureAct"
             android:screenOrientation="landscape"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme" />

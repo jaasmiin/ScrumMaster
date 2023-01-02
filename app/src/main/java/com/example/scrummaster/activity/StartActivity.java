@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity.begin;
+package com.example.scrummaster.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +19,7 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
+import com.example.scrummaster.activity.start.MainActivity;
 
 public class StartActivity extends RobotActivity implements RobotLifecycleCallbacks {
         ImageButton start;

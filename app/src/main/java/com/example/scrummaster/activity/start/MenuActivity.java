@@ -1,4 +1,4 @@
-package com.example.scrummaster.activity.begin;
+package com.example.scrummaster.activity.start;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import com.example.scrummaster.R;
 import com.example.scrummaster.activity.dailyScrum.DailyStartActivity;
 import com.example.scrummaster.activity.retrospective.RetrospectiveMenuActivity;
 import com.example.scrummaster.activity.sprintPlanning.PlanningStartActivity;
-import com.example.scrummaster.activity.tools.ToolsMenu;
+import com.example.scrummaster.activity.tools.ToolsMenuActivity;
 import com.example.scrummaster.controller.ParticipantController;
 
 import java.util.ArrayList;
@@ -101,7 +101,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MenuActivity.this, ToolsMenu.class));
+                startActivity(new Intent(MenuActivity.this, ToolsMenuActivity.class));
 
             }
         });
@@ -242,7 +242,7 @@ public class MenuActivity extends RobotActivity implements RobotLifecycleCallbac
         if (retrospective.getPhrases().toString().contains(result)) {
             startActivity(new Intent(MenuActivity.this,RetrospectiveMenuActivity.class));}
         if (tools.getPhrases().toString().contains(result)) {
-            startActivity(new Intent(MenuActivity.this, ToolsMenu.class));}
+            startActivity(new Intent(MenuActivity.this, ToolsMenuActivity.class));}
 
 
     }
