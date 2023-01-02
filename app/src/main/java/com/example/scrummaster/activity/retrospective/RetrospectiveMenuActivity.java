@@ -61,6 +61,10 @@ public class RetrospectiveMenuActivity extends RobotActivity implements RobotLif
                 .withTexts("Starte Check in", "Check in")
                 .build();
 
+        PhraseSet mainmenu= PhraseSetBuilder.with(qiContext)
+                .withTexts("Gehe zurück zum Menü", "zurück zum Menü","zum Menü", "Menü")
+                .build();
+
         //Auswahlfrage
         Say say = SayBuilder.with(qiContext)
                 .withPhrase(select)
@@ -70,6 +74,7 @@ public class RetrospectiveMenuActivity extends RobotActivity implements RobotLif
         //Zuhören was der Nutzer sich
         listen = ListenBuilder.with(qiContext)
                 .withPhraseSets(checkin)
+                .withPhraseSets(mainmenu)
                 .build();
         ListenResult listenresult= listen.run();
 
@@ -79,6 +84,10 @@ public class RetrospectiveMenuActivity extends RobotActivity implements RobotLif
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
         if (checkin.getPhrases().toString().contains(result) ) {
             Intent i = new Intent(RetrospectiveMenuActivity.this, RetrospectiveCheckinStartActivity.class);
+            startActivity(i);
+        }
+        if (mainmenu.getPhrases().toString().contains(result) ) {
+            Intent i = new Intent(RetrospectiveMenuActivity.this, MenuActivity.class);
             startActivity(i);
         }
 
