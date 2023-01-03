@@ -26,7 +26,7 @@ public class MeetingFinishedActivity extends RobotActivity implements RobotLifec
     ImageButton btn_happinesIndex;
     ImageButton btn_menu;
     String goodbye = "Wir sind am Ende unseres heutigen Meetings angekommen. Ich bedanke mich bei allen für die Teilnahme" +
-            "Ihr könnt entweder ins Haupmenü zurück oder den Stimmungsbarometer starten. Was sollen wir machen?";
+            "Ihr könnt entweder ins Haupmenü zurück oder den Happiness Index starten. Was sollen wir machen?";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         QiSDK.register(this, this);
@@ -64,14 +64,14 @@ public class MeetingFinishedActivity extends RobotActivity implements RobotLifec
         Phrase meetingFinished = new Phrase(goodbye);
         //Phraseset für Happinessindex
         PhraseSet happinessIndex= PhraseSetBuilder.with(qiContext)
-                .withTexts("happinexx Index", "Index", "Starte happiness index", "Starte Stimmungsbarometer")
+                .withTexts("happinexx Index", "Index", "Starte happiness index")
                 .build(
 
                 );
 
         //Phraseset für Menü
         PhraseSet menu= PhraseSetBuilder.with(qiContext)
-                .withTexts("Starte Menü", "Menü")
+                .withTexts("Gehe zurück zum Menü", "Menü")
                 .build();
 
         //Verabschiedung

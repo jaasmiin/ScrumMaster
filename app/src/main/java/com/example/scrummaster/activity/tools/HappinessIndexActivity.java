@@ -12,12 +12,15 @@ import android.widget.ImageButton;
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
+import com.aldebaran.qi.sdk.builder.SayBuilder;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
+import com.aldebaran.qi.sdk.object.conversation.Phrase;
+import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
 import com.example.scrummaster.activity.start.MenuActivity;
 import com.example.scrummaster.datamodel.PostNotes;
-import com.example.scrummaster.service.SendCommentService;
 import com.example.scrummaster.service.RetrofitService;
+import com.example.scrummaster.service.SendCommentService;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -38,6 +41,8 @@ public class HappinessIndexActivity extends RobotActivity implements RobotLifecy
     private ImageButton happy_4;
     private ImageButton happy_5;
     private Button menu;
+    private Phrase question = new Phrase(" Ich möchte gerne wissen, wie du dich fühlst?") ;
+
 
 
     @Override
@@ -154,11 +159,13 @@ public class HappinessIndexActivity extends RobotActivity implements RobotLifecy
     }
 
 
-
-
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 
+        Say say = SayBuilder.with(qiContext)
+                .withPhrase(question)
+                .build();
+        say.run();
     }
 
     @Override
