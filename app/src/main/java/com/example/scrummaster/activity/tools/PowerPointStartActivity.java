@@ -64,7 +64,7 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
         done = findViewById(R.id.powerpointDone);
         participantList = ParticipantController.loadParticipantListCopy(this);
         if (participantList.size()==0){
-            Intent i = new Intent(PowerPointStartActivity.this, MenuActivity.class);
+            Intent i = new Intent(PowerPointStartActivity.this, ToolsMenuActivity.class);
             startActivity(i);} else {
             // Create a topic.
             topic = TopicBuilder.with(qiContext)

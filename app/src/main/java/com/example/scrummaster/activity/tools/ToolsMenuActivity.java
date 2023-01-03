@@ -26,7 +26,7 @@ public class ToolsMenuActivity extends RobotActivity implements RobotLifecycleCa
     private Button tools_menu;
     private Button powerpoint;
     private Button happiness;
-    private Phrase select = new Phrase(" Welche Aktion soll ich ausführen?") ;
+    private Phrase select = new Phrase(" Was kann ich für dich tun?") ;
     private Listen listen;
 
     @Override
@@ -77,7 +77,7 @@ public class ToolsMenuActivity extends RobotActivity implements RobotLifecycleCa
     public void onRobotFocusGained(QiContext qiContext) {
         //Menü
         PhraseSet menu= PhraseSetBuilder.with(qiContext)
-                .withTexts("Starte Menü", "Menü")
+                .withTexts("Gehe zurück zum Menü", "zurück zum Menü","Menü")
                 .build(
 
                 );
@@ -88,7 +88,7 @@ public class ToolsMenuActivity extends RobotActivity implements RobotLifecycleCa
                 .build();
         //Phraseset für Happiness
         PhraseSet happinessPhrase= PhraseSetBuilder.with(qiContext)
-                .withTexts("Starte Happinessindex", "Hsppinessindex", "Happiness", "Index")
+                .withTexts("Starte Happiness Index", "Happiness Index", "Happiness", "Index")
                 .build();
 
 
