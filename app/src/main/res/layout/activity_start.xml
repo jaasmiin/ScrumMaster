@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.StartActivity">
+    tools:context=".activity.start.StartActivity">
 
     <ImageButton
         android:id="@+id/startApp"
-        android:layout_width="896dp"
-        android:layout_height="456dp"
+        android:layout_width="902dp"
+        android:layout_height="465dp"
         android:background="@drawable/startbildschirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

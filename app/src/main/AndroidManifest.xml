@@ -97,7 +97,7 @@
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.StartActivity"
+            android:name=".activity.start.StartActivity"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>

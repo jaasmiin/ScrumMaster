@@ -28,7 +28,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
     private Button finish;
     Phrase moderation = new Phrase("Hallo, willkommen bei unserem Sprint Planning eins Meeting. Ich zeige euch euer aktuelles Product Backlog." +
             "Achtet bei der Besprechung darauf die Items mit der größeren Priorisierung auszuwählen. Diese habe ich euch farblich gekennzeichnet." +
-            "Die Farbe rot hat die höchste die Farbe orange eine mittlere und die Farbe grün eine niedrige Priorisierung. Wenn ihr die Beschreibung der Items sehen wollt, klickt einfach auf das Item.");
+            "Die Farbe rot hat eine hohe, die Farbe orange eine mittlere und die Farbe grün eine niedrige Priorisierung. Wenn ihr die Beschreibung der Items sehen wollt, klickt einfach auf das Item.");
 
     private ArrayList<Items> backlogList;
 

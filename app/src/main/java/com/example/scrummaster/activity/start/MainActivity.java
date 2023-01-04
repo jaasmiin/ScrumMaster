@@ -29,10 +29,9 @@ import java.util.ArrayList;
 
 public class  MainActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
-    ImageButton btn_scan;
-    ImageButton btn_selectionmnu;
-
-    Phrase scanOrSelect = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Menü wechseln. Was möchtest du machen?");
+   private ImageButton btn_scan;
+    private ImageButton btn_menu;
+    private Phrase scanOrSelect = new Phrase("Hallo, du kannst entweder deinen Code scannen,oder ins Menü wechseln. Was möchtest du machen?");
 
 
 
@@ -45,7 +44,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         QiSDK.register(this, this);
         setContentView(R.layout.activity_main);
         btn_scan =findViewById(R.id.btn_scan);
-        btn_selectionmnu= findViewById(R.id.btn_selectionmnu);
+        btn_menu = findViewById(R.id.btn_selectionmnu);
         saveParticipantList();
     }
 
@@ -122,7 +121,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         //Beim klicken auf den Button "Auswahlmenü" wechselt die View zum Auswahlmenü, und die
         //Teilnehmerliste wird in Gitlab geposted
 
-        btn_selectionmnu.setOnClickListener(new View.OnClickListener() {
+        btn_menu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

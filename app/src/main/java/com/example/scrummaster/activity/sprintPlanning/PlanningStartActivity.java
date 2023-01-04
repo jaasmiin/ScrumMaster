@@ -23,7 +23,7 @@ import com.example.scrummaster.controller.RetrofitController;
 
 public class PlanningStartActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
-    private Phrase meeting_select = new Phrase("Welches Meeting findet statt? Eins oder zwei?");
+    private Phrase meeting_select = new Phrase(" Hallo, willkommen beim Sprint Planning. Welches Meeting findet statt? Eins oder zwei?");
     private Button one;
     private Button two;
     private Button menu;
