@@ -13,7 +13,7 @@ public class DailyEmpty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_empty);
-        Intent i = new Intent(DailyEmpty.this,DailySprintBacklog.class);
+        Intent i = new Intent(DailyEmpty.this, DailySprintBacklogActivity.class);
         startActivity(i);
     }
 }

@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.sprintPlanning.PlanningSprintBacklogActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="377dp"
+        android:layout_height="95dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.964"
+        app:srcCompat="@drawable/farbskala" />
+
     <Button
         android:id="@+id/sprintStory_1"
         android:layout_width="193dp"

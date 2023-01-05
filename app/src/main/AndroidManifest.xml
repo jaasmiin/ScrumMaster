@@ -34,7 +34,7 @@
             android:name=".activity.dailyScrum.DailySprintBacklogItemActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.dailyScrum.DailySprintBacklog"
+            android:name=".activity.dailyScrum.DailySprintBacklogActivity"
             android:exported="false" />
         <activity
             android:name=".activity.sprintPlanning.PlanningSprintBacklogItemActivity"

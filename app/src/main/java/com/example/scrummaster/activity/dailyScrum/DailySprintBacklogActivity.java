@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Dieses SprintBoard dient dazu die Items auf Doing und Done zu setzen
-public class DailySprintBacklog extends RobotActivity implements RobotLifecycleCallbacks {
+public class DailySprintBacklogActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private Button sprintStory_1;
     private Button sprintStory_2;
     private Button sprintStory_3;
@@ -90,7 +90,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DailySprintBacklog.this, MeetingFinishedActivity.class);
+                Intent intent = new Intent(DailySprintBacklogActivity.this, MeetingFinishedActivity.class);
                 startActivity(intent);
 
             }
@@ -101,7 +101,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DailySprintBacklog.this, DailySprintBacklogItemActivity.class);
+                Intent intent = new Intent(DailySprintBacklogActivity.this, DailySprintBacklogItemActivity.class);
                 intent.putExtra("title", backlogList.get(0).getTitle());
                 intent.putExtra("description", backlogList.get(0).getDescription());
                 intent.putExtra("iid", backlogList.get(0).getIid());
@@ -114,7 +114,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DailySprintBacklog.this, DailySprintBacklogItemActivity.class);
+                Intent intent = new Intent(DailySprintBacklogActivity.this, DailySprintBacklogItemActivity.class);
                 intent.putExtra("title", backlogList.get(1).getTitle());
                 intent.putExtra("description", backlogList.get(1).getDescription());
                 intent.putExtra("iid", backlogList.get(1).getIid());
@@ -127,7 +127,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DailySprintBacklog.this, DailySprintBacklogItemActivity.class);
+                Intent intent = new Intent(DailySprintBacklogActivity.this, DailySprintBacklogItemActivity.class);
                 intent.putExtra("title", backlogList.get(2).getTitle());
                 intent.putExtra("description", backlogList.get(2).getDescription());
                 intent.putExtra("iid", backlogList.get(2).getIid());
@@ -140,7 +140,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DailySprintBacklog.this, DailySprintBacklogItemActivity.class);
+                Intent intent = new Intent(DailySprintBacklogActivity.this, DailySprintBacklogItemActivity.class);
                 intent.putExtra("title", backlogList.get(3).getTitle());
                 intent.putExtra("description", backlogList.get(3).getDescription());
                 intent.putExtra("iid", backlogList.get(3).getIid());
@@ -153,7 +153,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DailySprintBacklog.this, DailySprintBacklogItemActivity.class);
+                Intent intent = new Intent(DailySprintBacklogActivity.this, DailySprintBacklogItemActivity.class);
                 intent.putExtra("title", backlogList.get(4).getTitle());
                 intent.putExtra("description", backlogList.get(4).getDescription());
                 intent.putExtra("iid", backlogList.get(4).getIid());
@@ -166,7 +166,7 @@ public class DailySprintBacklog extends RobotActivity implements RobotLifecycleC
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DailySprintBacklog.this, DailySprintBacklogItemActivity.class);
+                Intent intent = new Intent(DailySprintBacklogActivity.this, DailySprintBacklogItemActivity.class);
                 intent.putExtra("title", backlogList.get(5).getTitle());
                 intent.putExtra("description", backlogList.get(5).getDescription());
                 intent.putExtra("iid", backlogList.get(5).getIid());

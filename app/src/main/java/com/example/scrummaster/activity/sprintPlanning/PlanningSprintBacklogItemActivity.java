@@ -21,7 +21,7 @@ public class PlanningSprintBacklogItemActivity extends RobotActivity implements 
     private Button back;
     private Button start_timer;
     private Button stop_timer;
-    private CountdownController countdown = new CountdownController(3000,3000);
+    private CountdownController countdown = new CountdownController(60000,60000);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

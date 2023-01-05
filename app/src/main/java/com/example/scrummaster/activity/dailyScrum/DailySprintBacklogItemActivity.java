@@ -11,7 +11,6 @@ import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
-import com.example.scrummaster.controller.CountdownController;
 import com.example.scrummaster.controller.RetrofitController;
 
 public class DailySprintBacklogItemActivity extends RobotActivity implements RobotLifecycleCallbacks {
@@ -21,7 +20,7 @@ public class DailySprintBacklogItemActivity extends RobotActivity implements Rob
     private Button back;
     private Button status_doing;
     private Button status_done;
-    private CountdownController countdown = new CountdownController(3000,3000);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class DailySprintBacklogItemActivity extends RobotActivity implements Rob
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailySprintBacklog.class);
+                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailySprintBacklogActivity.class);
                 startActivity(i);
             }
         });

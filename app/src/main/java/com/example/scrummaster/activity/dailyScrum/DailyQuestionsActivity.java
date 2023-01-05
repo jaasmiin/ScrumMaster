@@ -85,7 +85,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
     public void onRobotFocusGained(QiContext qiContext) {
         participantList = ParticipantController.loadParticipantListCopy(this);
         if (participantList.size() == 0) {
-            Intent i = new Intent(DailyQuestionsActivity.this, DailySprintBacklog.class);
+            Intent i = new Intent(DailyQuestionsActivity.this, DailySprintBacklogActivity.class);
             startActivity(i);
         } else {
             // Create a topic.
@@ -145,7 +145,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DailyQuestionsActivity.this, DailySprintBacklog.class);
+                Intent intent = new Intent(DailyQuestionsActivity.this, DailySprintBacklogActivity.class);
                 startActivity(intent);
             }
         });
