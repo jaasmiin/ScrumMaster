@@ -10,7 +10,7 @@ proposal: %Startdaily  Willkommen bei unserem heutigen Daily Scrum Meeting. Sch�
                        Im Anschluss bitte ich euch, im Sprint Backlog die Daten zu aktualisieren.
                        Sobald wir anfangen können, sage Start oder drücke den Start Button.
 
- proposal: %first  $namedaily du bist an der Reihe. Wenn wir anfangen können, sage mir bescheid ["oder drücke den Start Button"]
+ proposal: %first  $namedaily du bist an der Reihe. Wenn wir anfangen können, sage bitte Start ["oder drücke den Start Button"]
 
 u: (~startMeeting) ^execute(myExecutor)
 u:(~startCountdown)^execute(start)
