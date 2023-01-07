@@ -16,7 +16,7 @@
         android:layout_marginBottom="60dp"
         android:backgroundTint="@color/kit"
         android:text="Closed"
-        android:textSize="20sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -47,6 +47,7 @@
         android:layout_width="413dp"
         android:layout_height="70dp"
         android:text="TextView"
+        android:textSize="60dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +60,7 @@
         android:id="@+id/dailysprintBacklogItem_description"
         android:layout_width="891dp"
         android:layout_height="256dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.464"
@@ -70,13 +72,14 @@
         android:id="@+id/dailySprintBacklogItem_finished"
         android:layout_width="186dp"
         android:layout_height="43dp"
-        android:layout_marginTop="480dp"
         android:backgroundTint="@color/kit"
         android:text="Zurück"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.948" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

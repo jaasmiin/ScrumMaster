@@ -24,7 +24,7 @@ import com.example.scrummaster.controller.RetrofitController;
 public class RetrospectiveMenuActivity extends RobotActivity implements RobotLifecycleCallbacks {
     private Button checkin;
     private Button menu;
-    private Phrase select = new Phrase(" Welche Option soll ich starten?") ;
+    private Phrase select = new Phrase("Welche Option soll ich starten?") ;
     Listen listen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

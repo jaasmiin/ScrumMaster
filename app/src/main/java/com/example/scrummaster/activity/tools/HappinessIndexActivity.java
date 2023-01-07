@@ -41,7 +41,7 @@ public class HappinessIndexActivity extends RobotActivity implements RobotLifecy
     private ImageButton happy_4;
     private ImageButton happy_5;
     private Button menu;
-    private Phrase question = new Phrase(" Ich möchte gerne wissen, wie du dich fühlst?") ;
+    private Phrase question = new Phrase("Ich möchte gerne wissen, wie du dich fühlst?") ;
 
 
 

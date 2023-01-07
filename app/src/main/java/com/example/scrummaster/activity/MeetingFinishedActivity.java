@@ -64,14 +64,14 @@ public class MeetingFinishedActivity extends RobotActivity implements RobotLifec
         Phrase meetingFinished = new Phrase(goodbye);
         //Phraseset für Happinessindex
         PhraseSet happinessIndex= PhraseSetBuilder.with(qiContext)
-                .withTexts("happinexx Index", "Index", "Starte happiness index")
+                .withTexts("Starte Happiness Index",  "Happiness Index",  "Happiness",  "Index")
                 .build(
 
                 );
 
         //Phraseset für Menü
         PhraseSet menu= PhraseSetBuilder.with(qiContext)
-                .withTexts("Gehe zurück zum Menü", "Menü")
+                .withTexts("Gehe zurück zum Menü",  "zurück zum Menü", "Menü")
                 .build();
 
         //Verabschiedung

@@ -22,8 +22,8 @@
 
     <ImageButton
         android:id="@+id/btn_happinessIndex"
-        android:layout_width="480dp"
-        android:layout_height="535dp"
+        android:layout_width="484dp"
+        android:layout_height="542dp"
         android:background="@drawable/happiness"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,5 +31,5 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
