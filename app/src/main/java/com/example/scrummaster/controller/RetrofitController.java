@@ -143,7 +143,7 @@ public class RetrofitController  {
                 List<Items> itemsList = response.body();
                 String json = gson.toJson(itemsList);
                 editor.putString("SprintBoard",json);
-                editor.apply();
+                editor.commit();
             }
 
             @Override

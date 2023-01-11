@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.example.scrummaster.activity.dailyScrum.DailyQuestionsActivity;
 import com.example.scrummaster.activity.retrospective.RetrospectiveCheckinActivity;
+import com.example.scrummaster.activity.sprintPlanning.PlanningBacklogItemActivity;
+import com.example.scrummaster.activity.sprintPlanning.PlanningSprintBacklogItemActivity;
 
 import java.util.Locale;
 
@@ -25,7 +27,7 @@ public class CountdownController {
     }
 
 
-   public void startTimer(TextView countdownDisplay){
+   public void startTimer(TextView countdownDisplay,Context c){
 
         countDownTimer = new CountDownTimer(timeleft,100) {
             @Override
@@ -40,6 +42,7 @@ public class CountdownController {
             public void onFinish() {
                 timerstatus = false;
                 timeleft = START_TIME_IN_MILLIS;
+
                        }
 
 
@@ -66,6 +69,53 @@ public class CountdownController {
                 timerstatus = false;
                 timeleft = START_TIME_IN_MILLIS;
                 Intent intent = new Intent(c, DailyQuestionsActivity.class);
+                c.startActivity(intent);
+            }
+
+        }.start();
+        timerstatus = true;
+
+    }
+
+    public void startTimerplanningsprintbacklogitem(TextView countdownDisplay, Context c){
+        countDownTimer = new CountDownTimer(timeleft,100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeleft = millisUntilFinished;
+                updateCountdownText(countdownDisplay);
+            }
+
+            @Override
+            public void onFinish() {
+                timerstatus = false;
+                timeleft = START_TIME_IN_MILLIS;
+                Intent intent = new Intent(c, PlanningSprintBacklogItemActivity.class);
+                c.startActivity(intent);
+            }
+
+        }.start();
+        timerstatus = true;
+
+    }
+
+    public void startTimerplanningbacklogitem(TextView countdownDisplay, Context c){
+
+
+        countDownTimer = new CountDownTimer(timeleft,100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeleft = millisUntilFinished;
+                updateCountdownText(countdownDisplay);
+
+
+
+            }
+
+            @Override
+            public void onFinish() {
+                timerstatus = false;
+                timeleft = START_TIME_IN_MILLIS;
+                Intent intent = new Intent(c, PlanningBacklogItemActivity.class);
                 c.startActivity(intent);
             }
 

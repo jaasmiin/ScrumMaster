@@ -1,7 +1,6 @@
 package com.example.scrummaster.activity.start;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -21,11 +20,8 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
-import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
-
-import java.util.ArrayList;
 
 public class  MainActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
@@ -45,7 +41,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
         setContentView(R.layout.activity_main);
         btn_scan =findViewById(R.id.btn_scan);
         btn_menu = findViewById(R.id.btn_selectionmnu);
-        saveParticipantList();
+
     }
 
         private void scanCode() {
@@ -89,19 +85,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
     });
 
 
-    //Methode speichert die Teilnehmerliste
-       private void saveParticipantList(){
 
-               ArrayList <String> participantList = new ArrayList<String>();
-               SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
-               SharedPreferences.Editor editor = sharedPreferences.edit();
-               Gson gson = new Gson();
-               String json = gson.toJson(participantList);
-               editor.putString("participantList", json);
-               editor.commit();
-           }
-
-      
 
              @Override
     protected void onDestroy() {
@@ -160,7 +144,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
         //Jenachdem was gesagt wurde wird die entsprechende Activity gestartet
         if (scan.getPhrases().toString().contains(result) ) {
-            startActivity(new Intent(MainActivity.this,CaptureAct.class));}
+           scanCode();}
         if (selectionmnu.getPhrases().toString().contains(result)) {
             Intent intent = new Intent(MainActivity.this, MenuActivity.class);
             intent.putExtra("sendData","true");
@@ -172,7 +156,7 @@ public class  MainActivity extends RobotActivity implements RobotLifecycleCallba
 
     @Override
     public void onRobotFocusLost() {
-        // The robot focus is lost.
+
     }
 
     @Override

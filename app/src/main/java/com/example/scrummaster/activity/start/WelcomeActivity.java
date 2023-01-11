@@ -24,9 +24,6 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
 
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +31,10 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         // Register the RobotLifecycleCallbacks to this Activity.
         QiSDK.register(this, this);
         setContentView(R.layout.activity_willkommen);
-        Intent intent = getIntent();
+      /*  Intent intent = getIntent();
         //String test = "Jasmin";
         String name = intent.getStringExtra("participant");
-        saveParticipantList(name);
+        saveParticipantList(name);*/
 
 
     }
@@ -82,19 +79,31 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
             welcome = new Phrase ("Hallo, schön, dass du da bist. Bitte denke daran, dass du heute passiver " +
                     "Teilnehmer bist. Daher bitte ich dich zuzuhören, falls du fragen oder Anmerkungen hast " +
                     "teile diese bitte nach dem Meeting mit. Danke für dein Verständnis. Nehme bitte Platz.");
+            //Begrüßung
+            Say say = SayBuilder.with(qiContext)
+                    .withPhrase(welcome)
+                    .build();
+            say.run();
 
+//Nach der Begrüßung wechselt Pepper in die MainActivity
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
         } else {
         welcome = new Phrase ("Hallo, " + name + "schön, dass du da bist. Bitte nehme Platz.");
-
+            //Begrüßung
+            Say say = SayBuilder.with(qiContext)
+                    .withPhrase(welcome)
+                    .build();
+            say.run();
+            saveParticipantList(name);
+//Nach der Begrüßung wechselt Pepper in die MainActivity
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
         }
-        //Begrüßung
+      /*  //Begrüßung
         Say say = SayBuilder.with(qiContext)
                 .withPhrase(welcome)
                 .build();
-        say.run();
+        say.run();*/
 
-        //Nach der Begrüßung wechselt Pepper in die MainActivity
-        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
 
 
 
@@ -103,7 +112,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
 
     @Override
     public void onRobotFocusLost() {
-        finish();
+
 
     }
 

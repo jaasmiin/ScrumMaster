@@ -19,6 +19,9 @@ import com.aldebaran.qi.sdk.object.conversation.Phrase;
 import com.aldebaran.qi.sdk.object.conversation.PhraseSet;
 import com.aldebaran.qi.sdk.object.conversation.Say;
 import com.example.scrummaster.R;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 public class StartActivity extends RobotActivity implements RobotLifecycleCallbacks {
         ImageButton start;
@@ -31,6 +34,8 @@ public class StartActivity extends RobotActivity implements RobotLifecycleCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         start = findViewById(R.id.startApp);
+       
+
     }
 
     @Override
@@ -75,11 +80,23 @@ public class StartActivity extends RobotActivity implements RobotLifecycleCallba
             Intent i = new Intent(StartActivity.this, MainActivity.class);
             startActivity(i);}
     }
+    private void saveParticipantList(){
 
+        ArrayList<String> participantList = new ArrayList<>();
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(participantList);
+        editor.putString("participantList", json);
+        editor.apply();
+
+
+    }
 
 
     @Override
     public void onRobotFocusLost() {
+        saveParticipantList();
         finish();
 
     }

@@ -42,41 +42,7 @@ public class PlanningBacklogItemActivity extends RobotActivity implements RobotL
         title.setText(intent.getStringExtra("title"));
         description.setText(intent.getStringExtra("description"));
 
-        start_timer.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                countdown.startTimer(timer);
-            }
-        });
-
-        stop_timer.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                countdown.reset(timer);
-            }
-        });
-
-        save_and_back.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-              RetrofitController.updateBacklogList(intent.getIntExtra("iid",0));
-              RetrofitController.getIssues(PlanningBacklogItemActivity.this);
-                Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningEmptyActivity.class);
-                startActivity(i);
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningBacklogActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
 
@@ -128,7 +94,47 @@ public class PlanningBacklogItemActivity extends RobotActivity implements RobotL
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
+        Intent intent =getIntent();
+        start_timer.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                countdown.startTimerplanningbacklogitem(timer,PlanningBacklogItemActivity.this);
+
+            }
+        });
+
+
+
+        save_and_back.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                RetrofitController.updateBacklogList(intent.getIntExtra("iid",0));
+                RetrofitController.getIssues(PlanningBacklogItemActivity.this);
+                Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningEmptyActivity.class);
+                startActivity(i);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningBacklogActivity.class);
+                startActivity(i);
+            }
+        });
+        stop_timer.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                countdown.reset(timer);
+                Intent i = new Intent(PlanningBacklogItemActivity.this, PlanningBacklogItemActivity.class);
+                startActivity(i);
+            }
+
+        });
     }
 
     @Override

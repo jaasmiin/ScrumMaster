@@ -217,6 +217,7 @@ public class PlanningBacklogActivity extends RobotActivity implements RobotLifec
 
     @Override
     public void onRobotFocusLost() {
+        finish();
 
     }
 

@@ -39,11 +39,18 @@ public class PlanningSprintBacklogItemActivity extends RobotActivity implements 
         title.setText(intent.getStringExtra("title"));
         description.setText(intent.getStringExtra("description"));
 
+
+    }
+
+
+
+    @Override
+    public void onRobotFocusGained(QiContext qiContext) {
         start_timer.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                countdown.startTimer(timer);
+                countdown.startTimerplanningsprintbacklogitem(timer,PlanningSprintBacklogItemActivity.this);
             }
         });
 
@@ -64,12 +71,6 @@ public class PlanningSprintBacklogItemActivity extends RobotActivity implements 
                 startActivity(i);
             }
         });
-    }
-
-
-
-    @Override
-    public void onRobotFocusGained(QiContext qiContext) {
 
     }
 

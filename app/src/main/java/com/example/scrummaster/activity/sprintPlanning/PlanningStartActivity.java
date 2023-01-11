@@ -29,6 +29,7 @@ public class PlanningStartActivity extends RobotActivity implements RobotLifecyc
     private Button menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         QiSDK.register(this, this);
         super.onCreate(savedInstanceState);
         RetrofitController.getSprintBacklog(this);

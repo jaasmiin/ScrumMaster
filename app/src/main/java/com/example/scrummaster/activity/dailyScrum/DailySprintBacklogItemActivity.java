@@ -38,38 +38,6 @@ public class DailySprintBacklogItemActivity extends RobotActivity implements Rob
         description.setText(intent.getStringExtra("description"));
 
 
-        back.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailySprintBacklogActivity.class);
-                startActivity(i);
-            }
-        });
-
-        status_done.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                RetrofitController.setItemStatusDone(intent.getIntExtra("iid",0));
-
-                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailyEmpty.class);
-                startActivity(i);
-            }
-        });
-
-        status_doing.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                RetrofitController.setItemStatusDoing(intent.getIntExtra("iid",0));
-                RetrofitController.getSprintBacklog(DailySprintBacklogItemActivity.this);
-                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailyEmpty.class);
-                startActivity(i);
-
-            }
-        });
 
 
 
@@ -143,6 +111,40 @@ public class DailySprintBacklogItemActivity extends RobotActivity implements Rob
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
+        Intent intent =getIntent();
+        back.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailySprintBacklogActivity.class);
+                startActivity(i);
+            }
+        });
+
+        status_done.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                RetrofitController.setItemStatusDone(intent.getIntExtra("iid",0));
+                RetrofitController.getSprintBacklog(DailySprintBacklogItemActivity.this);
+                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailyEmpty.class);
+                startActivity(i);
+            }
+        });
+
+        status_doing.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                RetrofitController.setItemStatusDoing(intent.getIntExtra("iid",0));
+                RetrofitController.getSprintBacklog(DailySprintBacklogItemActivity.this);
+                Intent i = new Intent(DailySprintBacklogItemActivity.this, DailyEmpty.class);
+                startActivity(i);
+
+            }
+        });
+
 
     }
 

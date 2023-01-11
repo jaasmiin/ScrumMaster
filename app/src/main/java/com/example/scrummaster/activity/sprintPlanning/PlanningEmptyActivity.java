@@ -3,17 +3,38 @@ package com.example.scrummaster.activity.sprintPlanning;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.aldebaran.qi.sdk.QiContext;
+import com.aldebaran.qi.sdk.QiSDK;
+import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
+import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.example.scrummaster.R;
+import com.example.scrummaster.controller.RetrofitController;
 
-public class PlanningEmptyActivity extends AppCompatActivity {
+public class PlanningEmptyActivity extends RobotActivity implements RobotLifecycleCallbacks {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        QiSDK.register(this, this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planning_empty);
+        RetrofitController.getSprintBacklog(this);
+        RetrofitController.getIssues(this);
+
+    }
+
+    @Override
+    public void onRobotFocusGained(QiContext qiContext) {
         Intent i = new Intent(PlanningEmptyActivity.this,PlanningBacklogActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onRobotFocusLost() {
+
+    }
+
+    @Override
+    public void onRobotFocusRefused(String reason) {
+
     }
 }
