@@ -31,10 +31,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
         // Register the RobotLifecycleCallbacks to this Activity.
         QiSDK.register(this, this);
         setContentView(R.layout.activity_willkommen);
-      /*  Intent intent = getIntent();
-        //String test = "Jasmin";
-        String name = intent.getStringExtra("participant");
-        saveParticipantList(name);*/
+
 
 
     }
@@ -98,11 +95,7 @@ public class WelcomeActivity extends RobotActivity implements RobotLifecycleCall
 //Nach der Begrüßung wechselt Pepper in die MainActivity
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
         }
-      /*  //Begrüßung
-        Say say = SayBuilder.with(qiContext)
-                .withPhrase(welcome)
-                .build();
-        say.run();*/
+
 
 
 

@@ -189,42 +189,6 @@ public class DailySprintBacklogActivity extends RobotActivity implements RobotLi
 
 
 
-  /*  //Lädt die gespeicherte SprintBoard aus sharedPreferences
-    private ArrayList<Items> loadSprintBoard() {
-        getSprintBacklog();
-        ArrayList<Items> issueList;
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("SprintBoard", null);
-        Type type = new TypeToken<ArrayList<Items>>() {
-        }.getType();
-        issueList = gson.fromJson(json, type);
-
-        return issueList;
-    }*/
-   /* public void getSprintBacklog() {
-
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<Items>>() {
-            @Override
-            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
-                Log.i("Retrofit", new Gson().toJson(response.body()));
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Gson gson = new Gson();
-                List<Items> meetingPointsList= response.body();
-                String json = gson.toJson(meetingPointsList);
-                editor.putString("SprintBoard",json);
-                editor.apply();
-            }
-
-            @Override
-            public void onFailure(Call<List<Items>> call, Throwable t) {
-                String fail =t.getCause().toString();
-                Log.e("Retrofit",fail);
-            }
-        });
-
-    }*/
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
 

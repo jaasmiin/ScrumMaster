@@ -190,17 +190,7 @@ public class PlanningSprintBacklogActivity extends RobotActivity implements Robo
 
     }
 
-    //Lädt die gespeicherte SprintBoard aus sharedPreferences
-    /*private ArrayList<Items> loadSprintBoard(){
-        ArrayList<Items> issueList;
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("SprintBoard",null);
-        Type type= new TypeToken<ArrayList<Items>>(){}.getType();
-        issueList = gson.fromJson(json,type);
 
-        return issueList;
-    }*/
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {

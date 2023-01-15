@@ -137,53 +137,9 @@ public class DailyStartActivity extends RobotActivity implements RobotLifecycleC
     });
 
     }
-    /*//Kopiert die Teilnehmerliste
-    private void copyParticipantList (){
 
 
-        ArrayList<String> participantList;
-        ArrayList<String> TEST = new ArrayList<>();
-        TEST.add("Jasmin");
-        TEST.add("Aliyah");
-        //Die Origonal TeilnehmerListe laden
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("participantList",null);
-        Type type= new TypeToken<ArrayList<String>>(){}.getType();
-        participantList = gson.fromJson(json,type);
-        //Die OriginalTeilnehmerListe als Kopie speichern
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gsonCopy = new Gson();
-        String jsonCopy = gsonCopy.toJson(TEST);
-        editor.putString("participantListCopy",jsonCopy);
-        editor.apply();
 
-    }*/
-
-    //Holt die  IssueListe mit dem Label SprintBacklog über gitlab und speichert sie in shared Preferences
-  /*  public void getSprintBacklog() {
-
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<Items>>() {
-            @Override
-            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
-                Log.i("Retrofit", new Gson().toJson(response.body()));
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Gson gson = new Gson();
-                List<Items> meetingPointsList= response.body();
-                String json = gson.toJson(meetingPointsList);
-                editor.putString("SprintBoard",json);
-                editor.apply();
-            }
-
-            @Override
-            public void onFailure(Call<List<Items>> call, Throwable t) {
-                String fail =t.getCause().toString();
-                Log.e("Retrofit",fail);
-            }
-        });
-
-    }*/
 
     @Override
     public void onRobotFocusLost() {

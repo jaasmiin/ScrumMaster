@@ -112,44 +112,6 @@ public class RetrospectiveCheckinStartActivity extends RobotActivity implements 
     }
 
 
-  /*  //Kopiert die Teilnehmerliste
-    private void copyParticipantList (){
-        ArrayList <String> participantList;
-        //Die Origonal TeilnehmerListe laden
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("participantList",null);
-        Type type= new TypeToken<ArrayList<String>>(){}.getType();
-        participantList = gson.fromJson(json,type);
-        //Die OriginalTeilnehmerListe als Kopie speichern
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gsonCopy = new Gson();
-        String jsonCopy = gsonCopy.toJson(participantList);
-        editor.putString("participantListCopy",jsonCopy);
-        editor.apply();
-
-    }*/
-
-
-
-   /* //Lädt die aktuelle Frage aus sharedPreferences
-    private String loadQuestion(){
-        ArrayList <Items> questions;
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("question",null);
-        Type type= new TypeToken<ArrayList<Items>>(){}.getType();
-        questions = gson.fromJson(json,type);
-        return questions.get(0).getTitle();
-
-    }*/
-
-
-
-
-
-
-
 
     @Override
     public void onRobotFocusLost() {

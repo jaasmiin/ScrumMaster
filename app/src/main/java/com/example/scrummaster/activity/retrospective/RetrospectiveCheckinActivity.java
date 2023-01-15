@@ -172,19 +172,7 @@ public class RetrospectiveCheckinActivity extends RobotActivity implements Robot
     });
     }
 
-   /* //Löscht den ersten Eintrag der gespeicherten MeetingListCopy aus sharedPreferences
-    private void deleteMeetingPointListEntry() {
-        ArrayList<Items> l = new ArrayList<>();
-        l = RetrofitController.loadMeetingPointListCopy(this);
-        l.remove(0);
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(l);
-        editor.putString("meetingPointListCopy",json);
-        editor.apply();
 
-    }*/
 
     // Ruft den Bookmark auf
     public void sayProposal() {
@@ -194,89 +182,9 @@ public class RetrospectiveCheckinActivity extends RobotActivity implements Robot
     }
 
 
-   /* //Lädt die Besprechungspunkte speichert diese als Kopie in Shared Preferences und gibt die Kopie zurück
-    private ArrayList<Items> loadMeetingPointListCopy(){
-
-        ArrayList <Items> meetingPointListCopy;
-
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("meetingPointListCopy",null);
-        Type type= new TypeToken<ArrayList<Items>>(){}.getType();
-        meetingPointListCopy = gson.fromJson(json,type);
-        return meetingPointListCopy;
-    }*/
-
-   /* //Löscht den ersten Eintrag der gespeicherten MeetingPointListeDescription aus sharedPreferences
-    private void deleteMeetingPointsDescription() {
-        List<String> l = new ArrayList<>();
-        l = getMeetingPointsDescription();
-        l.remove(0);
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(l);
-        editor.putString("meetingPointListDescription",json);
-        editor.commit();
-        }
 
 
-    //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
-    private void deleteParticipantListEntry() {
-        ArrayList<String> l = new ArrayList<>();
-        l = loadParticipantListCopy();
-        l.remove(0);
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(l);
-        editor.putString("participantListCopy",json);
-        editor.apply();
 
-    }
-
-
-/*
-    // Lädt die MeetingPointDescription Liste aus sharedPreferences und gibt diese zurück
-    private List<String> getMeetingPointsDescription(){
-        List<String> l = new ArrayList<>();
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("meetingPointListDescription",null);
-        Type type= new TypeToken<List<String>>(){}.getType();
-        l = gson.fromJson(json,type);
-        return l;
-    }*/
-
-   /* //Lädt die TeilnehmerListe speichert iese als Kopie in Shared Preferences und gibt die Kopie zurück
-    private ArrayList<String> loadParticipantListCopy(){
-
-        ArrayList <String> participantList;
-
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("participantListCopy",null);
-        Type type= new TypeToken<ArrayList<String>>(){}.getType();
-        participantList = gson.fromJson(json,type);
-        return participantList;
-    }*/
-
-  /*  private void copyParticipantList (){
-        ArrayList <String> participantList;
-        //Die Origonal TeilnehmerListe laden
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("participantList",null);
-        Type type= new TypeToken<ArrayList<String>>(){}.getType();
-        participantList = gson.fromJson(json,type);
-        //Die OriginalTeilnehmerListe als Kopie speichern
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gsonCopy = new Gson();
-        String jsonCopy = gsonCopy.toJson(participantList);
-        editor.putString("participantListCopy",jsonCopy);
-        editor.apply();
-
-    }*/
 
 
     @Override

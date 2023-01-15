@@ -46,51 +46,7 @@ public class PlanningBacklogItemActivity extends RobotActivity implements RobotL
     }
 
 
-   /* //Sendet den besprochenen Punkt als "closed"
-    private void updateBacklogList(int i){
 
-
-        //ServerDaten
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).setStatusSprintBoard(i).enqueue(new Callback<Items>() {
-            @Override
-            public void onResponse(Call<Items> call, Response<Items> response) {
-                Log.i("Retrofit", response.toString());
-
-            }
-
-            @Override
-            public void onFailure(Call<Items> call, Throwable t) {
-                Log.e("Retrofit","Failed");
-
-            }
-
-        });
-
-    }*/
-  /*  //Holt die komplette IssueListe mit dem Status opened komplett über gitlab
-    public void getIssues() {
-
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).getIssues().enqueue(new Callback<List<Items>>() {
-            @Override
-            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
-                Log.i("Retrofit", new Gson().toJson(response.body()));
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Gson gson = new Gson();
-                List<Items> meetingPointsList= response.body();
-                String json = gson.toJson(meetingPointsList);
-                editor.putString("IssueList",json);
-                editor.apply();
-            }
-
-            @Override
-            public void onFailure(Call<List<Items>> call, Throwable t) {
-                String fail =t.getCause().toString();
-                Log.e("Retrofit",fail);
-            }
-        });
-
-    }*/
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {

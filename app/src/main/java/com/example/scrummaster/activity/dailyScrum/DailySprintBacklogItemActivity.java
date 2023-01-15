@@ -44,70 +44,9 @@ public class DailySprintBacklogItemActivity extends RobotActivity implements Rob
     }
 
 
- /*   //Sendet den besprochenen Punkt als "closed"
-    private void setItemStatusDone(int i){
-        //ServerDaten
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).closeBacklogItem(i).enqueue(new Callback<Items>() {
-            @Override
-            public void onResponse(Call<Items> call, Response<Items> response) {
-                Log.i("Retrofit", response.toString());
-
-            }
-
-            @Override
-            public void onFailure(Call<Items> call, Throwable t) {
-                Log.e("Retrofit","Failed");
-
-            }
-        });
-
-    }*/
-
-    /*//Sendet den besprochenen Punkt als "doing"
-    private void setItemStatusDoing(int i){
-        //ServerDaten
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).setStatusDoing(i).enqueue(new Callback<Items>() {
-            @Override
-            public void onResponse(Call<Items> call, Response<Items> response) {
-                Log.i("Retrofit", response.toString());
 
 
-            }
 
-            @Override
-            public void onFailure(Call<Items> call, Throwable t) {
-                Log.e("Retrofit","Failed");
-
-            }
-        });
-
-
-    }*/
-
-    /*//Holt die  IssueListe mit dem Label SprintBacklog über gitlab und speichert sie in shared Preferences
-    public void getSprintBacklog() {
-
-        RetrofitService.getRetrofitInstance().create(BacklogService.class).getSprintBacklog().enqueue(new Callback<List<Items>>() {
-            @Override
-            public void onResponse(Call<List<Items>> call, Response<List<Items>> response) {
-                Log.i("Retrofit", new Gson().toJson(response.body()));
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared preferences",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Gson gson = new Gson();
-                List<Items> meetingPointsList= response.body();
-                String json = gson.toJson(meetingPointsList);
-                editor.putString("SprintBoard",json);
-                editor.apply();
-            }
-
-            @Override
-            public void onFailure(Call<List<Items>> call, Throwable t) {
-                String fail =t.getCause().toString();
-                Log.e("Retrofit",fail);
-            }
-        });
-
-    }*/
 
     @Override
     public void onRobotFocusGained(QiContext qiContext) {

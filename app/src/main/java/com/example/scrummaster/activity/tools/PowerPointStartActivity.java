@@ -161,36 +161,8 @@ public class PowerPointStartActivity extends RobotActivity implements RobotLifec
         return instance;
 
     }
-    //Lädt die TeilnehmerListe speichert diese als Kopie in Shared Preferences und gibt die Kopie zurück
-   /* private ArrayList<String> loadParticipantListCopy(){
-        ArrayList <String> participantList;
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("participantListCopy",null);
-        Type type= new TypeToken<ArrayList<String>>(){}.getType();
-        participantList = gson.fromJson(json,type);
-        ArrayList <String> TEST= new ArrayList<>();
-        TEST.add("jasmin");
-        TEST.add("Liyana");
-
-        return TEST;
-        //return participantList;
-    }*/
 
 
-    //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
-   /* public void deleteParticipantListEntry() {
-        ArrayList<String> l = new ArrayList<>();
-        l = loadParticipantListCopy();
-        l.remove(0);
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(l);
-        editor.putString("participantListCopy",json);
-        editor.apply();
-
-    }*/
 
     //Diese Methode setzt den Bookmark die Activity neu gestartet wurde
     public String setBookmark(String s,String s2,String s3){

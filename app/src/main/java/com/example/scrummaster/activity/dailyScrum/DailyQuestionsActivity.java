@@ -167,33 +167,7 @@ public class DailyQuestionsActivity extends RobotActivity implements RobotLifecy
 
 
 
-  /*  //Lädt die TeilnehmerListe speichert diese als Kopie in Shared Preferences und gibt die Kopie zurück
-    private ArrayList<String> loadParticipantListCopy(){
 
-        ArrayList <String> participantList;
-
-
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("participantListCopy",null);
-        Type type= new TypeToken<ArrayList<String>>(){}.getType();
-        participantList = gson.fromJson(json,type);
-       return participantList;
-
-    }*/
-   /* //Löscht den ersten Eintrag der gespeicherten ParticapantListCopy aus sharedPreferences
-    private void deleteParticipantListEntry() {
-        ArrayList<String> l = new ArrayList<>();
-        l = loadParticipantListCopy();
-        l.remove(0);
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(l);
-        editor.putString("participantListCopy",json);
-        editor.apply();
-
-    }*/
 
     @Override
     public void onRobotFocusLost() {
